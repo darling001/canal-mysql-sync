@@ -34,8 +34,11 @@ public class InsertCanalListener extends AbstractCanalListener<InsertCanalEvent>
     @Override
     protected void doSync(String database, String table, String index, String type, RowData rowData) {
         List<Column> columns = rowData.getAfterColumnsList();
+       /* columns.forEach(column -> {
+            logger.error(column.getName() + "," + column.getIsKey());
+        });*/
         String primaryKey = Optional.ofNullable(mappingService.getTablePrimaryKeyMap().get(database + "." + table)).orElse("id");
-        Column idColumn = columns.stream().filter(column -> column.getIsKey() && primaryKey.equals(column.getName())).findFirst().orElse(null);
+        Column idColumn = columns.stream().filter(column -> primaryKey.equals(column.getName())).findFirst().orElse(null);
         if (idColumn == null || StringUtils.isBlank(idColumn.getValue())) {
             logger.warn("insert_column_find_null_warn insert从column中找不到主键,database=" + database + ",table=" + table);
             return;

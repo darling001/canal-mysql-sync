@@ -3,6 +3,7 @@ package com.wanjun.canalsync.model.request;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
+ * 全量同步请求
  * @author wangchengli
  * @version 1.0
  * @date 2018-01-15

@@ -34,7 +34,7 @@ public class UpdateCanalListener extends AbstractCanalListener<UpdateCanalEvent>
     protected void doSync(String database, String table, String index, String type, RowData rowData) {
         List<Column> columns = rowData.getAfterColumnsList();
         String primaryKey = Optional.ofNullable(mappingService.getTablePrimaryKeyMap().get(database + "." + table)).orElse("id");
-        Column idColumn = columns.stream().filter(column -> column.getIsKey() && primaryKey.equals(column.getName())).findFirst().orElse(null);
+        Column idColumn = columns.stream().filter(column -> primaryKey.equals(column.getName())).findFirst().orElse(null);
         if (idColumn == null || StringUtils.isBlank(idColumn.getValue())) {
             logger.warn("update_column_find_null_warn update从column中找不到主键,database=" + database + ",table=" + table);
             return;

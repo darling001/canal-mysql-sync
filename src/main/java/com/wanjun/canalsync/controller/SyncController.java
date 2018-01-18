@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 /**
  * @author wangchengli
  * @version 1.0
- * @since 2017-11-29
+ * @since 2018-01-15
  */
 @Controller
 @RequestMapping("/sync")
