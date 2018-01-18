@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  * @version 1.0
  * @date 2018-01-12
  */
-@Component
+//@Component
 public class CanalClient implements DisposableBean {
     private static final Logger logger = LoggerFactory.getLogger(CanalClient.class);
     private CanalConnector canalConnector;

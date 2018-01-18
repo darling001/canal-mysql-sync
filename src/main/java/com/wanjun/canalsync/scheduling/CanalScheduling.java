@@ -26,7 +26,7 @@ import java.util.List;
  * @version 1.0
  * @date 2018-01-03
  */
-@Component
+//@Component
 public class CanalScheduling implements Runnable, ApplicationContextAware {
     private static final Logger logger = LoggerFactory.getLogger(CanalScheduling.class);
     private ApplicationContext applicationContext;
@@ -60,7 +60,6 @@ public class CanalScheduling implements Runnable, ApplicationContextAware {
                     entries.forEach(entry -> {
 
                         if (entry.getEntryType() == EntryType.ROWDATA) {
-                            logger.info("-------");
                             publishCanalEvent(entry);
                         }
 
