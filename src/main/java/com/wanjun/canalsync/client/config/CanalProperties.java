@@ -1,6 +1,7 @@
 package com.wanjun.canalsync.client.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 

@@ -5,6 +5,7 @@ import com.alibaba.otter.canal.protocol.CanalEntry.RowData;
 import com.wanjun.canalsync.event.UpdateCanalEvent;
 import com.wanjun.canalsync.service.ElasticsearchService;
 import com.wanjun.canalsync.service.MappingService;
+import com.wanjun.canalsync.service.RedisService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,8 @@ public class UpdateCanalListener extends AbstractCanalListener<UpdateCanalEvent>
     @Resource
     private ElasticsearchService elasticsearchService;
 
+    @Resource
+    private RedisService redisService;
     @Override
     protected void doSync(String database, String table, String index, String type, RowData rowData) {
         List<Column> columns = rowData.getAfterColumnsList();

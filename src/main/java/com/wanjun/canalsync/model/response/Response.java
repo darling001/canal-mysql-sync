@@ -1,7 +1,7 @@
 package com.wanjun.canalsync.model.response;
 
 
-import com.wanjun.canalsync.util.JsonUtil;
+import com.wanjun.canalsync.util.JSONUtil;
 
 /**
  * @author wangchengli
@@ -53,6 +53,6 @@ public class Response<T> {
 
     @Override
     public String toString() {
-        return JsonUtil.toJson(this);
+        return JSONUtil.toJson(this);
     }
 }

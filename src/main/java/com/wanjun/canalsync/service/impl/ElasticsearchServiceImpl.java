@@ -1,7 +1,7 @@
 package com.wanjun.canalsync.service.impl;
 
 import com.wanjun.canalsync.service.ElasticsearchService;
-import com.wanjun.canalsync.util.JsonUtil;
+import com.wanjun.canalsync.util.JSONUtil;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.client.transport.TransportClient;
@@ -37,10 +37,10 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
         try {
             BulkResponse bulkResponse = bulkRequestBuilder.execute().get();
             if (bulkResponse.hasFailures()) {
-                logger.error("elasticsearch批量插入错误, index=" + index + ", type=" + type + ", data=" + JsonUtil.toJson(idDataMap) + ", cause:" + bulkResponse.buildFailureMessage());
+                logger.error("elasticsearch批量插入错误, index=" + index + ", type=" + type + ", data=" + JSONUtil.toJson(idDataMap) + ", cause:" + bulkResponse.buildFailureMessage());
             }
         } catch (Exception e) {
-            logger.error("elasticsearch批量插入错误, index=" + index + ", type=" + type + ", data=" + JsonUtil.toJson(idDataMap), e);
+            logger.error("elasticsearch批量插入错误, index=" + index + ", type=" + type + ", data=" + JSONUtil.toJson(idDataMap), e);
         }
     }
 

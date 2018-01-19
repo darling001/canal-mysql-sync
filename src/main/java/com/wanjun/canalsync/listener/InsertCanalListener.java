@@ -5,7 +5,8 @@ import com.alibaba.otter.canal.protocol.CanalEntry.RowData;
 import com.wanjun.canalsync.event.InsertCanalEvent;
 import com.wanjun.canalsync.service.ElasticsearchService;
 import com.wanjun.canalsync.service.MappingService;
-import com.wanjun.canalsync.util.JsonUtil;
+import com.wanjun.canalsync.service.RedisService;
+import com.wanjun.canalsync.util.JSONUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,9 @@ public class InsertCanalListener extends AbstractCanalListener<InsertCanalEvent>
     @Resource
     private ElasticsearchService elasticsearchService;
 
+    @Resource
+    private RedisService redisService;
+
     @Override
     protected void doSync(String database, String table, String index, String type, RowData rowData) {
         List<Column> columns = rowData.getAfterColumnsList();
@@ -46,6 +50,6 @@ public class InsertCanalListener extends AbstractCanalListener<InsertCanalEvent>
         logger.debug("insert_column_id_info insert主键id,database=" + database + ",table=" + table + ",id=" + idColumn.getValue());
         Map<String, Object> dataMap = parseColumnsToMap(columns);
         elasticsearchService.insertById(index, type, idColumn.getValue(), dataMap);
-        logger.debug("insert_es_info 同步es插入操作成功！database=" + database + ",table=" + table + ",data=" + JsonUtil.toJson(dataMap));
+        logger.debug("insert_es_info 同步es插入操作成功！database=" + database + ",table=" + table + ",data=" + JSONUtil.toJson(dataMap));
     }
 }

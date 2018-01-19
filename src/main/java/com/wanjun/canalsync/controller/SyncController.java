@@ -3,7 +3,7 @@ package com.wanjun.canalsync.controller;
 import com.wanjun.canalsync.model.request.SyncByTableRequest;
 import com.wanjun.canalsync.model.response.Response;
 import com.wanjun.canalsync.service.SyncService;
-import com.wanjun.canalsync.util.JsonUtil;
+import com.wanjun.canalsync.util.JSONUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -34,9 +34,9 @@ public class SyncController {
     @RequestMapping("/byTable")
     @ResponseBody
     public String syncTable(@Validated SyncByTableRequest request) {
-        logger.debug("request_info: " + JsonUtil.toJson(request));
+        logger.debug("request_info: " + JSONUtil.toJson(request));
         String response = Response.success(syncService.syncByTable(request)).toString();
-        logger.debug("response_info: " + JsonUtil.toJson(request));
+        logger.debug("response_info: " + JSONUtil.toJson(request));
         return response;
     }
 }
