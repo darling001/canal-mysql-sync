@@ -61,5 +61,14 @@ public abstract class AbstractCanalListener<EVENT extends CanalEvent> implements
         return jsonMap;
     }
 
+    /**
+     * 根据database,tableName组装key
+     * @param database
+     * @param tableName
+     * @return
+     */
+    protected String getMappingKey(String database, String tableName) {
+        return String.format("%s.%s", database, tableName).toLowerCase();
+    }
     protected abstract void doSync(String database, String table, String index, String type, RowData rowData);
 }

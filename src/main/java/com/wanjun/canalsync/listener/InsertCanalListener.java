@@ -51,5 +51,8 @@ public class InsertCanalListener extends AbstractCanalListener<InsertCanalEvent>
         Map<String, Object> dataMap = parseColumnsToMap(columns);
         elasticsearchService.insertById(index, type, idColumn.getValue(), dataMap);
         logger.debug("insert_es_info 同步es插入操作成功！database=" + database + ",table=" + table + ",data=" + JSONUtil.toJson(dataMap));
+        String redisKey = new StringBuffer(database).append(".").append(table).toString();
+        redisService.hset(redisKey,idColumn.getValue(),dataMap);
+        logger.debug("insert_redis_info 同步redis插入操作成功! database=" + database + ",table=" + table + ",data=" + JSONUtil.toJson(dataMap));
     }
 }

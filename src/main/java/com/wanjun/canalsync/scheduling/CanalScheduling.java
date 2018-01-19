@@ -75,7 +75,7 @@ public class CanalScheduling implements Runnable, ApplicationContextAware {
             logger.error("canal_scheduled异常！", e);
         }
     }
-
+    @SuppressWarnings("all")
     private void publishCanalEvent(Entry entry) {
         EventType eventType = entry.getHeader().getEventType();
         switch (eventType) {

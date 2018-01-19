@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 public class RedisServiceImpl implements RedisService {
     private static final Logger logger = LoggerFactory.getLogger(RedisServiceImpl.class);
     @Autowired
-    private RedisTemplate<String,Object> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     // =============================common============================
 
@@ -39,7 +39,8 @@ public class RedisServiceImpl implements RedisService {
             return true;
         } catch (Exception e) {
             logger.error("RedisService.expire is error ,param :[key = {},time = {}]", key, time, e);
-            return false;
+            //return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -55,7 +56,8 @@ public class RedisServiceImpl implements RedisService {
             return redisTemplate.getExpire(key, TimeUnit.SECONDS);
         } catch (Exception e) {
             logger.error("RedisService.getExpire is error ,param :[key = {}]", key, e);
-            return -1;
+            //return -1;
+            throw new RuntimeException(e);
         }
 
     }
@@ -72,7 +74,8 @@ public class RedisServiceImpl implements RedisService {
             return redisTemplate.hasKey(key);
         } catch (Exception e) {
             logger.error("RedisService.hasKey is error ,param :[key = {}]", key, e);
-            return false;
+            //return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -94,6 +97,7 @@ public class RedisServiceImpl implements RedisService {
             }
         } catch (Exception e) {
             logger.error("RedisService.del is error ,param :[key = {}]", key, e);
+            throw new RuntimeException(e);
         }
 
     }
@@ -112,7 +116,9 @@ public class RedisServiceImpl implements RedisService {
             return key == null ? null : (String) redisTemplate.opsForValue().get(key);
         } catch (Exception e) {
             logger.error("RedisService.get is error ,param :[key = {}]", key, e);
-            return null;
+            throw new RuntimeException(e);
+            //return null;
+
         }
 
     }
@@ -140,7 +146,8 @@ public class RedisServiceImpl implements RedisService {
             return null;
         } catch (Exception e) {
             logger.error("RedisService.get is error ,param :[key = {},c = {}]", key, c, e);
-            return null;
+            //return null;
+            throw new RuntimeException(e);
         }
 
     }
@@ -165,7 +172,8 @@ public class RedisServiceImpl implements RedisService {
             return null;
         } catch (Exception e) {
             logger.error("RedisService.getToList is error ,param :[key = {},c = {}]", key, c, e);
-            return null;
+            //return null;
+            throw new RuntimeException(e);
         }
 
     }
@@ -190,7 +198,8 @@ public class RedisServiceImpl implements RedisService {
             return true;
         } catch (Exception e) {
             logger.error("RedisService.set is error ,param :[key = {},value = {}]", key, value, e);
-            return false;
+            //return false;
+            throw new RuntimeException(e);
         }
 
     }
@@ -220,7 +229,8 @@ public class RedisServiceImpl implements RedisService {
             return true;
         } catch (Exception e) {
             logger.error("RedisService.set is error ,param :[key = {},value = {},time = {}]", key, value, time, e);
-            return false;
+            //return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -239,7 +249,8 @@ public class RedisServiceImpl implements RedisService {
             return redisTemplate.opsForValue().increment(key, delta);
         } catch (Exception e) {
             logger.error("RedisService.incr is error ,param :[key = {},delta = {}]", key, delta, e);
-            return -1;
+            //return -1;
+            throw new RuntimeException(e);
         }
 
     }
@@ -260,7 +271,8 @@ public class RedisServiceImpl implements RedisService {
             return redisTemplate.opsForValue().increment(key, -delta);
         } catch (Exception e) {
             logger.error("RedisService.decr is error ,param :[key = {},delta = {}]", key, delta, e);
-            return -1;
+            //return -1;
+            throw new RuntimeException(e);
         }
 
     }
@@ -279,7 +291,8 @@ public class RedisServiceImpl implements RedisService {
             return redisTemplate.opsForHash().get(key, item);
         } catch (Exception e) {
             logger.error("RedisService.hget is error ,param :[key = {},item = {}]", key, item, e);
-            return null;
+            //return null;
+            throw new RuntimeException(e);
         }
 
     }
@@ -304,7 +317,9 @@ public class RedisServiceImpl implements RedisService {
             return null;
         } catch (Exception e) {
             logger.error("RedisService.hget is error ,param :[key = {},item = {},c = {}]", key, item, c, e);
-            return null;
+            //return null;
+            throw new RuntimeException(e);
+
         }
 
     }
@@ -330,7 +345,8 @@ public class RedisServiceImpl implements RedisService {
             return null;
         } catch (Exception e) {
             logger.error("RedisService.hgetList is error ,param :[key = {},item = {},c = {} ]", key, item, c, e);
-            return null;
+            //return null;
+            throw new RuntimeException(e);
         }
 
     }
@@ -361,7 +377,8 @@ public class RedisServiceImpl implements RedisService {
             }
         } catch (Exception e) {
             logger.error("RedisService.hmvget is error ,param :[key = {},c = {} ]", key, c, e);
-            return null;
+            //return null;
+            throw new RuntimeException(e);
         }
 
     }
@@ -387,7 +404,8 @@ public class RedisServiceImpl implements RedisService {
             return true;
         } catch (Exception e) {
             logger.error("RedisService.hset is error ,param :[key = {},item = {},value = {}]", key, item, value, e);
-            return false;
+            //return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -416,7 +434,8 @@ public class RedisServiceImpl implements RedisService {
             return true;
         } catch (Exception e) {
             logger.error("RedisService.hset is error ,param :[key = {},item = {},value = {},time = {}]", key, item, value, time, e);
-            return false;
+            //return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -442,7 +461,8 @@ public class RedisServiceImpl implements RedisService {
             return true;
         } catch (Exception e) {
             logger.error("RedisService.hmset is error ,param :[key = {},map = {} ]", key, map, e);
-            return false;
+            //return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -472,7 +492,8 @@ public class RedisServiceImpl implements RedisService {
             return true;
         } catch (Exception e) {
             logger.error("RedisService.hmset is error ,param :[key = {},map = {},time = {}]", key, map, time, e);
-            return false;
+            //return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -495,7 +516,8 @@ public class RedisServiceImpl implements RedisService {
 
         } catch (Exception e) {
             logger.error("RedisService.hmset is error ,param :[key = {},c = {} ]", key, c, e);
-            return null;
+            //return null;
+            throw new RuntimeException(e);
         }
 
     }
@@ -512,6 +534,7 @@ public class RedisServiceImpl implements RedisService {
             redisTemplate.opsForHash().delete(key, item);
         } catch (Exception e) {
             logger.error("RedisService.hdel is error ,param :[key = {},item = {} ]", key, item, e);
+            throw new RuntimeException(e);
         }
 
     }
@@ -529,7 +552,8 @@ public class RedisServiceImpl implements RedisService {
             return redisTemplate.opsForHash().hasKey(key, item);
         } catch (Exception e) {
             logger.error("RedisService.hHasKey is error ,param :[key = {},item = {} ]", key, item, e);
-            return false;
+            //return false;
+            throw new RuntimeException(e);
         }
 
     }
@@ -548,7 +572,8 @@ public class RedisServiceImpl implements RedisService {
             return redisTemplate.opsForHash().increment(key, item, by);
         } catch (Exception e) {
             logger.error("RedisService.hincr is error ,param :[key = {},item = {},by ]", key, item, by, e);
-            return -1;
+            //return -1;
+            throw new RuntimeException(e);
         }
 
     }
@@ -567,7 +592,8 @@ public class RedisServiceImpl implements RedisService {
             return redisTemplate.opsForHash().increment(key, item, -by);
         } catch (Exception e) {
             logger.error("RedisService.hdecr is error ,param :[key = {},item = {},by = {} ]", key, item, by, e);
-            return -1;
+            //return -1;
+            throw new RuntimeException(e);
         }
 
     }
@@ -587,7 +613,8 @@ public class RedisServiceImpl implements RedisService {
             return redisTemplate.opsForSet().members(key);
         } catch (Exception e) {
             logger.error("RedisService.sGet is error ,param :[key = {}]", key, e);
-            return null;
+            //return null;
+            throw new RuntimeException(e);
         }
     }
 
@@ -603,7 +630,8 @@ public class RedisServiceImpl implements RedisService {
             return redisTemplate.opsForSet().add(key, values);
         } catch (Exception e) {
             logger.error("RedisService.sSet is error ,param :[key = {},values = {} ]", key, values, e);
-            return 0;
+            //return 0;
+            throw new RuntimeException(e);
         }
     }
 
@@ -624,7 +652,8 @@ public class RedisServiceImpl implements RedisService {
             return count;
         } catch (Exception e) {
             logger.error("RedisService.sSetAndTime is error ,param :[key = {},time = {},valeus = {}]", key, time, values, e);
-            return 0;
+            //return 0;
+            throw new RuntimeException(e);
         }
     }
 
@@ -641,7 +670,8 @@ public class RedisServiceImpl implements RedisService {
             return redisTemplate.opsForSet().isMember(key, value);
         } catch (Exception e) {
             logger.error("RedisService.sHasKey is error ,param :[key = {},value = {} ]", key, value, e);
-            return false;
+            //return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -658,7 +688,8 @@ public class RedisServiceImpl implements RedisService {
             return count;
         } catch (Exception e) {
             logger.error("RedisService.setRemove is error ,param :[key = {},values = {} ]", key, values, e);
-            return 0;
+            //return 0;
+            throw new RuntimeException(e);
         }
     }
 
@@ -674,7 +705,8 @@ public class RedisServiceImpl implements RedisService {
             return redisTemplate.opsForSet().size(key);
         } catch (Exception e) {
             logger.error("RedisService.sGetSetSize is error ,param :[key = {}]", key, e);
-            return 0;
+            //return 0;
+            throw new RuntimeException(e);
         }
     }
 
@@ -708,7 +740,8 @@ public class RedisServiceImpl implements RedisService {
             }
         } catch (Exception e) {
             logger.error("RedisService.lGet is error ,param :[key = {},start = {},end = {},c = {}]", key, start, end, c, e);
-            return null;
+            //return null;
+            throw new RuntimeException(e);
         }
     }
 
@@ -730,7 +763,8 @@ public class RedisServiceImpl implements RedisService {
             }
         } catch (Exception e) {
             logger.error("RedisService.lGetIndex is error ,param :[key = {},index = {},c = {} ]", key, index, c, e);
-            return null;
+            //return null;
+            throw new RuntimeException(e);
         }
     }
 
@@ -747,7 +781,8 @@ public class RedisServiceImpl implements RedisService {
             return redisTemplate.opsForList().size(key);
         } catch (Exception e) {
             logger.error("RedisService.lGetListSize is error ,param :[key = {}]", key, e);
-            return 0;
+            //return 0;
+            throw new RuntimeException(e);
         }
     }
 
@@ -777,7 +812,8 @@ public class RedisServiceImpl implements RedisService {
             return true;
         } catch (Exception e) {
             logger.error("RedisService.lSet is error ,param :[key = {},value = {}]", key, value, e);
-            return false;
+            //return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -808,7 +844,8 @@ public class RedisServiceImpl implements RedisService {
             return true;
         } catch (Exception e) {
             logger.error("RedisService.lSet is error ,param :[key = {},value = {},time = {}]", key, value, time, e);
-            return false;
+            //return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -841,7 +878,8 @@ public class RedisServiceImpl implements RedisService {
             return true;
         } catch (Exception e) {
             logger.error("RedisService.lSetList is error ,param :[key = {},list = {}]", key, list, e);
-            return false;
+            //return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -877,7 +915,8 @@ public class RedisServiceImpl implements RedisService {
             return true;
         } catch (Exception e) {
             logger.error("RedisService.lSet is error ,param :[key = {},list = {},time = {}]", key, list, time, e);
-            return false;
+            //return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -904,7 +943,8 @@ public class RedisServiceImpl implements RedisService {
             return true;
         } catch (Exception e) {
             logger.error("RedisService.lUpdateIndex is error ,param :[key = {},index = {}, value = {}]", key, index, value, e);
-            return false;
+            //return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -932,7 +972,8 @@ public class RedisServiceImpl implements RedisService {
         } catch (Exception e) {
             logger.error("RedisService.lRemove is error ,param :[key = {},count = {},value = {}]", key, count, value, e);
 
-            return 0;
+            //return 0;
+            throw new RuntimeException(e);
         }
     }
 
@@ -958,7 +999,8 @@ public class RedisServiceImpl implements RedisService {
         } catch (Exception e) {
             logger.error("RedisService.zSet is error ,param :[key = {},value = {},score = {}]", key, value, score, e);
 
-            return false;
+            //return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -981,7 +1023,8 @@ public class RedisServiceImpl implements RedisService {
         } catch (Exception e) {
             logger.error("RedisService.zRank is error ,param :[key = {},value = {}]", key, value, e);
 
-            return -1;
+            //return -1;
+            throw new RuntimeException(e);
         }
     }
 
@@ -1000,7 +1043,8 @@ public class RedisServiceImpl implements RedisService {
             return redisTemplate.opsForZSet().score(key, value);
         } catch (Exception e) {
             logger.error("RedisService.zScore is error ,param :[key = {},value = {}]", key, value, e);
-            return -1;
+            //return -1;
+            throw new RuntimeException(e);
         }
     }
 
@@ -1017,7 +1061,8 @@ public class RedisServiceImpl implements RedisService {
         } catch (Exception e) {
             logger.error("RedisService.zRemove is error ,param :[key = {},values = {}]", key, values, e);
 
-            return 0;
+            //return 0;
+            throw new RuntimeException(e);
         }
     }
 
@@ -1035,7 +1080,8 @@ public class RedisServiceImpl implements RedisService {
             return redisTemplate.opsForZSet().removeRangeByScore(key, min, max);
         } catch (Exception e) {
             logger.error("RedisService.zRemoveRangeByScore is error ,param :[key = {},min = {},max = {} ]", key, min, max, e);
-            return 0;
+            //return 0;
+            throw new RuntimeException(e);
         }
     }
 
@@ -1050,7 +1096,8 @@ public class RedisServiceImpl implements RedisService {
             return redisTemplate.opsForZSet().zCard(key);
         } catch (Exception e) {
             logger.error("RedisService.zCard is error ,param :[key = {}]", key, e);
-            return 0;
+            //return 0;
+            throw new RuntimeException(e);
         }
     }
 }

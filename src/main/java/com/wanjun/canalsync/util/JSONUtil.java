@@ -18,7 +18,7 @@ public class JSONUtil {
     private static Gson gson = null;
 
     static {
-        gson = new GsonBuilder().disableHtmlEscaping().create();// todo
+        gson = new GsonBuilder().disableHtmlEscaping().create();// TODO
         // yyyy-MM-dd
         // HH:mm:ss
     }
