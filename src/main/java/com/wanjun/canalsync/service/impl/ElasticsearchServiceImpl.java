@@ -1,6 +1,7 @@
 package com.wanjun.canalsync.service.impl;
 
 import com.wanjun.canalsync.service.ElasticsearchService;
+import com.wanjun.canalsync.util.JSONUtil;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.client.transport.TransportClient;
