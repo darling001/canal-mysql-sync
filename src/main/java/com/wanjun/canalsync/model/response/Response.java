@@ -1,8 +1,6 @@
 package com.wanjun.canalsync.model.response;
 
 
-import com.wanjun.canalsync.util.JSONUtil;
-
 /**
  * @author wangchengli
  * @version 1.0
