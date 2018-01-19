@@ -101,8 +101,7 @@ public class MultiThreadCanalClient {
             } catch (Exception e) {
                 logger.error("发送监听事件失败！batchId回滚,batchId=" + batchId, e);
                 //出错了以后不进行回滚，否则会造成死循环，不停的进行ack
-                //应该记录错误信息，进行异步任务处理
-                // TODO
+                //应该记录错误信息，进行异步任务处理 TODO
                 //connector.rollback(batchId);
             } finally {
                 connector.disconnect();
