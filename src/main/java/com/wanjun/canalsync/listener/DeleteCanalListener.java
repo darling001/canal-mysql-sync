@@ -43,7 +43,7 @@ public class DeleteCanalListener extends AbstractCanalListener<DeleteCanalEvent>
             return;
         }
         logger.debug("insert_column_id_info insert主键id,database=" + database + ",table=" + table + ",id=" + idColumn.getValue());
-       // elasticsearchService.deleteById(index, type, idColumn.getValue());
+        elasticsearchService.deleteById(index, type, idColumn.getValue());
         logger.debug("insert_es_info 同步es插入操作成功！database=" + database + ",table=" + table + ",id=" + idColumn.getValue());
         String redisKey = getMappingKey(database,table);
         redisService.hdel(redisKey,idColumn.getValue());

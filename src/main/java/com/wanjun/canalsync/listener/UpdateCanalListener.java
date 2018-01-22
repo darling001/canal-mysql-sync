@@ -46,7 +46,7 @@ public class UpdateCanalListener extends AbstractCanalListener<UpdateCanalEvent>
         }
         logger.debug("update_column_id_info update主键id,database=" + database + ",table=" + table + ",id=" + idColumn.getValue());
         Map<String, Object> dataMap = parseColumnsToMap(columns);
-        //elasticsearchService.update(index, type, idColumn.getValue(), dataMap);
+        elasticsearchService.update(index, type, idColumn.getValue(), dataMap);
         logger.debug("update_es_info 同步es插入操作成功！database=" + database + ",table=" + table + ",data=" + dataMap);
         String redisKey = getMappingKey(database, table);
         redisService.hset(redisKey, idColumn.getValue(), dataMap);

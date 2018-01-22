@@ -50,7 +50,7 @@ public class ElasticsearchClient implements DisposableBean {
                 logger.info("elasticsearch transportClient 连接成功");
             }
         } catch (Exception e) {
-            logger.info("elasticsearch transportClient 连接成功");
+            logger.error("elasticsearch transportClient 连接失败",e);
             throw e;
         }
         return transportClient;
