@@ -70,5 +70,10 @@ public abstract class AbstractCanalListener<EVENT extends CanalEvent> implements
     protected String getMappingKey(String database, String tableName) {
         return String.format("%s.%s", database, tableName);
     }
+
+    protected String getPath(String database,String tableName,int canalEventTypeNumber) {
+        return String.format("/%s/%s/%s",database,tableName,canalEventTypeNumber);
+
+    }
     protected abstract void doSync(String database, String table, String index, String type, RowData rowData);
 }

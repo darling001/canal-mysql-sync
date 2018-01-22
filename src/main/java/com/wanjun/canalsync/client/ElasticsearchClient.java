@@ -35,7 +35,7 @@ public class ElasticsearchClient implements DisposableBean {
             if (transportClient == null) {
                 Settings settings = Settings.settingsBuilder()
                         .put("cluster.name", clusterName)//设置集群名称
-                        .put("tclient.transport.sniff", true)//自动嗅探整个集群的状态，把集群中其它机器的ip地址加到客户端中
+                        .put("client.transport.sniff", true)//自动嗅探整个集群的状态，把集群中其它机器的ip地址加到客户端中
                         .put("thread_pool.search.size", Integer.parseInt(poolSize))//增加线程池个数，暂时设为5
                         .build();
                 transportClient = TransportClient.builder().settings(settings).build();

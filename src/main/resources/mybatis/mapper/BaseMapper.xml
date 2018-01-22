@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.star.sync.elasticsearch.dao.BaseDao">
+<mapper namespace="com.wanjun.canalsync.dao.BaseDao">
+
+    <insert id="insertByMap">
+        INSERT INTO ${databaseName}.${tableName}
+        <foreach collection="params.keys" item="key" open="(" close=")" separator=",">
+            ${key}
+        </foreach>
+        VALUES
+        <foreach collection="params.keys" item="key" open="(" close=")" separator=",">
+            #{params[${key}]}
+        </foreach>
+    </insert>
+
+    <update id="updateByMapAndId">
+        update ${databaseName}.${tableName}
+        <set>
+            <foreach collection="params.keys" item="key" index="index" separator=",">
+
+                <!-- 将对应的value赋值给对应的Key(key和数据库的字段一样)-->
+                ${key}=#{params[${key}]}
+            </foreach>
+        </set>
+        WHERE
+        <!--#{1}表示接受Dao层方法传入的第二个参数-->
+        id = #{id}
+    </update>
+
+    <update id="updateByMap">
+        update ${databaseName}.${tableName}
+        <set>
+            <foreach collection="params.entrySet()" index="key" item="value" separator=",">
+                <if test="key != 'id'.toString()">
+                    ${key} = #{value}
+                </if>
+            </foreach>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
 
     <select id="selectByPK" resultType="java.util.HashMap">
         SELECT
@@ -12,7 +50,7 @@
 
     <select id="selectByPKs" resultType="java.util.List">
         SELECT
-            *
+        *
         FROM
         ${databaseName}.${tableName}
         WHERE ${key} IN
@@ -23,9 +61,9 @@
 
     <select id="selectByPKsLockInShareMode" resultType="java.util.List">
         SELECT
-            *
+        *
         FROM
-            ${databaseName}.${tableName}
+        ${databaseName}.${tableName}
         WHERE ${key} IN
         <foreach item="item" index="index" collection="valueList" open="(" separator="," close=")">
             ${item}
