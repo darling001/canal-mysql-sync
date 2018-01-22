@@ -32,14 +32,12 @@ public class CanalInitHandler implements ApplicationContextAware {
     public void initCanalStart() {
         List<String> destinations = canalProperties.getDestinations();
         final List<MultiThreadCanalClient> canalClientList = Lists.newArrayList();
-        final List<CanalConnector> canalConnectorList = Lists.newArrayList();
         if (destinations != null && destinations.size() > 0) {
             for (String destination : destinations) {
                 // 基于zookeeper动态获取canal server的地址，建立链接，其中一台server发生crash，可以支持failover
                 CanalConnector connector = CanalConnectors.newClusterConnector(canalProperties.getZkServers(), destination, "", "");
                 MultiThreadCanalClient client = new MultiThreadCanalClient(destination, connector,applicationContext);
                 canalClientList.add(client);
-                canalConnectorList.add(connector);
                 client.start();
             }
         }
@@ -47,10 +45,6 @@ public class CanalInitHandler implements ApplicationContextAware {
             public void run() {
                 try {
                     logger.info("## stop the canal client");
-                    //回滚寻找上次中断的位置 TODO
-                    for (CanalConnector canalConnector : canalConnectorList){
-                        canalConnector.rollback();
-                    }
                     //停止CanalClient线程
                     for (MultiThreadCanalClient canalClient : canalClientList) {
                         canalClient.stop();

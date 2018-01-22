@@ -34,6 +34,7 @@ public class UpdateCanalListener extends AbstractCanalListener<UpdateCanalEvent>
 
     @Resource
     private RedisService redisService;
+
     @Override
     protected void doSync(String database, String table, String index, String type, RowData rowData) {
         List<Column> columns = rowData.getAfterColumnsList();
@@ -47,8 +48,8 @@ public class UpdateCanalListener extends AbstractCanalListener<UpdateCanalEvent>
         Map<String, Object> dataMap = parseColumnsToMap(columns);
         //elasticsearchService.update(index, type, idColumn.getValue(), dataMap);
         logger.debug("update_es_info 同步es插入操作成功！database=" + database + ",table=" + table + ",data=" + dataMap);
-        String redisKey = getMappingKey(database,table);
-        redisService.hset(redisKey,idColumn.getValue(),dataMap);
+        String redisKey = getMappingKey(database, table);
+        redisService.hset(redisKey, idColumn.getValue(), dataMap);
         logger.debug("insert_redis_info 同步redis更新操作成功! database=" + database + ",table=" + table + ",data=" + JSONUtil.toJson(dataMap));
 
     }

@@ -68,7 +68,7 @@ public abstract class AbstractCanalListener<EVENT extends CanalEvent> implements
      * @return
      */
     protected String getMappingKey(String database, String tableName) {
-        return String.format("%s.%s", database, tableName).toLowerCase();
+        return String.format("%s.%s", database, tableName);
     }
     protected abstract void doSync(String database, String table, String index, String type, RowData rowData);
 }

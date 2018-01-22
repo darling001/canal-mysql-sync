@@ -22,7 +22,9 @@ import java.util.List;
 public class MultiThreadCanalClient {
 
     private final static Logger logger = LoggerFactory.getLogger(CanalClient.class);
+
     private volatile boolean running = false;
+
     private Thread.UncaughtExceptionHandler handler = new Thread.UncaughtExceptionHandler() {
         public void uncaughtException(Thread t, Throwable e) {
             logger.error("parse events has an error", e);
@@ -30,6 +32,9 @@ public class MultiThreadCanalClient {
     };
     private Thread thread = null;
     private CanalConnector connector;
+
+    private long batchId = -1;
+
     private static String canal_get = "get_message batchId : {} , entrySize : {}";
     private static String canal_ack = "ack_message batchId : {} ";
 
@@ -60,19 +65,24 @@ public class MultiThreadCanalClient {
             return;
         }
         running = false;
+        //停止服务异常处理，回滚上次ack的位置
+        if(batchId != -1) {
+            connector.rollback(batchId);
+        }
         if (thread != null) {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+               logger.error("MultiThreadCanalClient->stop() error",e);
             }
         }
+
         MDC.remove("destination");
     }
 
     private void process() {
         int batchSize = 5 * 1024;
-        long batchId = 0; // message batchId
+       // long batchId = 0; // message batchId
         while (running) {
             try {
                 MDC.put("destination", destination);
@@ -96,6 +106,7 @@ public class MultiThreadCanalClient {
 
                         logger.info(canal_ack, batchId);
                     }
+
                     connector.ack(batchId);//提交确认
                 }
             } catch (Exception e) {
