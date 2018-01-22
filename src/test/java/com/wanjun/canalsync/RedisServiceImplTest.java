@@ -37,7 +37,7 @@ public class RedisServiceImplTest {
 
     @Test
     public void testHHasKey() {
-        Map<String,Object> value = redisService.hget("wanjun.door","2",Map.class);
+        Map<String,Object> value = redisService.hget("wanjun.bookType","1",Map.class);
         System.out.println("value = " + value);
     }
 }

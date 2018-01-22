@@ -2,8 +2,7 @@ package com.wanjun.canalsync.client;
 
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.TransportAddress;
-import org.elasticsearch.transport.client.PreBuiltTransportClient;
+import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -25,22 +24,35 @@ public class ElasticsearchClient implements DisposableBean {
 
     @Value("${elasticsearch.cluster.name}")
     private String clusterName;
-    @Value("${elasticsearch.host}")
-    private String host;
-    @Value("${elasticsearch.port}")
-    private String port;
+    @Value("${elasticsearch.esHosts}")
+    private String esHosts;
     @Value("${elasticsearch.pool}")
     private String poolSize;
 
     @Bean
-    public TransportClient getTransportClient() throws Exception {
-        Settings settings = Settings.builder().put("cluster.name", clusterName)
-                .put("client.transport.sniff", true)//增加嗅探机制，找到ES集群
-                .put("thread_pool.search.size", Integer.parseInt(poolSize))//增加线程池个数，暂时设为5
-                .build();
-        transportClient = new PreBuiltTransportClient(settings).addTransportAddress(new TransportAddress(InetAddress.getByName(host), Integer.valueOf(port)));
+    public TransportClient  getTransportClient() throws Exception{
+        try {
+            if (transportClient == null) {
+                Settings settings = Settings.settingsBuilder()
+                        .put("cluster.name", clusterName)//设置集群名称
+                        .put("tclient.transport.sniff", true)//自动嗅探整个集群的状态，把集群中其它机器的ip地址加到客户端中
+                        .put("thread_pool.search.size", Integer.parseInt(poolSize))//增加线程池个数，暂时设为5
+                        .build();
+                transportClient = TransportClient.builder().settings(settings).build();
+                String[] nodes = esHosts.split(",");
+                for (String node : nodes) {
+                    if (node.length() > 0) {//跳过为空的node（当开头、结尾有逗号或多个连续逗号时会出现空node）
+                        String[] hostPort = node.split(":");
+                        transportClient.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(hostPort[0]), Integer.parseInt(hostPort[1])));
 
-        logger.info("elasticsearch transportClient 连接成功");
+                    }
+                }
+                logger.info("elasticsearch transportClient 连接成功");
+            }
+        } catch (Exception e) {
+            logger.info("elasticsearch transportClient 连接成功");
+            throw e;
+        }
         return transportClient;
     }
 
