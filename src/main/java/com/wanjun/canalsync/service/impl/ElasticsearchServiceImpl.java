@@ -11,12 +11,21 @@ import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.get.GetRequestBuilder;
 import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.text.Text;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.highlight.HighlightField;
+import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -156,13 +165,195 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
         return getResponse.getSource();
     }
 
+    /**
+     * 使用分词查询
+     *
+     * @param index     索引名称
+     * @param type      类型名称,可传入多个type逗号分隔
+     * @param startTime 开始时间
+     * @param endTime   结束时间
+     * @param size      文档大小限制
+     * @param matchStr  过滤条件（xxx=111,aaa=222）
+     * @return
+     */
     @Override
-    public Map<String, Object> searchListData(String index, String type, long startTime, long endTime, Integer size, String matchStr) {
-        return null;
+    public List<Map<String, Object>> searchListData(String index, String type, long startTime, long endTime, Integer size, String matchStr) {
+        return searchListData(index, type, startTime, endTime, size, null, null, false, null, matchStr);
     }
 
+    /**
+     * 使用分词查询
+     *
+     * @param index    索引名称
+     * @param type     类型名称,可传入多个type逗号分隔
+     * @param size     文档大小限制
+     * @param fields   需要显示的字段，逗号分隔（缺省为全部字段）
+     * @param matchStr 过滤条件（xxx=111,aaa=222）
+     * @return
+     */
     @Override
-    public List<Map<String, Object>> searchListData(String index, String type, Integer size, String fields, String sortField, boolean matchPhrase, String matchStr) {
+    public  List<Map<String, Object>> searchListData(String index, String type, Integer size, String fields, String matchStr) {
+        return searchListData(index, type, 0, 0, size, fields, null, false, null, matchStr);
+    }
+
+    /**
+     * 使用分词查询
+     * @param index       索引名称
+     * @param type        类型名称,可传入多个type逗号分隔
+     * @param size        文档大小限制
+     * @param fields      需要显示的字段，逗号分隔（缺省为全部字段）
+     * @param sortField   排序字段
+     * @param matchPhrase true 使用，短语精准匹配
+     * @param matchStr    过滤条件（xxx=111,aaa=222）
+     * @return
+     */
+    @Override
+    public  List<Map<String, Object>> searchListData(String index, String type, Integer size, String fields, String sortField, boolean matchPhrase, String matchStr) {
+        return searchListData(index, type, 0, 0, size, fields, sortField, matchPhrase, null, matchStr);
+    }
+
+
+    /**
+     * 使用分词查询
+     * @param index          索引名称
+     * @param type           类型名称,可传入多个type逗号分隔
+     * @param size           文档大小限制
+     * @param fields         需要显示的字段，逗号分隔（缺省为全部字段）
+     * @param sortField      排序字段
+     * @param matchPhrase    true 使用，短语精准匹配
+     * @param highlightField 高亮字段
+     * @param matchStr       过滤条件（xxx=111,aaa=222）
+     * @return
+     */
+    @Override
+    public  List<Map<String, Object>> searchListData(String index, String type, Integer size, String fields, String sortField, boolean matchPhrase, String highlightField, String matchStr) {
+        return searchListData(index, type, 0, 0, size, fields, sortField, matchPhrase, highlightField, matchStr);
+    }
+
+    /**
+     * 使用分词查询
+     *
+     * @param index          索引名称
+     * @param type           类型名称,可传入多个type逗号分隔
+     * @param startTime      开始时间
+     * @param endTime        结束时间
+     * @param size           文档大小限制
+     * @param fields         需要显示的字段，逗号分隔（缺省为全部字段）
+     * @param sortField      排序字段
+     * @param matchPhrase    true 使用，短语精准匹配
+     * @param highlightField 高亮字段
+     * @param matchStr       过滤条件（xxx=111,aaa=222）
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> searchListData(String index, String type, long startTime, long endTime, Integer size, String fields, String sortField, boolean matchPhrase, String highlightField, String matchStr) {
+
+        SearchRequestBuilder searchRequestBuilder = transportClient.prepareSearch(index);
+        if (StringUtils.isNotEmpty(type)) {
+            searchRequestBuilder.setTypes(type.split(","));
+        }
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+
+        if (startTime > 0 && endTime > 0) {
+            boolQuery.must(QueryBuilders.rangeQuery("timestamp")
+                    .format("epoch_millis")
+                    .from(startTime)
+                    .to(endTime)
+                    .includeLower(true)
+                    .includeUpper(true));
+        }
+
+        //搜索的的字段
+        if (StringUtils.isNotEmpty(matchStr)) {
+            for (String s : matchStr.split(",")) {
+                String[] ss = s.split("=");
+                if (ss.length > 1) {
+                    if (matchPhrase == Boolean.TRUE) {
+                        boolQuery.must(QueryBuilders.matchPhraseQuery(s.split("=")[0], s.split("=")[1]));
+                    } else {
+                        boolQuery.must(QueryBuilders.matchQuery(s.split("=")[0], s.split("=")[1]));
+                    }
+                }
+
+            }
+        }
+
+        // 高亮（xxx=111,aaa=222）
+        if (StringUtils.isNotEmpty(highlightField)) {
+
+
+            // 设置高亮字段
+            searchRequestBuilder.addHighlightedField(highlightField);
+            searchRequestBuilder.setHighlighterPreTags("<span style='color:red' >");//设置前缀
+            searchRequestBuilder.setHighlighterPostTags("</span>");//设置后缀
+
+        }
+
+
+        searchRequestBuilder.setQuery(boolQuery);
+
+        if (StringUtils.isNotEmpty(fields)) {
+            searchRequestBuilder.setFetchSource(fields.split(","), null);
+        }
+        searchRequestBuilder.setFetchSource(true);
+
+        if (StringUtils.isNotEmpty(sortField)) {
+            searchRequestBuilder.addSort(sortField, SortOrder.DESC);
+        }
+
+        if (size != null && size > 0) {
+            searchRequestBuilder.setSize(size);
+        }
+
+        //打印的内容 可以在 Elasticsearch head 和 Kibana  上执行查询
+        logger.info("\n{}", searchRequestBuilder);
+
+        SearchResponse searchResponse = searchRequestBuilder.execute().actionGet();
+
+        long totalHits = searchResponse.getHits().totalHits();
+        long length = searchResponse.getHits().getHits().length;
+
+        logger.info("共查询到[{}]条数据,处理数据条数[{}]", totalHits, length);
+
+        if (searchResponse.status().getStatus() == 200) {
+            // 解析对象
+            return setSearchResponse(searchResponse, highlightField);
+        }
+
         return null;
+
+    }
+
+    /**
+     * 高亮结果集 特殊处理
+     *
+     * @param searchResponse
+     * @param highlightField
+     */
+    private List<Map<String, Object>> setSearchResponse(SearchResponse searchResponse, String highlightField) {
+        List<Map<String, Object>> sourceList = new ArrayList<Map<String, Object>>();
+        StringBuffer stringBuffer = new StringBuffer();
+
+        for (SearchHit searchHit : searchResponse.getHits().getHits()) {
+            //searchHit.getSource().put("id", searchHit.getId());
+
+            if (StringUtils.isNotEmpty(highlightField)) {
+
+                logger.info("遍历 高亮结果集，覆盖 正常结果集" + searchHit.getSource());
+                Map<String, HighlightField> stringHighlightFieldMap = searchHit.highlightFields();
+                Text[] text = searchHit.highlightFields().get(highlightField).fragments();
+
+                if (text != null) {
+                    for (Text str : text) {
+                        stringBuffer.append(str.string());
+                    }
+                    //遍历 高亮结果集，覆盖 正常结果集
+                    searchHit.getSource().put(highlightField, stringBuffer.toString());
+                }
+            }
+            sourceList.add(searchHit.getSource());
+        }
+
+        return sourceList;
     }
 }
