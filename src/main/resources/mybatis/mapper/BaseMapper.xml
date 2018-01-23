@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wanjun.canalsync.dao.BaseDao">
-
+    <delete id="deleteByPK">
+        DELETE  FROM  ${databaseName}.${tableName}
+        WHERE ${key} = ${value}
+    </delete>
     <insert id="insertByMap">
         INSERT INTO ${databaseName}.${tableName}
         <foreach collection="params.keys" item="key" open="(" close=")" separator=",">
@@ -28,6 +31,20 @@
         ${pk} = #{value}
     </update>
 
+    <update id="updateNull">
+        update ${databaseName}.${tableName}
+        <set>
+            <foreach collection="params.keys" item="key" index="index" separator=",">
+                <if test="key != pk.toString()">
+                    ${key} = NULL
+                </if>
+                <!-- 将对应的value赋值给对应的Key(key和数据库的字段一样)-->
+            </foreach>
+        </set>
+        WHERE
+        <!--#{1}表示接受Dao层方法传入的第二个参数-->
+        ${pk} = #{value}
+    </update>
     <select id="selectByPK" resultType="java.util.HashMap">
         SELECT
             *

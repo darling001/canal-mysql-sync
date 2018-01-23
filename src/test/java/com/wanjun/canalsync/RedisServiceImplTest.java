@@ -1,6 +1,7 @@
 package com.wanjun.canalsync;
 
 import com.google.common.collect.Maps;
+import com.wanjun.canalsync.service.ElasticsearchService;
 import com.wanjun.canalsync.service.RedisService;
 import org.elasticsearch.client.transport.TransportClient;
 import org.junit.Assert;
@@ -26,6 +27,9 @@ public class RedisServiceImplTest {
     @Resource
     private RedisService redisService;
 
+    @Resource
+    private ElasticsearchService elasticsearchService;
+
     @Test
     public void insertById() throws Exception {
         Map<String,Object> target = Maps.newHashMap();
@@ -39,5 +43,11 @@ public class RedisServiceImplTest {
     public void testHHasKey() {
         Map<String,Object> value = redisService.hget("wanjun.bookType","1",Map.class);
         System.out.println("value = " + value);
+    }
+
+    @Test
+    public void deleteIndex() {
+        boolean wanjun = elasticsearchService.deleteIndex("wanjun");
+        System.out.println("wanjun = " + wanjun);
     }
 }

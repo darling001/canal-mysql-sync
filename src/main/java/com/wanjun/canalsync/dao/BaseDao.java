@@ -17,8 +17,11 @@ public interface BaseDao {
 
     Integer insertByMap(@Param("databaseName") String databaseName, @Param("tableName") String tableName, @Param("params") Map<String, Object> params);
 
+    Long updateByMap(@Param("databaseName") String databaseName, @Param("tableName") String tableName, @Param("params") Map<String, Object> params, @Param("key") String key, @Param("value") Object value);
 
-    Long updateByMap(@Param("databaseName") String databaseName, @Param("tableName") String tableName, @Param("params") Map<String, Object> params, @Param("pk") String pk, @Param("value") Object value);
+    Long updateNull(@Param("databaseName") String databaseName, @Param("tableName") String tableName, @Param("params") Map<String, Object> params, @Param("key") String key, @Param("value") Object value);
+
+    Long deleteByPK(@Param("databaseName") String databaseName,@Param("tableName") String tableName,@Param("key")String key,@Param("value") Object value);
 
     Map<String, Object> selectByPK(@Param("key") String key, @Param("value") Object value, @Param("databaseName") String databaseName, @Param("tableName") String tableName);
 

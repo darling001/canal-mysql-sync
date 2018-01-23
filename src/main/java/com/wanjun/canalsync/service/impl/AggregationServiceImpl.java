@@ -40,8 +40,23 @@ public class AggregationServiceImpl implements AggregationService {
     }
 
     @Override
-    @Table(value = "tbl_dept",event = {CanalEntry.EventType.UPDATE})
+    @Table(value = "tbl_emp",event = {CanalEntry.EventType.DELETE})
+    public Long deleteByEmp(Map<String, Object> map) {
+        return baseDao.deleteByPK("wanjun","tbl_emp_dept","emp_id",map.get("emp_id"));
+    }
+
+
+    @Override
+    @Table(value = "tbl_dept",event = {CanalEntry.EventType.UPDATE, CanalEntry.EventType.INSERT})
     public Long updateByDept(Map<String, Object> map) {
         return baseDao.updateByMap("wanjun","tbl_emp_dept",map,"dept_id", map.get("dept_id"));
+    }
+
+
+
+    @Override
+    @Table(value = "tbl_dept",event = {CanalEntry.EventType.DELETE})
+    public Long deleteByDept(Map<String, Object> map) {
+        return baseDao.updateNull("wanjun","tbl_emp_dept",map,"dept_id",map.get("dept_id"));
     }
 }
