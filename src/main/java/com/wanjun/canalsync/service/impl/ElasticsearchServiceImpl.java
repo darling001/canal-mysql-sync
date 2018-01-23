@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -153,5 +154,15 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
         GetResponse getResponse = getRequestBuilder.execute().actionGet();
 
         return getResponse.getSource();
+    }
+
+    @Override
+    public Map<String, Object> searchListData(String index, String type, long startTime, long endTime, Integer size, String matchStr) {
+        return null;
+    }
+
+    @Override
+    public List<Map<String, Object>> searchListData(String index, String type, Integer size, String fields, String sortField, boolean matchPhrase, String matchStr) {
+        return null;
     }
 }
