@@ -18,7 +18,7 @@ public class CommonTest {
     public void testCommon() throws Exception {
         System.out.println(DateTime.parse("2017-09-01 16:21:17", DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")).toDate());
 //        long i = 7989501;
-        long maxPK = 100000;
+        long maxPK = 1000000;
 
         for (long j = 0; j < maxPK; j++) {
             System.out.println(String.format("当前同步pk=%s，总共total=%s，进度=%s%%", j, maxPK, new BigDecimal(j * 100).divide(new BigDecimal(maxPK), 2, BigDecimal.ROUND_HALF_UP)));

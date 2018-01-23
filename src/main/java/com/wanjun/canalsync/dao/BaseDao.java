@@ -15,11 +15,10 @@ import java.util.Map;
 @Repository
 public interface BaseDao {
 
-    Long insertByMap(@Param("databaseName") String databaseName, @Param("tableName") String tableName, @Param("params") Map<String, Object> params);
+    Integer insertByMap(@Param("databaseName") String databaseName, @Param("tableName") String tableName, @Param("params") Map<String, Object> params);
 
-    Long updateByMap(@Param("databaseName") String databaseName, @Param("tableName") String tableName, @Param("params") Map<String, Object> params);
 
-    Long updateByMapAndId(@Param("databaseName") String databaseName, @Param("tableName") String tableName, @Param("params") Map<String, Object> params, @Param("id") Long id);
+    Long updateByMap(@Param("databaseName") String databaseName, @Param("tableName") String tableName, @Param("params") Map<String, Object> params, @Param("pk") String pk, @Param("value") Object value);
 
     Map<String, Object> selectByPK(@Param("key") String key, @Param("value") Object value, @Param("databaseName") String databaseName, @Param("tableName") String tableName);
 

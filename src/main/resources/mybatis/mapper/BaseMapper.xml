@@ -13,31 +13,19 @@
         </foreach>
     </insert>
 
-    <update id="updateByMapAndId">
+    <update id="updateByMap">
         update ${databaseName}.${tableName}
         <set>
             <foreach collection="params.keys" item="key" index="index" separator=",">
-
+                <if test="key != pk.toString()">
+                    ${key}=#{params[${key}]}
+                </if>
                 <!-- 将对应的value赋值给对应的Key(key和数据库的字段一样)-->
-                ${key}=#{params[${key}]}
             </foreach>
         </set>
         WHERE
         <!--#{1}表示接受Dao层方法传入的第二个参数-->
-        id = #{id}
-    </update>
-
-    <update id="updateByMap">
-        update ${databaseName}.${tableName}
-        <set>
-            <foreach collection="params.entrySet()" index="key" item="value" separator=",">
-                <if test="key != 'id'.toString()">
-                    ${key} = #{value}
-                </if>
-            </foreach>
-        </set>
-        WHERE
-        id = #{id}
+        ${pk} = #{value}
     </update>
 
     <select id="selectByPK" resultType="java.util.HashMap">

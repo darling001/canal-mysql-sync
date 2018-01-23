@@ -1,5 +1,6 @@
 package com.wanjun.canalsync.listener;
 
+import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.CanalEntry.Column;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowData;
 import com.wanjun.canalsync.event.UpdateCanalEvent;
@@ -7,6 +8,7 @@ import com.wanjun.canalsync.service.ElasticsearchService;
 import com.wanjun.canalsync.service.MappingService;
 import com.wanjun.canalsync.service.RedisService;
 import com.wanjun.canalsync.util.JSONUtil;
+import com.wanjun.canalsync.util.SpringUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,6 +53,16 @@ public class UpdateCanalListener extends AbstractCanalListener<UpdateCanalEvent>
         String redisKey = getMappingKey(database, table);
         redisService.hset(redisKey, idColumn.getValue(), dataMap);
         logger.debug("insert_redis_info 同步redis更新操作成功! database=" + database + ",table=" + table + ",data=" + JSONUtil.toJson(dataMap));
+
+        //更新聚合数据
+        logger.debug("聚合数据,database=" + database +",table=" + table);
+        String path = getPath(database,table, CanalEntry.EventType.UPDATE.getNumber());
+        try {
+            SpringUtil.doEvent(path,dataMap);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getCause());
+        }
+
 
     }
 }

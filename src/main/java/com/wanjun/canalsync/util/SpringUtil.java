@@ -102,7 +102,7 @@ public class SpringUtil implements ApplicationContextAware{
             method.invoke(schema, new Object[]{obj});
             logger.info("integrate data consume: {}ms ", System.currentTimeMillis() - begin);
         } catch (Exception e) {
-            logger.error("调用组合逻辑异常", e);
+            logger.error("调用聚合逻辑异常", e);
             throw new Exception(e.getCause());
         }
     }

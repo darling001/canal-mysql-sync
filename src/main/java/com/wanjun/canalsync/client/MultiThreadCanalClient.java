@@ -66,14 +66,14 @@ public class MultiThreadCanalClient {
         }
         running = false;
         //停止服务异常处理，回滚上次ack的位置
-        if(batchId != -1) {
+        if (batchId != -1) {
             connector.rollback(batchId);
         }
         if (thread != null) {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-               logger.error("MultiThreadCanalClient->stop() error",e);
+                logger.error("MultiThreadCanalClient->stop() error", e);
             }
         }
 
@@ -82,7 +82,7 @@ public class MultiThreadCanalClient {
 
     private void process() {
         int batchSize = 5 * 1024;
-       // long batchId = 0; // message batchId
+        // long batchId = 0; // message batchId
         while (running) {
             try {
                 MDC.put("destination", destination);
