@@ -1,5 +1,7 @@
 package com.wanjun.canalsync.service;
 
+import com.wanjun.canalsync.model.EsPage;
+
 import java.util.List;
 import java.util.Map;
 
@@ -157,4 +159,22 @@ public interface ElasticsearchService {
      * @return
      */
     List<Map<String, Object>> searchListData(String index, String type, long startTime, long endTime, Integer size, String fields, String sortField, boolean matchPhrase, String highlightField, String matchStr);
+
+    /**
+     * 使用分词查询,并分页
+     *
+     * @param index          索引名称
+     * @param type           类型名称,可传入多个type逗号分隔
+     * @param currentPage    当前页
+     * @param pageSize       每页显示条数
+     * @param startTime      开始时间
+     * @param endTime        结束时间
+     * @param fields         需要显示的字段，逗号分隔（缺省为全部字段）
+     * @param sortField      排序字段
+     * @param matchPhrase    true 使用，短语精准匹配
+     * @param highlightField 高亮字段
+     * @param matchStr       过滤条件（xxx=111,aaa=222）
+     * @return
+     */
+    public EsPage searchDataPage(String index, String type, int currentPage, int pageSize, long startTime, long endTime, String fields, String sortField, boolean matchPhrase, String highlightField, String matchStr);
 }

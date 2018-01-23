@@ -1,5 +1,6 @@
 package com.wanjun.canalsync;
 
+import com.wanjun.canalsync.model.EsPage;
 import com.wanjun.canalsync.service.ElasticsearchService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -53,12 +54,16 @@ public class ElasticSearchTest {
 
     @Test
     public void testSearchListData() {
-        List<Map<String, Object>> list = elasticsearchService.searchListData("wanjun", "emp", 1000, null, "gender=F");
-        List<Map<String, Object>> list1 = elasticsearchService.searchListData("wanjun", "emp", 1000, null, "gender=M");
-        List<Map<String, Object>> list2 = elasticsearchService.searchListData("wanjun", "emp", 100, null, null, false, "gender", "gender=M");
-        System.out.println("list = " + list);
-        System.out.println("list1 = " + list1);
-        System.out.println("list2 = " + list2);
+        //List<Map<String, Object>> list = elasticsearchService.searchListData("wanjun", "emp", 1000, null, "gender=M");
+        // List<Map<String, Object>> list1 = elasticsearchService.searchListData("wanjun", "emp", 1000, null, "gender=M");
+        // List<Map<String, Object>> list2 = elasticsearchService.searchListData("wanjun", "emp", 100, null, null, false, "gender", "gender=M");
+        EsPage esPage = elasticsearchService.searchDataPage("wanjun", "emp", 1, 100, 0, 0, null, null, false, "gender", "gender=M");
+        System.out.println("esPage = " + esPage);
+
+       // System.out.println("list = " + list);
+        /*System.out.println("list1 = " + list1);
+        System.out.println("list2 = " + list2);*/
+
     }
 
 }
