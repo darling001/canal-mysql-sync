@@ -1,6 +1,7 @@
 package com.wanjun.canalsync.util;
 
 import com.alibaba.otter.canal.protocol.CanalEntry;
+import com.google.common.collect.Maps;
 import com.wanjun.canalsync.annotation.Schema;
 import com.wanjun.canalsync.annotation.Table;
 import org.slf4j.LoggerFactory;
@@ -9,7 +10,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -23,9 +23,9 @@ public class SpringUtil implements ApplicationContextAware{
 
     private static ApplicationContext applicationContext = null;
     //库名和数据处理Bean映射Map
-    private static Map<String, Object> instanceMap = new HashMap<String, Object>();
+    private static Map<String, Object> instanceMap = Maps.newHashMap();
     //路劲和数据处理Method映射Map
-    private static Map<String, Method> handlerMap = new HashMap<String, Method>();
+    private static Map<String, Method> handlerMap = Maps.newHashMap();
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) {

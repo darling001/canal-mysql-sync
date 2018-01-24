@@ -1,5 +1,6 @@
 package com.wanjun.canalsync;
 
+import com.wanjun.canalsync.model.AggregationModel;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.junit.Test;
@@ -13,6 +14,11 @@ import java.util.concurrent.*;
  * @date 2018-01-19
  */
 public class CommonTest {
+    @Test
+    public void testLombok() {
+        AggregationModel aggregationModel = new AggregationModel();
+        System.out.println(aggregationModel.getDatabaseName());
+    }
 
     @Test
     public void testCommon() throws Exception {

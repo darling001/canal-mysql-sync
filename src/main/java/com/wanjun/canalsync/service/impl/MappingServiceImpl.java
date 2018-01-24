@@ -69,6 +69,8 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
             dbEsBiMapping.put(new DatabaseTableModel(keyStrings[0], keyStrings[1]), new IndexTypeModel(valueStrings[0], valueStrings[1]));
         });
 
+
+
         mysqlTypeElasticsearchTypeMapping = Maps.newHashMap();
         mysqlTypeElasticsearchTypeMapping.put("char", data -> data);
         mysqlTypeElasticsearchTypeMapping.put("text", data -> data);
