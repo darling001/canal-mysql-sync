@@ -46,7 +46,7 @@ public class RedisServiceImplTest {
     }
 
     @Test
-    public void deleteIndex() {
+    public void testDelHasKey() {
         boolean wanjun = elasticsearchService.deleteIndex("wanjun");
         System.out.println("wanjun = " + wanjun);
     }

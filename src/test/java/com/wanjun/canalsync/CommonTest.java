@@ -1,11 +1,17 @@
 package com.wanjun.canalsync;
 
+import com.google.common.collect.ArrayListMultimap;
 import com.wanjun.canalsync.model.AggregationModel;
+import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Map;
 import java.util.concurrent.*;
 
 /**
@@ -14,6 +20,26 @@ import java.util.concurrent.*;
  * @date 2018-01-19
  */
 public class CommonTest {
+    @Test
+    public void testIdentifiedMap() {
+        ArrayListMultimap<String,String> multiMap=ArrayListMultimap.create();
+        multiMap.put("Foo","1");
+        multiMap.put("boo","2");
+        multiMap.put("coo","4");
+        multiMap.put("coo","3");
+        Map<String, Collection<String>> stringCollectionMap = multiMap.asMap();
+        System.out.println(multiMap);
+
+    }
+
+    @Test
+    public void testFile() throws IOException {
+        String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+        System.out.println("path = " + path);
+        FileUtils.touch(new File(path + "c.txt"));
+    }
+
+
     @Test
     public void testLombok() {
         AggregationModel aggregationModel = new AggregationModel();

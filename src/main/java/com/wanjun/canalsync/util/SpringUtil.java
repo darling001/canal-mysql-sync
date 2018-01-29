@@ -4,6 +4,7 @@ import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.google.common.collect.Maps;
 import com.wanjun.canalsync.annotation.Schema;
 import com.wanjun.canalsync.annotation.Table;
+import com.wanjun.canalsync.model.AggregationModel;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -84,7 +85,7 @@ public class SpringUtil implements ApplicationContextAware{
         }
     }
 
-    public static void doEvent(String path, Map obj) throws Exception {
+    public static void doEvent(String path, Map obj, AggregationModel aggregationModel) throws Exception {
         String[] pathArray = path.split("/");
         if (pathArray.length != 4) {
             logger.info("path 格式不正确: {}", path);
@@ -99,7 +100,7 @@ public class SpringUtil implements ApplicationContextAware{
         try {
             long begin = System.currentTimeMillis();
             logger.info("integrate data: {} , {}", path, obj);
-            method.invoke(schema, new Object[]{obj});
+            method.invoke(schema, new Object[]{obj,aggregationModel});
             logger.info("integrate data consume: {}ms ", System.currentTimeMillis() - begin);
         } catch (Exception e) {
             logger.error("调用聚合逻辑异常", e);

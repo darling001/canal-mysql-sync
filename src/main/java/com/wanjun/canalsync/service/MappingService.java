@@ -1,5 +1,6 @@
 package com.wanjun.canalsync.service;
 
+import com.wanjun.canalsync.model.AggregationModel;
 import com.wanjun.canalsync.model.DatabaseTableModel;
 import com.wanjun.canalsync.model.IndexTypeModel;
 
@@ -20,6 +21,15 @@ public interface MappingService {
      * @return Elasticsearch
      */
     IndexTypeModel getIndexType(DatabaseTableModel databaseTableModel);
+
+    /**
+     * 通过database和table,获取对应的聚合信息，包含index和type
+     * @param databaseTableModel
+     * @return
+     */
+    AggregationModel getAggregationMapping(DatabaseTableModel databaseTableModel);
+
+
 
     /**
      * 通过index和type，获取与之对应的database和table

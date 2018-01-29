@@ -31,7 +31,7 @@ public class ElasticSearchTest {
 
     @Test
     public void testDeleteIndex() {
-        boolean result = elasticsearchService.deleteIndex("test");
+        boolean result = elasticsearchService.deleteIndex("wanjun");
         Assert.assertTrue(result);
     }
 

@@ -4,10 +4,10 @@ import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.CanalEntry.Column;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowData;
 import com.wanjun.canalsync.event.DeleteCanalEvent;
+import com.wanjun.canalsync.model.AggregationModel;
 import com.wanjun.canalsync.service.ElasticsearchService;
 import com.wanjun.canalsync.service.MappingService;
 import com.wanjun.canalsync.service.RedisService;
-import com.wanjun.canalsync.util.JSONUtil;
 import com.wanjun.canalsync.util.SpringUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -37,7 +37,7 @@ public class DeleteCanalListener extends AbstractCanalListener<DeleteCanalEvent>
     private RedisService redisService;
 
     @Override
-    protected void doSync(String database, String table, String index, String type, RowData rowData) {
+    protected void doSync(String database, String table, String index, String type, RowData rowData, AggregationModel aggregationModel) {
         List<Column> columns = rowData.getBeforeColumnsList();
         String primaryKey = Optional.ofNullable(mappingService.getTablePrimaryKeyMap().get(database + "." + table)).orElse("id");
         Column idColumn = columns.stream().filter(column ->  primaryKey.equals(column.getName())).findFirst().orElse(null);
@@ -59,7 +59,7 @@ public class DeleteCanalListener extends AbstractCanalListener<DeleteCanalEvent>
         logger.debug("聚合数据,database=" + database +",table=" + table);
         String path = getPath(database,table, CanalEntry.EventType.DELETE.getNumber());
         try {
-            SpringUtil.doEvent(path,dataMap);
+            SpringUtil.doEvent(path,dataMap,aggregationModel);
         } catch (Exception e) {
             throw new RuntimeException(e.getCause());
         }

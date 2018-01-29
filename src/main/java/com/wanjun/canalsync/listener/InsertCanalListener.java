@@ -4,6 +4,7 @@ import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.CanalEntry.Column;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowData;
 import com.wanjun.canalsync.event.InsertCanalEvent;
+import com.wanjun.canalsync.model.AggregationModel;
 import com.wanjun.canalsync.service.ElasticsearchService;
 import com.wanjun.canalsync.service.MappingService;
 import com.wanjun.canalsync.service.RedisService;
@@ -38,7 +39,7 @@ public class InsertCanalListener extends AbstractCanalListener<InsertCanalEvent>
     private RedisService redisService;
 
     @Override
-    protected void doSync(String database, String table, String index, String type, RowData rowData) {
+    protected void doSync(String database, String table, String index, String type, RowData rowData, AggregationModel aggregationModel) {
         List<Column> columns = rowData.getAfterColumnsList();
        /* columns.forEach(column -> {
             logger.error(column.getName() + "," + column.getIsKey());
@@ -65,7 +66,7 @@ public class InsertCanalListener extends AbstractCanalListener<InsertCanalEvent>
         logger.debug("聚合数据,database=" + database +",table=" + table);
         String path = getPath(database,table, CanalEntry.EventType.INSERT.getNumber());
         try {
-            SpringUtil.doEvent(path,dataMap);
+            SpringUtil.doEvent(path,dataMap,aggregationModel);
         } catch (Exception e) {
            throw new RuntimeException(e.getCause());
         }

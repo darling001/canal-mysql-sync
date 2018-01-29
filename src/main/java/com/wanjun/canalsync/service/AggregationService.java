@@ -1,5 +1,7 @@
 package com.wanjun.canalsync.service;
 
+import com.wanjun.canalsync.model.AggregationModel;
+
 import java.util.Map;
 
 /**
@@ -14,14 +16,14 @@ public interface AggregationService {
      *
      * @param map
      */
-    public Integer saveByEmp(Map<String, Object> map);
+    public void saveByEmp(Map<String, Object> map, AggregationModel aggregationModel);
 
     /**
      * 通过Emp更新聚合表数据
      *
      * @param map
      */
-    public Long updateByEmp(Map<String, Object> map);
+    public void updateByEmp(Map<String, Object> map,AggregationModel aggregationModel);
 
     /**
      * 通过Emp删除聚合表数据
@@ -29,7 +31,7 @@ public interface AggregationService {
      * @param map
      * @return
      */
-    public Long deleteByEmp(Map<String, Object> map);
+    public void deleteByEmp(Map<String, Object> map,AggregationModel aggregationModel);
 
     /**
      * 通过Dept更新聚合表数据
@@ -37,13 +39,13 @@ public interface AggregationService {
      * @param map
      * @return
      */
-    public Long updateByDept(Map<String, Object> map);
+    public void updateByDept(Map<String, Object> map,AggregationModel aggregationModel);
 
     /**
      * 通過Dept删除聚合表数据
      * @param map
      * @return
      */
-    public Long deleteByDept(Map<String, Object> map);
+    public void deleteByDept(Map<String, Object> map,AggregationModel aggregationModel);
 
 }
