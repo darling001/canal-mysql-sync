@@ -40,6 +40,7 @@ public class UpdateCanalListener extends AbstractCanalListener<UpdateCanalEvent>
 
     @Override
     protected void doSync(String database, String table, String index, String type, RowData rowData, AggregationModel aggregationModel) {
+        int i = 5/ 0 ;
         List<Column> columns = rowData.getAfterColumnsList();
         String primaryKey = Optional.ofNullable(mappingService.getTablePrimaryKeyMap().get(database + "." + table)).orElse("id");
         Column idColumn = columns.stream().filter(column -> primaryKey.equals(column.getName())).findFirst().orElse(null);

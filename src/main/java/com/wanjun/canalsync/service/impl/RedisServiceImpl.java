@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0
  * @date 2018-01-19
  */
-@Service
+@Service("redisService")
 public class RedisServiceImpl implements RedisService {
     private static final Logger logger = LoggerFactory.getLogger(RedisServiceImpl.class);
     @Autowired
@@ -710,6 +710,7 @@ public class RedisServiceImpl implements RedisService {
         }
     }
 
+
     // ===============================list=================================
 
     /**
@@ -975,6 +976,21 @@ public class RedisServiceImpl implements RedisService {
             //return 0;
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public long lpush(String key, Object value) {
+        return 0;
+    }
+
+    @Override
+    public long rpush(String key, Object value) {
+        return 0;
+    }
+
+    @Override
+    public String lpop(String key) {
+        return null;
     }
 
     // ===============================有序集合=================================

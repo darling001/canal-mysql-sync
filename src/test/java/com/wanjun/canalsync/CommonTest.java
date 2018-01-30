@@ -31,6 +31,11 @@ public class CommonTest {
         System.out.println(multiMap);
 
     }
+    @Test
+    public void testPath() {
+        String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+        System.out.println("path = " + path);
+    }
 
     @Test
     public void testFile() throws IOException {

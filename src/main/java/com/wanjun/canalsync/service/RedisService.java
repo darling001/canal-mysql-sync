@@ -406,6 +406,15 @@ public interface RedisService {
      */
 
     public long lRemove( String key, long count, Object value) ;
+
+
+    public long lpush(final String key,Object value);
+
+    public long rpush(final String key,Object value);
+
+    public String lpop(final String key);
+
+
     // ===============================有序集合=================================
 
     /**

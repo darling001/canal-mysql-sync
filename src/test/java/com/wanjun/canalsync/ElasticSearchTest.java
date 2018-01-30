@@ -1,5 +1,7 @@
 package com.wanjun.canalsync;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.wanjun.canalsync.model.EsPage;
 import com.wanjun.canalsync.service.ElasticsearchService;
 import org.junit.Assert;
@@ -22,6 +24,25 @@ import java.util.Map;
 public class ElasticSearchTest {
     @Resource
     private ElasticsearchService elasticsearchService;
+    @Test
+    public void testInsertById() {
+        Map<String,Object> map  = Maps.newHashMap();
+        map.put("id",1);
+        map.put("goodName","无人机");
+        map.put("price",10);
+        map.put("brandName","大疆");
+        Map<String,Object> properties1 = Maps.newHashMap();
+        properties1.put("id",1);
+        properties1.put("name","属性1");
+        Map<String,Object> properties2 = Maps.newHashMap();
+        properties2.put("id",2);
+        properties2.put("name","属性2");
+        List<Map<String,Object>> list  = Lists.newArrayList();
+        list.add(properties1);
+        list.add(properties2);
+        map.put("properties",list);
+        elasticsearchService.insertById("test","test","10",map);
+    }
 
     @Test
     public void testCreateIndex() {
@@ -39,6 +60,11 @@ public class ElasticSearchTest {
     public void isIndexExist() {
         boolean result = elasticsearchService.isIndexExist("test");
         Assert.assertTrue(result);
+    }
+    @Test
+    public void testSearchData() {
+        Map<String, Object> stringObjectMap = elasticsearchService.searchDataById("test", "test", String.valueOf(10), null);
+        System.out.println(stringObjectMap);
     }
 
     @Test
