@@ -6,12 +6,18 @@ import com.alibaba.otter.canal.protocol.Message;
 import com.wanjun.canalsync.event.DeleteCanalEvent;
 import com.wanjun.canalsync.event.InsertCanalEvent;
 import com.wanjun.canalsync.event.UpdateCanalEvent;
+import com.wanjun.canalsync.queue.KMQueueManager;
+import com.wanjun.canalsync.queue.Task;
+import com.wanjun.canalsync.queue.TaskQueue;
+import com.wanjun.canalsync.queue.config.Constant;
 import com.wanjun.canalsync.service.RedisService;
 import com.wanjun.canalsync.service.impl.RedisServiceImpl;
+import com.wanjun.canalsync.util.JSONUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -42,13 +48,14 @@ public class MultiThreadCanalClient {
 
     private String destination;
     private ApplicationContext applicationContext;
-    private RedisService redisService;
+    private TaskQueue taskQueue = null;
 
-    public MultiThreadCanalClient(String destination, CanalConnector connector, ApplicationContext applicationContext) {
+
+    public MultiThreadCanalClient(String destination, CanalConnector connector, ApplicationContext applicationContext,TaskQueue taskQueue) {
         this.destination = destination;
         this.connector = connector;
         this.applicationContext = applicationContext;
-        this.redisService = applicationContext.getBean(RedisService.class);
+        this.taskQueue = taskQueue;
     }
 
     public void start() {
@@ -94,7 +101,7 @@ public class MultiThreadCanalClient {
                 connector.subscribe();
                 // 回滚寻找上次中断的位置
                 connector.rollback();
-
+                CanalEntry.Entry taskEntry = null;
                 while (running) {
                     try {
                         Message message = connector.getWithoutAck(batchSize);//获取指定数量的数据
@@ -103,22 +110,24 @@ public class MultiThreadCanalClient {
                         int size = entries.size();
                         if (batchId != -1 && size > 0) {
                             logger.info(canal_get, batchId, size);
-                            entries.forEach(entry -> {
+                            for (CanalEntry.Entry entry : entries) {
                                 if (entry.getEntryType().equals(CanalEntry.EntryType.ROWDATA)) {
+                                    taskEntry = entry;
                                     publishCanalEvent(entry);
                                 }
-                            });
-
+                            }
                             logger.info(canal_ack, batchId);
                         }
 
                         connector.ack(batchId);//提交确认
-                    }catch(Exception e) {
+                    } catch (Exception e) {
                         logger.error("发送监听事件失败！batchId回滚,batchId=" + batchId, e);
                         //异常处理存储到Redis队列中 ，后续使用异步任务处理
-                        // TODO
+                        String data = JSONUtil.toJson(taskEntry);
+                        Task task = new Task(taskQueue.getName(), null, true, "", data, new Task.TaskStatus());
+                        //将任务加入队列
+                        Task rs = taskQueue.pushTask(task);
                         connector.ack(batchId);//提交确认
-
                     }
                 }
             } catch (Exception e) {

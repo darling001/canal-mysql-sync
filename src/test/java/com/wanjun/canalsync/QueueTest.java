@@ -32,14 +32,14 @@ public class QueueTest {
 
     @Test
     public void pushTaskTest() {
-        KMQueueManager kmQueueManager = new KMQueueManager.Builder(redisTemplate,"worker1_queue","worker2_queue:safe")
+        KMQueueManager kmQueueManager = new KMQueueManager.Builder(redisTemplate,"worker2_queue:safe")
                 .setAliveTimeout(Constant.ALIVE_TIMEOUT)
                 .build();
         //初始化隊列
         kmQueueManager.init();
 
         // 1.获取队列
-        TaskQueue taskQueue = kmQueueManager.getTaskQueue("worker1_queue");
+        TaskQueue taskQueue = kmQueueManager.getTaskQueue("worker2_queue");
         // 2.创建任务
         JSONObject ob = new JSONObject();
         ob.put("data", "mail proxy task");
@@ -55,13 +55,13 @@ public class QueueTest {
 
     @Test
     public void popTaskTest() {
-        KMQueueManager kmQueueManager = new KMQueueManager.Builder(redisTemplate,"worker1_queue","worker2_queue:safe")
+        KMQueueManager kmQueueManager = new KMQueueManager.Builder(redisTemplate,"worker2_queue:safe")
                 .setAliveTimeout(Constant.ALIVE_TIMEOUT)
                 .build();
         //初始化隊列
         kmQueueManager.init();
         // 1.获取队列
-        TaskQueue taskQueue = kmQueueManager.getTaskQueue("worker1_queue");
+        TaskQueue taskQueue = kmQueueManager.getTaskQueue("worker2_queue");
         // 2.获取任务
         Task task = taskQueue.popTask();
         // 业务处理放到TaskConsumersHandler里

@@ -28,7 +28,7 @@ public class Constant {
      * <p>
      * 该值只针对安全队列起作用
      */
-    @Deprecated
+   // @Deprecated
     public static final long ALIVE_TIMEOUT = 10 * 60 * 1000;
 
     /**
@@ -38,12 +38,12 @@ public class Constant {
      * <p>
      * TODO 后续会加入心跳健康检测
      */
-    @Deprecated
+    //@Deprecated
     public static final long PROTECTED_TIMEOUT = 3 * 60 * 1000;
 
     /**
      * 任务重试次数
      */
-    @Deprecated
+    //@Deprecated
     public static final int RETRY_TIMES = 3;
 }

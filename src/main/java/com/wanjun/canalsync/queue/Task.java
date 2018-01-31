@@ -236,6 +236,7 @@ public class Task implements Serializable {
                 handleTask(clazz, params);
             } catch (Throwable e) {
                 e.printStackTrace();
+                return ;
             }
             // 任务执行完成，删除备份队列的相应任务
             taskQueue.finishTask(this);

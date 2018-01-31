@@ -21,7 +21,7 @@ public class KMQUtils {
      * @param queues 备份队列所对应的任务队列
      * @return 备份队列的名称
      */
-    public static String genBackUpQueueName(String ...queues) {
+    public static String genBackUpQueueName(String... queues) {
         // 生成备份队列名称
         try {
             MessageDigest md5Digest = MessageDigest.getInstance("MD5");

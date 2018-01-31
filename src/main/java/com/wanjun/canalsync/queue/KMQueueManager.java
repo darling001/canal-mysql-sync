@@ -18,6 +18,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author wangchengli
  * @version 1.0
  * @date 2018-01-30
+ * <p>
+ * 队列管理器
  */
 public class KMQueueManager extends KMQueueAdapter {
 
@@ -58,7 +60,6 @@ public class KMQueueManager extends KMQueueAdapter {
         }
         return null;
     }
-
 
 
     /**
@@ -126,7 +127,7 @@ public class KMQueueManager extends KMQueueAdapter {
         /**
          * redis连接
          */
-        private RedisTemplate<String,String> redisTemplate = null;
+        private RedisTemplate<String, String> redisTemplate = null;
 
         /**
          * 待创建的队列的名称集合
@@ -143,16 +144,16 @@ public class KMQueueManager extends KMQueueAdapter {
          */
         private long aliveTimeout;
 
-        public Builder(RedisTemplate<String,String> redisTemplate,String ... queues) {
-            Assert.notNull(redisTemplate,"redisTemplate can't null");
+        public Builder(RedisTemplate<String, String> redisTemplate, String... queues) {
+            Assert.notNull(redisTemplate, "redisTemplate can't null");
             this.aliveTimeout = Long.MAX_VALUE;
             this.redisTemplate = redisTemplate;
             this.queues = Arrays.asList(queues);
         }
 
         public Builder setAliveTimeout(long aliveTimeout) {
-            Assert.greaterThanEquals(aliveTimeout,0,"Param aliveTimeout is negative");
-            if(aliveTimeout == 0) {
+            Assert.greaterThanEquals(aliveTimeout, 0, "Param aliveTimeout is negative");
+            if (aliveTimeout == 0) {
                 aliveTimeout = Long.MAX_VALUE;
             }
             this.aliveTimeout = aliveTimeout;
@@ -166,7 +167,6 @@ public class KMQueueManager extends KMQueueAdapter {
             queueManager.aliveTimeout = this.aliveTimeout;
             return queueManager;
         }
-
 
 
     }

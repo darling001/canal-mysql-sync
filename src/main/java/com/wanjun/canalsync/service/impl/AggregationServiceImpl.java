@@ -37,11 +37,14 @@ public class AggregationServiceImpl implements AggregationService {
         List<String> slaveTableNameList = aggregationModel.getSlaveTableNameList();
         List<String> fkColumnList = aggregationModel.getFkColumnList();
         for (int i = 0; i < fkColumnList.size(); i++) {
-            Map<String, Object> result = baseDao.selectByPK(slavePKColumnList.get(i),
-                    map.get(fkColumnList.get(i)), aggregationModel.getDatabaseName(), slaveTableNameList.get(i));
+            Object fkValue  = map.get(fkColumnList.get(i));
+            if(fkValue != null) {
+                Map<String, Object> result = baseDao.selectByPK(slavePKColumnList.get(i),
+                        map.get(fkColumnList.get(i)), aggregationModel.getDatabaseName(), slaveTableNameList.get(i));
 
-            result.remove(slavePKColumnList.get(i));
-            map.putAll(result);
+                result.remove(slavePKColumnList.get(i));
+                map.putAll(result);
+            }
 
         }
         //防止主表主键和聚合表主键名不一致的情况，直接进行替换
@@ -57,13 +60,16 @@ public class AggregationServiceImpl implements AggregationService {
         List<String> slaveTableNameList = aggregationModel.getSlaveTableNameList();
         List<String> fkColumnList = aggregationModel.getFkColumnList();
         for (int i = 0; i < fkColumnList.size(); i++) {
-            Map<String, Object> result = baseDao.selectByPK(slavePKColumnList.get(i),
-                    map.get(fkColumnList.get(i)), aggregationModel.getDatabaseName(), slaveTableNameList.get(i));
-            result.remove(slavePKColumnList.get(i));
-            map.putAll(result);
+            Object fkValue  = map.get(fkColumnList.get(i));
+            if(fkValue != null) {
+                Map<String, Object> result = baseDao.selectByPK(slavePKColumnList.get(i),
+                        map.get(fkColumnList.get(i)), aggregationModel.getDatabaseName(), slaveTableNameList.get(i));
+                result.remove(slavePKColumnList.get(i));
+                map.putAll(result);
+            }
         }
         //防止主表主键和聚合表主键名不一致的情况，直接进行替换
-        map.put(aggregationModel.getMainPKColumn(), map.remove(aggregationModel.getMainPKColumn()));
+        map.put(aggregationModel.getAggregationPKColumn(), map.remove(aggregationModel.getMainPKColumn()));
 
         baseDao.updateByMap(aggregationModel.getDatabaseName(), aggregationModel.getAggregationTableName(),
                 map, aggregationModel.getAggregationPKColumn(), map.get(aggregationModel.getAggregationPKColumn()));

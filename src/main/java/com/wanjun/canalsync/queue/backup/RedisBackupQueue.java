@@ -105,7 +105,7 @@ public class RedisBackupQueue extends BackupQueue {
         RedisTemplate<String, String> redisTemplate = null;
         try {
             redisTemplate = kmQueueAdapter.getResource();
-            String taskJson = JSON.toJSONString(task);
+            String taskJson = JSONUtil.toJson(task);
 
             // 删除备份队列中的任务
             redisTemplate.opsForList().remove(this.name, 0, taskJson);

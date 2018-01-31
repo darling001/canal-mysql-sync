@@ -141,7 +141,7 @@ public class RedisTaskQueue extends TaskQueue {
                 if (intervalTimeMillis <= kmQueueAdapter.getAliveTimeout()) {// 如果大于存活超时时间，则不再执行
                     // 3.更新任务的执行时间戳，放入备份队列的队首；
                     task.getTaskStatus().setExcTimestamp(System.currentTimeMillis());// 更新任务的执行时间戳
-                    redisTemplate.opsForList().leftPush(kmQueueAdapter.getBackUpQueueName(), JSON.toJSONString(task));
+                    redisTemplate.opsForList().leftPush(kmQueueAdapter.getBackUpQueueName(), JSONUtil.toJson(task));
                 }
             } else if (KMQueueManager.DEFAULT.equals(getMode())) {// 简单队列
                 String result = redisTemplate.opsForList().rightPop(getName(), 0, TimeUnit.SECONDS);
