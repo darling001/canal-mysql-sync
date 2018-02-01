@@ -1,7 +1,6 @@
 package com.wanjun.canalsync.service.impl;
 
 import com.alibaba.otter.canal.protocol.CanalEntry;
-import com.google.common.base.VerifyException;
 import com.wanjun.canalsync.annotation.Schema;
 import com.wanjun.canalsync.annotation.Table;
 import com.wanjun.canalsync.dao.BaseDao;

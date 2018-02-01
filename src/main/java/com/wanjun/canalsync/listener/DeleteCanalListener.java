@@ -10,7 +10,6 @@ import com.wanjun.canalsync.service.MappingService;
 import com.wanjun.canalsync.service.RedisService;
 import com.wanjun.canalsync.util.SpringUtil;
 import org.apache.commons.lang.StringUtils;
-import org.apache.lucene.queries.function.valuesource.IDFValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
