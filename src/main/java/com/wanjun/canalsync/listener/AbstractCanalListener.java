@@ -122,6 +122,17 @@ public abstract class AbstractCanalListener<EVENT extends CanalEvent> implements
         return taskQueue;
     }
 
+    /**
+     * 添加Redis队列任务
+     * @param database
+     * @param table
+     * @param index
+     * @param type
+     * @param aggregationModel
+     * @param dataMap
+     * @param idValue
+     * @param eventType
+     */
     protected void pushTask(String database, String table, String index, String type, AggregationModel aggregationModel, Map<String, Object> dataMap, String idValue, int eventType) {
         CanalRowData canalRowData = new CanalRowData(database, table, index, type, dataMap, idValue, aggregationModel, eventType);
         TaskQueue taskQueue = getTaskQueue();

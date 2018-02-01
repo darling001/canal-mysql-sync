@@ -13,22 +13,19 @@ public class TaskExecutorThread extends Thread {
     private static final Logger logger = LoggerFactory.getLogger(TaskExecutorThread.class);
 
     private KMQueueManager kmQueueManager;
-    private TaskQueue taskQueue = null;
+    private TaskQueue taskQueue;
 
     private volatile boolean running = true;
 
-    public TaskExecutorThread() {
 
-    }
-
-    public TaskExecutorThread(KMQueueManager kmQueueManager,TaskQueue taskQueue) {
+    public TaskExecutorThread(KMQueueManager kmQueueManager, TaskQueue taskQueue) {
         this.kmQueueManager = kmQueueManager;
         this.taskQueue = taskQueue;
     }
 
     @Override
     public void run() {
-        logger.info("Task执行器运行中,队列名称:{}",taskQueue.getName());
+        logger.info("Task执行器运行中,队列名称:{}", taskQueue.getName());
         while (running) {
             Task task = taskQueue.popTask();
             // 业务处理放到TaskHandler里
