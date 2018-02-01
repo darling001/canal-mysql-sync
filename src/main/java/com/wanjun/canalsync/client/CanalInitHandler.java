@@ -72,6 +72,7 @@ public class CanalInitHandler implements ApplicationContextAware {
                         canalClient.stop();
                     }
                     logger.info("## stop the task executor thread");
+                    taskExecutorThread.stopExe();
                 } catch (Throwable e) {
                     logger.warn("##something goes wrong when stopping canal:", e);
                 } finally {
