@@ -11,6 +11,6 @@ public interface TaskHandler {
      * @param data   task任务数据
      * @param params 业务自定义参数
      */
-    void handle(String data, Object... params);
+    void handle(String data, Object... params) throws Throwable;
 
 }

@@ -236,13 +236,19 @@ public class Task implements Serializable {
                 handleTask(clazz, params);
             } catch (Throwable e) {
                 e.printStackTrace();
-                return ;
+                return; //任务失败直接返回，不删除备份队列中的任务
             }
-            // 任务执行完成，删除备份队列的相应任务
-            taskQueue.finishTask(this);
+
         } else {// 普通队列
-            handleTask(clazz);
+            try {
+                handleTask(clazz);
+            }catch(Throwable e) {
+                e.printStackTrace();
+                return;
+            }
         }
+        // 任务执行完成，删除备份队列的相应任务
+        taskQueue.finishTask(this);
     }
 
     /**
@@ -250,12 +256,9 @@ public class Task implements Serializable {
      *
      * @param clazz 任务执行器
      */
-    private void handleTask(Class clazz, Object... params) {
-        try {
-            TaskHandler handler = (TaskHandler) clazz.newInstance();
-            handler.handle(this.data, params);
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
+    private void handleTask(Class clazz, Object... params) throws  Throwable {
+        TaskHandler handler = (TaskHandler) clazz.newInstance();
+        handler.handle(this.data, params);
+
     }
 }

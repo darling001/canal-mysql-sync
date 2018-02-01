@@ -5,6 +5,9 @@ import com.alibaba.otter.canal.protocol.CanalEntry.Column;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowData;
 import com.wanjun.canalsync.event.UpdateCanalEvent;
 import com.wanjun.canalsync.model.AggregationModel;
+import com.wanjun.canalsync.model.CanalRowData;
+import com.wanjun.canalsync.queue.Task;
+import com.wanjun.canalsync.queue.TaskQueue;
 import com.wanjun.canalsync.service.ElasticsearchService;
 import com.wanjun.canalsync.service.MappingService;
 import com.wanjun.canalsync.service.RedisService;
@@ -40,7 +43,6 @@ public class UpdateCanalListener extends AbstractCanalListener<UpdateCanalEvent>
 
     @Override
     protected void doSync(String database, String table, String index, String type, RowData rowData, AggregationModel aggregationModel) {
-        int i = 5/0;
         List<Column> columns = rowData.getAfterColumnsList();
         String primaryKey = Optional.ofNullable(mappingService.getTablePrimaryKeyMap().get(database + "." + table)).orElse("id");
         Column idColumn = columns.stream().filter(column -> primaryKey.equals(column.getName())).findFirst().orElse(null);
@@ -48,23 +50,30 @@ public class UpdateCanalListener extends AbstractCanalListener<UpdateCanalEvent>
             logger.warn("update_column_find_null_warn update从column中找不到主键,database=" + database + ",table=" + table);
             return;
         }
-        logger.debug("update_column_id_info update主键id,database=" + database + ",table=" + table + ",id=" + idColumn.getValue());
         Map<String, Object> dataMap = parseColumnsToMap(columns);
-        elasticsearchService.update(index, type, idColumn.getValue(), dataMap);
+        String idValue = idColumn.getValue();
+        try {
+            sync(database, table, index, type, aggregationModel, dataMap, idValue);
+        } catch (Exception e) {
+            pushTask(database, table, index, type, aggregationModel, dataMap, idValue,CanalEntry.EventType.UPDATE_VALUE);
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void sync(String database, String table, String index, String type, AggregationModel aggregationModel, Map<String, Object> dataMap, String idValue) throws Exception {
+        int i = 5 /0 ;
+        logger.debug("update_column_id_info update主键id,database=" + database + ",table=" + table + ",id=" + idValue);
+        elasticsearchService.update(index, type, idValue, dataMap);
         logger.debug("update_es_info 同步es插入操作成功！database=" + database + ",table=" + table + ",data=" + dataMap);
         String redisKey = getMappingKey(database, table);
-        redisService.hset(redisKey, idColumn.getValue(), dataMap);
+        redisService.hset(redisKey, idValue, dataMap);
         logger.debug("insert_redis_info 同步redis更新操作成功! database=" + database + ",table=" + table + ",data=" + JSONUtil.toJson(dataMap));
 
         //更新聚合数据
-        logger.debug("聚合数据,database=" + database +",table=" + table);
-        String path = getPath(database,table, CanalEntry.EventType.UPDATE.getNumber());
-        try {
-            SpringUtil.doEvent(path,dataMap,aggregationModel);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getCause());
-        }
-
+        logger.debug("聚合数据,database=" + database + ",table=" + table);
+        String path = getPath(database, table, CanalEntry.EventType.UPDATE.getNumber());
+        SpringUtil.doEvent(path, dataMap, aggregationModel);
 
     }
 }

@@ -34,21 +34,8 @@ public class CanalInitHandler implements ApplicationContextAware {
     private CanalProperties canalProperties;
     private ApplicationContext applicationContext;
 
-    private RedisTemplate<String, String> redisTemplate;
-    //Redis队列管理器,用于数据处理异常
-    private KMQueueManager kmQueueManager;
-    //队列
-    private TaskQueue taskQueue = null;
 
     public void initCanalStart() {
-        redisTemplate = applicationContext.getBean("redisTemplate", RedisTemplate.class);
-        kmQueueManager = new KMQueueManager.Builder(redisTemplate, "worker2_queue:safe")
-                .setAliveTimeout(Constant.ALIVE_TIMEOUT)
-                .build();
-        //初始化队列
-        kmQueueManager.init();
-        // 1.获取队列
-        taskQueue = kmQueueManager.getTaskQueue("worker2_queue");
 
         List<String> destinations = canalProperties.getDestinations();
         final List<MultiThreadCanalClient> canalClientList = Lists.newArrayList();
@@ -56,13 +43,11 @@ public class CanalInitHandler implements ApplicationContextAware {
             for (String destination : destinations) {
                 // 基于zookeeper动态获取canal server的地址，建立链接，其中一台server发生crash，可以支持failover
                 CanalConnector connector = CanalConnectors.newClusterConnector(canalProperties.getZkServers(), destination, "", "");
-                MultiThreadCanalClient client = new MultiThreadCanalClient(destination, connector, applicationContext, taskQueue);
+                MultiThreadCanalClient client = new MultiThreadCanalClient(destination, connector, applicationContext);
                 canalClientList.add(client);
                 client.start();
             }
         }
-        TaskExecutorThread taskExecutorThread = new TaskExecutorThread(kmQueueManager,taskQueue);
-        taskExecutorThread.start();
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
                 try {
@@ -71,13 +56,10 @@ public class CanalInitHandler implements ApplicationContextAware {
                     for (MultiThreadCanalClient canalClient : canalClientList) {
                         canalClient.stop();
                     }
-                    logger.info("## stop the task executor thread");
-                    taskExecutorThread.stopExe();
                 } catch (Throwable e) {
                     logger.warn("##something goes wrong when stopping canal:", e);
                 } finally {
                     logger.info("## canal client is down.");
-                    logger.info("## task executor thread is down.");
                 }
             }
 

@@ -19,7 +19,7 @@ import java.util.Map;
  * @date 2018-01-22
  */
 @Component
-public class SpringUtil implements ApplicationContextAware{
+public class SpringUtil implements ApplicationContextAware {
     private static org.slf4j.Logger logger = LoggerFactory.getLogger(SpringUtil.class);
 
     private static ApplicationContext applicationContext = null;
@@ -97,15 +97,11 @@ public class SpringUtil implements ApplicationContextAware{
         if (method == null || schema == null) {
             return;
         }
-        try {
-            long begin = System.currentTimeMillis();
-            logger.info("integrate data: {} , {}", path, obj);
-            method.invoke(schema, new Object[]{obj,aggregationModel});
-            logger.info("integrate data consume: {}ms ", System.currentTimeMillis() - begin);
-        } catch (Exception e) {
-            logger.error("调用聚合逻辑异常", e);
-            throw new Exception(e.getCause());
-        }
+        long begin = System.currentTimeMillis();
+        logger.info("integrate data: {} , {}", path, obj);
+        method.invoke(schema, new Object[]{obj, aggregationModel});
+        logger.info("integrate data consume: {}ms ", System.currentTimeMillis() - begin);
+
     }
 
     //获取applicationContext
