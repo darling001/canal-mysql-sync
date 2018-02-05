@@ -169,15 +169,11 @@ public class BackupQueueMonitor extends KMQueueAdapter {
                         if (pipeline != null) {
                             pipeline.process(taskQueue, task);// 彻底失败任务的处理
                         }
-                        // 删除备份队列中的该任务
-                        backupQueue.finishTask(originTask);
                     }
 
+                    // 删除备份队列中的该任务
+                    backupQueue.finishTask(originTask);
                 }
-
-                //执行任务
-                task.handleTask(EntryTaskHandler.class);
-
                 // 继续从备份队列中取出任务，进入下一次循环
                 task = backupQueue.popTask();
             }

@@ -3,6 +3,7 @@ package com.wanjun.canalsync;
 import com.google.common.collect.ArrayListMultimap;
 import com.wanjun.canalsync.model.AggregationModel;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.junit.Test;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.*;
 
 /**
@@ -20,6 +22,12 @@ import java.util.concurrent.*;
  * @date 2018-01-19
  */
 public class CommonTest {
+    @Test
+    public void testRandom() {
+        for(int i=0;i<10;i++) {
+            System.out.println(RandomUtils.nextInt(1,3));
+        }
+    }
     @Test
     public void testIdentifiedMap() {
         ArrayListMultimap<String,String> multiMap=ArrayListMultimap.create();

@@ -11,6 +11,7 @@ import com.wanjun.canalsync.service.RedisService;
 import com.wanjun.canalsync.util.JSONUtil;
 import com.wanjun.canalsync.util.SpringUtil;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 
 /**
  * @author wangchengli
@@ -59,6 +61,11 @@ public class UpdateCanalListener extends AbstractCanalListener<UpdateCanalEvent>
     }
 
     public void sync(String database, String table, String index, String type, AggregationModel aggregationModel, Map<String, Object> dataMap, String idValue) throws Exception {
+        //模拟同步出错，测试Redis异步任务处理
+        int rand = RandomUtils.nextInt(1, 3);
+        if (rand == 2) {
+            int result = rand / 0;
+        }
         logger.debug("update_column_id_info update主键id,database=" + database + ",table=" + table + ",id=" + idValue);
         elasticsearchService.update(index, type, idValue, dataMap);
         logger.debug("update_es_info 同步es插入操作成功！database=" + database + ",table=" + table + ",data=" + dataMap);
