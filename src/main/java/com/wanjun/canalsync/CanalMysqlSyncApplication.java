@@ -3,6 +3,7 @@ package com.wanjun.canalsync;
 import com.wanjun.canalsync.client.CanalInitHandler;
 import com.wanjun.canalsync.client.config.CanalProperties;
 import com.wanjun.canalsync.client.config.RedisProperties;
+import com.wanjun.canalsync.queue.config.TaskConfig;
 import com.wanjun.canalsync.util.SpringUtil;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@EnableConfigurationProperties({CanalProperties.class, RedisProperties.class})
+@EnableConfigurationProperties({CanalProperties.class, RedisProperties.class, TaskConfig.class})
 @EnableScheduling
 @EnableTransactionManagement
 @MapperScan("com.wanjun.canalsync.dao")

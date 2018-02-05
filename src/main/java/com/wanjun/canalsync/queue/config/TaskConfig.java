@@ -9,8 +9,18 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(prefix = "task")
 public class TaskConfig {
+    /**
+     * 所有队列字符串
+     */
+    private String queues;
+    /**
+     * 待使用队列名称
+     */
+    private String usedQueue;
 
-    // 用于队列任务唯一性标记，redis set key
+    /**
+     用于队列任务唯一性标记，redis set key
+      */
     private String uniqueSuffix;
     /**
      * 标记任务为正常执行状态
@@ -20,7 +30,7 @@ public class TaskConfig {
     /**
      * 标记任务为重试执行状态
      */
-    public String retry;
+    private String retry;
 
     /**
      * 任务的存活时间。单位：ms
@@ -29,7 +39,7 @@ public class TaskConfig {
      * <p>
      * 该值只针对安全队列起作用
      */
-    public long aliveTimeout;
+    private long aliveTimeout;
 
     /**
      * 任务执行的超时时间（一次执行）。单位：ms
@@ -38,12 +48,29 @@ public class TaskConfig {
      * <p>
      * TODO 后续会加入心跳健康检测
      */
-    public long protectedTimeout;
+    private long protectedTimeout;
 
     /**
      * 任务重试次数
      */
-    public int retryTime;
+    private int retryTimes;
+
+
+    public String getQueues() {
+        return queues;
+    }
+
+    public void setQueues(String queues) {
+        this.queues = queues;
+    }
+
+    public String getUsedQueue() {
+        return usedQueue;
+    }
+
+    public void setUsedQueue(String usedQueue) {
+        this.usedQueue = usedQueue;
+    }
 
     public String getUniqueSuffix() {
         return uniqueSuffix;
@@ -85,11 +112,11 @@ public class TaskConfig {
         this.protectedTimeout = protectedTimeout;
     }
 
-    public int getRetryTime() {
-        return retryTime;
+    public int getRetryTimes() {
+        return retryTimes;
     }
 
-    public void setRetryTime(int retryTime) {
-        this.retryTime = retryTime;
+    public void setRetryTimes(int retryTimes) {
+        this.retryTimes = retryTimes;
     }
 }
