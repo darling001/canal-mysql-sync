@@ -1,8 +1,12 @@
 package com.wanjun.canalsync.queue;
+
 import com.wanjun.canalsync.queue.config.TaskConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+
 import javax.annotation.PostConstruct;
 
 /**
@@ -12,6 +16,7 @@ import javax.annotation.PostConstruct;
  */
 @Component
 public class KMQueueManagerHanler {
+    private static final Logger logger = LoggerFactory.getLogger(KMQueueManagerHanler.class);
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
     @Autowired
@@ -21,7 +26,6 @@ public class KMQueueManagerHanler {
     private KMQueueManager kmQueueManager;
     //队列
     private TaskQueue taskQueue = null;
-
 
 
     @PostConstruct
@@ -34,8 +38,9 @@ public class KMQueueManagerHanler {
         // 1.获取队列
         taskQueue = kmQueueManager.getTaskQueue(taskConfig.getUsedQueue());
 
-        TaskExecutorThread taskExecutorThread = new TaskExecutorThread(kmQueueManager,taskQueue);
+        TaskExecutorThread taskExecutorThread = new TaskExecutorThread(kmQueueManager, taskQueue);
         taskExecutorThread.start();
+
     }
 
     public TaskQueue getTaskQueue() {
