@@ -256,7 +256,7 @@ public class Task implements Serializable {
      *
      * @param clazz 任务执行器
      */
-    private void handleTask(Class clazz, Object... params) throws  Throwable {
+    public void handleTask(Class clazz, Object... params) throws  Throwable {
         TaskHandler handler = (TaskHandler) clazz.newInstance();
         handler.handle(this.data, params);
 

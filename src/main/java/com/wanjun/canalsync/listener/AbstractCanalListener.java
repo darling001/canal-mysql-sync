@@ -5,24 +5,19 @@ import com.alibaba.otter.canal.protocol.CanalEntry.Entry;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowChange;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowData;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.wanjun.canalsync.queue.KMQueueManagerHanler;
 import com.wanjun.canalsync.event.CanalEvent;
 import com.wanjun.canalsync.model.AggregationModel;
 import com.wanjun.canalsync.model.CanalRowData;
 import com.wanjun.canalsync.model.DatabaseTableModel;
-import com.wanjun.canalsync.queue.KMQueueManager;
 import com.wanjun.canalsync.queue.Task;
-import com.wanjun.canalsync.queue.TaskExecutorThread;
 import com.wanjun.canalsync.queue.TaskQueue;
-import com.wanjun.canalsync.queue.config.Constant;
 import com.wanjun.canalsync.service.MappingService;
 import com.wanjun.canalsync.util.JSONUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
-import org.springframework.data.redis.core.RedisTemplate;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
@@ -39,29 +34,8 @@ public abstract class AbstractCanalListener<EVENT extends CanalEvent> implements
     @Resource
     private MappingService mappingService;
 
-    @Autowired
-    private RedisTemplate<String, String> redisTemplate;
-
-    //Redis队列管理器,用于数据处理异常
-    private KMQueueManager kmQueueManager;
-    //队列
-    private TaskQueue taskQueue = null;
-
-
-    @PostConstruct
-    public void init() {
-        kmQueueManager = new KMQueueManager.Builder(redisTemplate, "worker2_queue:safe")
-                .setAliveTimeout(Constant.ALIVE_TIMEOUT)
-                .build();
-        //初始化队列
-        kmQueueManager.init();
-        // 1.获取队列
-        taskQueue = kmQueueManager.getTaskQueue("worker2_queue");
-
-        TaskExecutorThread taskExecutorThread = new TaskExecutorThread(kmQueueManager,taskQueue);
-        taskExecutorThread.start();
-
-    }
+    @Resource
+    private KMQueueManagerHanler kmQueueManagerHanler;
 
     @Override
     public void onApplicationEvent(EVENT event) {
@@ -118,9 +92,7 @@ public abstract class AbstractCanalListener<EVENT extends CanalEvent> implements
 
     }
 
-    protected TaskQueue getTaskQueue() {
-        return taskQueue;
-    }
+
 
     /**
      * 添加Redis队列任务
@@ -135,7 +107,7 @@ public abstract class AbstractCanalListener<EVENT extends CanalEvent> implements
      */
     protected void pushTask(String database, String table, String index, String type, AggregationModel aggregationModel, Map<String, Object> dataMap, String idValue, int eventType) {
         CanalRowData canalRowData = new CanalRowData(database, table, index, type, dataMap, idValue, aggregationModel, eventType);
-        TaskQueue taskQueue = getTaskQueue();
+        TaskQueue taskQueue = kmQueueManagerHanler.getTaskQueue();
         String data = JSONUtil.toJson(canalRowData);
         Task task = new Task(taskQueue.getName(), null, true, "", data, new Task.TaskStatus());
         taskQueue.pushTask(task);

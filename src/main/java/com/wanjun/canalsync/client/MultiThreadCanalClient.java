@@ -92,26 +92,26 @@ public class MultiThreadCanalClient {
                 // 回滚寻找上次中断的位置
                 connector.rollback();
                 while (running) {
-                    try {
-                        Message message = connector.getWithoutAck(batchSize);//获取指定数量的数据
-                        batchId = message.getId();
-                        List<CanalEntry.Entry> entries = message.getEntries();
-                        int size = entries.size();
-                        if (batchId != -1 && size > 0) {
-                            logger.info(canal_get, batchId, size);
-                            for (CanalEntry.Entry entry : entries) {
-                                if (entry.getEntryType().equals(CanalEntry.EntryType.ROWDATA)) {
+
+                    Message message = connector.getWithoutAck(batchSize);//获取指定数量的数据
+                    batchId = message.getId();
+                    List<CanalEntry.Entry> entries = message.getEntries();
+                    int size = entries.size();
+                    if (batchId != -1 && size > 0) {
+                        logger.info(canal_get, batchId, size);
+                        for (CanalEntry.Entry entry : entries) {
+                            if (entry.getEntryType().equals(CanalEntry.EntryType.ROWDATA)) {
+                                try {
                                     publishCanalEvent(entry);
+                                } catch (Exception e) {
+                                    logger.error("发送监听事件失败！batchId回滚,batchId=" + batchId, e);
                                 }
                             }
-                            logger.info(canal_ack, batchId);
                         }
-
-                        connector.ack(batchId);//提交确认
-                    } catch (Exception e) {
-                        logger.error("发送监听事件失败！batchId回滚,batchId=" + batchId, e);
-                        connector.ack(batchId);//提交确认
+                        logger.info(canal_ack, batchId);
                     }
+
+                    connector.ack(batchId);//提交确认
                 }
             } catch (Exception e) {
                 logger.error("Canal Client Thread error", e);

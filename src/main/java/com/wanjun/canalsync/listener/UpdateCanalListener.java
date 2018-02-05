@@ -52,13 +52,14 @@ public class UpdateCanalListener extends AbstractCanalListener<UpdateCanalEvent>
         try {
             sync(database, table, index, type, aggregationModel, dataMap, idValue);
         } catch (Exception e) {
+            logger.error("UpdateCanalListener->监听事件失败", e);
             pushTask(database, table, index, type, aggregationModel, dataMap, idValue, CanalEntry.EventType.UPDATE_VALUE);
-            throw new RuntimeException(e);
         }
 
     }
 
     public void sync(String database, String table, String index, String type, AggregationModel aggregationModel, Map<String, Object> dataMap, String idValue) throws Exception {
+        int i = 5 / 0;
         logger.debug("update_column_id_info update主键id,database=" + database + ",table=" + table + ",id=" + idValue);
         elasticsearchService.update(index, type, idValue, dataMap);
         logger.debug("update_es_info 同步es插入操作成功！database=" + database + ",table=" + table + ",data=" + dataMap);

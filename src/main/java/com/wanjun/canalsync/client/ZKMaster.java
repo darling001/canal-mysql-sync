@@ -26,7 +26,7 @@ public class ZKMaster implements Watcher {
 
     private static final int SESSION_TIMEOUT = 5000;
     private static final String CONNECTION_STRING = "192.168.5.217:2181,192.168.5.218:2181,192.168.5.219:2181";
-    private static final String ZNODE_NAME = "/master";
+    private static final String ZNODE_NAME = "/aa";
     private Random random = new Random(System.currentTimeMillis());
     private ZooKeeper zk;
     private String serverId = Integer.toHexString(random.nextInt());

@@ -66,7 +66,7 @@ public class RedisBackupQueue extends BackupQueue {
             backQueueData.forEach(logger::info);
             logger.info("========================================");
 
-            //redisTemplate.multi();// 开启事务 Cluster Model build支持
+            //redisTemplate.multi();// 开启事务 Cluster Model 不支持
             if (!isExists) {// 只有当前队列不存在，才执行lpush
                 redisTemplate.opsForList().leftPush(this.name, taskJson);
                 //List<Object> results = redisTemplate.exec();

@@ -1,11 +1,11 @@
 package com.wanjun.canalsync.queue.extension;
 
-import com.alibaba.fastjson.JSON;
 import com.wanjun.canalsync.queue.*;
 import com.wanjun.canalsync.queue.backup.BackupQueue;
 import com.wanjun.canalsync.queue.backup.RedisBackupQueue;
 import com.wanjun.canalsync.queue.config.Constant;
 import com.wanjun.canalsync.util.Assert;
+import com.wanjun.canalsync.util.JSONUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -154,7 +154,7 @@ public class BackupQueueMonitor extends KMQueueAdapter {
                         }
                     }
 
-                    Task originTask = JSON.parseObject(JSON.toJSONString(task), Task.class);// 保留原任务数据，用于删除该任务
+                    Task originTask = JSONUtil.toBean(JSONUtil.toJson(task), Task.class);// 保留原任务数据，用于删除该任务
 
                     if (status.getRetry() < this.getRetryTimes()) {
                         // 重新放入任务队列
@@ -169,11 +169,15 @@ public class BackupQueueMonitor extends KMQueueAdapter {
                         if (pipeline != null) {
                             pipeline.process(taskQueue, task);// 彻底失败任务的处理
                         }
+                        // 删除备份队列中的该任务
+                        backupQueue.finishTask(originTask);
                     }
 
-                    // 删除备份队列中的该任务
-                    backupQueue.finishTask(originTask);
                 }
+
+                //执行任务
+                task.handleTask(EntryTaskHandler.class);
+
                 // 继续从备份队列中取出任务，进入下一次循环
                 task = backupQueue.popTask();
             }

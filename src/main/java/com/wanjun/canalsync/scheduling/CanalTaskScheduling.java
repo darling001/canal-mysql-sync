@@ -6,13 +6,14 @@ import org.springframework.stereotype.Component;
 /**
  * @author wangchengli
  * @version 1.0
- * @date 2018-01-18
+ * @date 2018-02-02
  */
-//@Component
-public class SchedulingTest  implements  Runnable{
+@Component
+public class CanalTaskScheduling implements Runnable {
+
     @Override
     @Scheduled(fixedDelay = 100)
     public void run() {
-        System.out.println("SchedulingTest.run");
+
     }
 }
