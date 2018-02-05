@@ -1,6 +1,5 @@
 package com.wanjun.canalsync.queue;
 
-import com.alibaba.fastjson.JSON;
 import com.wanjun.canalsync.queue.config.Constant;
 import com.wanjun.canalsync.util.JSONUtil;
 import org.slf4j.Logger;
@@ -88,7 +87,6 @@ public class RedisTaskQueue extends TaskQueue {
                 }
             }
 
-            //String taskJson = JSON.toJSONString(task);
             String taskJson = JSONUtil.toJson(task);
             redisTemplate.opsForList().leftPush(this.name, taskJson);
             return task;
@@ -104,7 +102,7 @@ public class RedisTaskQueue extends TaskQueue {
         RedisTemplate<String, String> redisTemplate = null;
         try {
             redisTemplate = kmQueueAdapter.getResource();
-            String taskJson = JSON.toJSONString(task);
+            String taskJson = JSONUtil.toJson(task);
             redisTemplate.opsForList().rightPush(this.name, taskJson);
         } catch (Throwable e) {
             logger.error("RedisTaskQueue->pushTaskToHeader error! ", e);

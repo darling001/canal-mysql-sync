@@ -1,9 +1,5 @@
 package com.wanjun.canalsync.queue;
 
-import com.wanjun.canalsync.queue.KMQueueManager;
-import com.wanjun.canalsync.queue.TaskExecutorThread;
-import com.wanjun.canalsync.queue.TaskQueue;
-import com.wanjun.canalsync.queue.config.Constant;
 import com.wanjun.canalsync.queue.config.TaskConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

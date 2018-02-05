@@ -59,7 +59,6 @@ public class UpdateCanalListener extends AbstractCanalListener<UpdateCanalEvent>
     }
 
     public void sync(String database, String table, String index, String type, AggregationModel aggregationModel, Map<String, Object> dataMap, String idValue) throws Exception {
-        int i = 5 / 0;
         logger.debug("update_column_id_info update主键id,database=" + database + ",table=" + table + ",id=" + idValue);
         elasticsearchService.update(index, type, idValue, dataMap);
         logger.debug("update_es_info 同步es插入操作成功！database=" + database + ",table=" + table + ",data=" + dataMap);

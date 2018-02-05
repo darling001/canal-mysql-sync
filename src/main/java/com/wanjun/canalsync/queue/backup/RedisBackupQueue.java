@@ -1,6 +1,5 @@
 package com.wanjun.canalsync.queue.backup;
 
-import com.alibaba.fastjson.JSON;
 import com.wanjun.canalsync.queue.KMQueueAdapter;
 import com.wanjun.canalsync.queue.Task;
 import com.wanjun.canalsync.queue.config.Constant;
@@ -93,7 +92,7 @@ public class RedisBackupQueue extends BackupQueue {
              * 循环取出备份队列的一个元素：从队尾取出元素，并将其放置队首
              */
             String taskValue = redisTemplate.opsForList().rightPopAndLeftPush(this.name, this.name);
-            task = JSON.parseObject(taskValue, Task.class);
+            task = JSONUtil.toBean(taskValue, Task.class);
         } catch (Throwable e) {
             logger.error("RedisBackupQueue->popTask error! ", e);
         }
