@@ -33,7 +33,7 @@ public class KMQueueManagerHanler {
         kmQueueManager = new KMQueueManager.Builder(redisTemplate, taskConfig.getQueues())
                 .setAliveTimeout(taskConfig.getAliveTimeout())
                 .build();
-        //初始化队列
+        //初始化队列管理器
         kmQueueManager.init();
         // 1.获取队列
         taskQueue = kmQueueManager.getTaskQueue(taskConfig.getUsedQueue());
