@@ -56,7 +56,7 @@ public class InsertCanalListener extends AbstractCanalListener<InsertCanalEvent>
         try {
             sync(database, table, index, type, aggregationModel, dataMap, idValue);
         } catch (Exception e) {
-            logger.error("InsertCanalListener->监听事件失败", e);
+            logger.error("InsertCanalListener->同步数据失败", e);
             pushTask(database, table, index, type, aggregationModel, dataMap, idValue,CanalEntry.EventType.INSERT_VALUE);
         }
 
