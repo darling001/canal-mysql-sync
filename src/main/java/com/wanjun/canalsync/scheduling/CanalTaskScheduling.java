@@ -1,5 +1,6 @@
 package com.wanjun.canalsync.scheduling;
 
+import com.wanjun.canalsync.client.ZKMaster;
 import com.wanjun.canalsync.queue.CanalTaskPipeline;
 import com.wanjun.canalsync.queue.config.Constant;
 import com.wanjun.canalsync.queue.config.TaskConfig;
@@ -33,6 +34,9 @@ public class CanalTaskScheduling implements Runnable {
 
     private BackupQueueMonitor backupQueueMonitor;
 
+    @Autowired
+    private ZKMaster zkMaster;
+
     @PostConstruct
     private void init() {
         CanalTaskPipeline pipeline = new CanalTaskPipeline();
@@ -52,7 +56,8 @@ public class CanalTaskScheduling implements Runnable {
     @Override
     @Scheduled(fixedDelay = 10000)
     public void run() {
-        if (backupQueueMonitor != null) {
+        //通过ZK实现热备，当服务failover时，自动切换
+        if (zkMaster.isMaster() && backupQueueMonitor != null) {
             backupQueueMonitor.monitor();
         }
     }
