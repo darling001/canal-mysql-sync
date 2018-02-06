@@ -238,7 +238,8 @@ public class Task implements Serializable {
                 e.printStackTrace();
                 return; //任务失败直接返回，不删除备份队列中的任务
             }
-
+            // 任务执行完成，删除备份队列的相应任务
+            taskQueue.finishTask(this);
         } else {// 普通队列
             try {
                 handleTask(clazz);
@@ -247,8 +248,6 @@ public class Task implements Serializable {
                 return;
             }
         }
-        // 任务执行完成，删除备份队列的相应任务
-        taskQueue.finishTask(this);
     }
 
     /**

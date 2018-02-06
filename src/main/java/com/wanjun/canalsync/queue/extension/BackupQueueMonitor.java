@@ -5,6 +5,7 @@ import com.wanjun.canalsync.queue.backup.BackupQueue;
 import com.wanjun.canalsync.queue.backup.RedisBackupQueue;
 import com.wanjun.canalsync.queue.config.Constant;
 import com.wanjun.canalsync.util.Assert;
+import com.wanjun.canalsync.util.DateUtils;
 import com.wanjun.canalsync.util.JSONUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,15 +109,14 @@ public class BackupQueueMonitor extends KMQueueAdapter {
      */
     public void monitor() {
         Task task;
-        try {
-            String backUpQueueName = this.getBackUpQueueName();
-            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            logger.info("Backup queue[" + backUpQueueName + "]Monitoring begins：" + format.format(new Date()));
-            task = backupQueue.popTask();
-            while (task != null &&
-                    !backUpQueueName.equals(task.getQueue()) &&
-                    !RedisBackupQueue.MARKER.equals(task.getType())) {
-
+        String backUpQueueName = this.getBackUpQueueName();
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        logger.info("Backup queue[" + backUpQueueName + "]Monitoring begins：" + format.format(new Date()));
+        task = backupQueue.popTask();
+        while (task != null &&
+                !backUpQueueName.equals(task.getQueue()) &&
+                !RedisBackupQueue.MARKER.equals(task.getType())) {
+            try {
                 /**
                  * 判断任务状态，分别处理
                  * 1. 任务执行超时，且重试次数大于等于retry指定次数，则持久化到数据库
@@ -129,8 +129,9 @@ public class BackupQueueMonitor extends KMQueueAdapter {
 
                 long currentTimeMillis = System.currentTimeMillis();// 当前时间戳
                 long taskGenTimeMillis = status.getGenTimestamp();// 任务生成的时间戳
-                long intervalTimeMillis = currentTimeMillis - taskGenTimeMillis;// 任务的存活时间
-                if (intervalTimeMillis > this.aliveTimeout) {
+
+                long intervalAliveTimeMillis = currentTimeMillis - taskGenTimeMillis;// 任务的存活时间
+                if (intervalAliveTimeMillis > this.aliveTimeout) {
                     if (pipeline != null) {
                         pipeline.process(taskQueue, task);// 彻底失败任务的处理
                     }
@@ -139,7 +140,13 @@ public class BackupQueueMonitor extends KMQueueAdapter {
                 }
 
                 long taskExcTimeMillis = status.getExcTimestamp();// 任务执行的时间戳
-                intervalTimeMillis = currentTimeMillis - taskExcTimeMillis;// 任务此次执行时间
+                long intervalTimeMillis = currentTimeMillis - taskExcTimeMillis;// 任务此次执行时间
+
+                logger.info("当前时间: {}", DateUtils.forDatetime(new Date(currentTimeMillis)));
+                logger.info("任务生成时间: {}", DateUtils.forDatetime(new Date(taskGenTimeMillis)));
+                logger.info("任务存活时间: {}S", intervalAliveTimeMillis / 1000);
+                logger.info("任务执行时间: {}", DateUtils.forDatetime(new Date(taskExcTimeMillis)));
+                logger.info("任务此次执行间隔时间: {}S", intervalTimeMillis / 1000);
 
                 if (intervalTimeMillis > this.protectedTimeout) {// 任务执行超时
 
@@ -163,6 +170,7 @@ public class BackupQueueMonitor extends KMQueueAdapter {
                         // 更新重试次数retry + 1
                         status.setRetry(status.getRetry() + 1);
                         task.setTaskStatus(status);
+                        logger.info("任务进入第{}次重试", status.getRetry());
                         // 放入任务队列的队首，优先处理
                         taskQueue.pushTaskToHeader(task);
                     } else {
@@ -176,11 +184,10 @@ public class BackupQueueMonitor extends KMQueueAdapter {
                 }
                 // 继续从备份队列中取出任务，进入下一次循环
                 task = backupQueue.popTask();
-            }
 
-        } catch (Throwable e) {
-            logger.info(e.getMessage());
-            e.printStackTrace();
+            } catch (Throwable e) {
+                logger.error("BackUpQueueMonitor->monitor error", e);
+            }
         }
 
     }
