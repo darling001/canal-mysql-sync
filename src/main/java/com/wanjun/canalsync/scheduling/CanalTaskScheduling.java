@@ -2,10 +2,8 @@ package com.wanjun.canalsync.scheduling;
 
 import com.wanjun.canalsync.client.ZKMaster;
 import com.wanjun.canalsync.queue.CanalTaskPipeline;
-import com.wanjun.canalsync.queue.config.Constant;
 import com.wanjun.canalsync.queue.config.TaskConfig;
 import com.wanjun.canalsync.queue.extension.BackupQueueMonitor;
-import com.wanjun.canalsync.util.DateUtils;
 import com.wanjun.canalsync.util.KMQUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
-import java.util.Date;
 
 /**
  * @author wangchengli
@@ -54,7 +50,7 @@ public class CanalTaskScheduling implements Runnable {
     }
 
     @Override
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 2000)
     public void run() {
         //通过ZK实现热备，当服务failover时，自动切换
         if (zkMaster.isMaster() && backupQueueMonitor != null) {
