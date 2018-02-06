@@ -158,7 +158,7 @@ public class BackupQueueMonitor extends KMQueueAdapter {
 
                     Task originTask = JSONUtil.toBean(JSONUtil.toJson(task), Task.class);// 保留原任务数据，用于删除该任务
 
-                    if (status.getRetry() < this.getRetryTimes()) {
+                    if (status.getRetry() <= this.getRetryTimes()) {
                         // 重新放入任务队列
                         // 更新状态标记为retry
                         status.setState(Constant.RETRY);
