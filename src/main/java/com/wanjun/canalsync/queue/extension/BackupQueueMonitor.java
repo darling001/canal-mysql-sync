@@ -110,8 +110,7 @@ public class BackupQueueMonitor extends KMQueueAdapter {
     public void monitor() {
         Task task;
         String backUpQueueName = this.getBackUpQueueName();
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        logger.info("Backup queue[" + backUpQueueName + "]Monitoring begins：" + format.format(new Date()));
+        logger.info("Backup queue[" + backUpQueueName + "]Monitoring begins：" + DateUtils.formatDate(new Date()));
         task = backupQueue.popTask();
         while (task != null &&
                 !backUpQueueName.equals(task.getQueue()) &&
@@ -170,9 +169,9 @@ public class BackupQueueMonitor extends KMQueueAdapter {
                         // 更新重试次数retry + 1
                         status.setRetry(status.getRetry() + 1);
                         task.setTaskStatus(status);
-                        logger.info("任务进入第{}次重试", status.getRetry());
                         // 放入任务队列的队首，优先处理
                         taskQueue.pushTaskToHeader(task);
+                        logger.info("任务进入第{}次重试", status.getRetry());
                     } else {
                         if (pipeline != null) {
                             pipeline.process(taskQueue, task);// 彻底失败任务的处理
