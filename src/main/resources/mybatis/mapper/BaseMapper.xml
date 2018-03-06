@@ -50,7 +50,7 @@
             *
         FROM
             ${databaseName}.${tableName}
-        WHERE ${key} = ${value}
+        WHERE ${key} = '${value}'
     </select>
 
     <select id="selectByPKs" resultType="java.util.List">

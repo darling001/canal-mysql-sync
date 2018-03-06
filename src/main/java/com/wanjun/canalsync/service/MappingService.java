@@ -27,7 +27,7 @@ public interface MappingService {
      * @param databaseTableModel
      * @return
      */
-    AggregationModel getAggregationMapping(DatabaseTableModel databaseTableModel);
+   // AggregationModel getAggregationMapping(DatabaseTableModel databaseTableModel);
 
 
 

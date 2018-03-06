@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.wanjun.canalsync.model.EsPage;
 import com.wanjun.canalsync.service.ElasticsearchService;
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,22 +27,30 @@ public class ElasticSearchTest {
     private ElasticsearchService elasticsearchService;
     @Test
     public void testInsertById() {
-        Map<String,Object> map  = Maps.newHashMap();
-        map.put("id",1);
-        map.put("goodName","无人机");
-        map.put("price",10);
-        map.put("brandName","大疆");
-        Map<String,Object> properties1 = Maps.newHashMap();
-        properties1.put("id",1);
-        properties1.put("name","属性1");
-        Map<String,Object> properties2 = Maps.newHashMap();
-        properties2.put("id",2);
-        properties2.put("name","属性2");
-        List<Map<String,Object>> list  = Lists.newArrayList();
-        list.add(properties1);
-        list.add(properties2);
-        map.put("properties",list);
-        elasticsearchService.insertById("test","test","10",map);
+        for(int i=2;i<10000;i++) {
+            long num1 = RandomUtils.nextLong(1,10000);
+            Map<String, Object> map = Maps.newHashMap();
+            map.put("id", i);
+            map.put("goodName", "无人机" + num1);
+            map.put("price", num1);
+            map.put("brandName", "大疆");
+            Map<String, Object> properties1 = Maps.newHashMap();
+            properties1.put("value", Lists.newArrayList("v1","v2"));
+            properties1.put("name", "属性1");
+            Map<String, Object> properties2 = Maps.newHashMap();
+            properties2.put("value", Lists.newArrayList("v3","v4"));
+            properties2.put("name", "属性2");
+
+            Map<String, Object> properties3 = Maps.newHashMap();
+            properties3.put("value",  Lists.newArrayList("v5","v6"));
+            properties3.put("name", "属性3");
+            List<Map<String, Object>> list = Lists.newArrayList();
+            list.add(properties1);
+            list.add(properties2);
+            list.add(properties3);
+            map.put("properties", list);
+            elasticsearchService.insertById("test", "test", i+"", map);
+        }
     }
 
     @Test
@@ -52,7 +61,7 @@ public class ElasticSearchTest {
 
     @Test
     public void testDeleteIndex() {
-        boolean result = elasticsearchService.deleteIndex("wanjun");
+        boolean result = elasticsearchService.deleteIndex("test");
         Assert.assertTrue(result);
     }
 
@@ -83,7 +92,7 @@ public class ElasticSearchTest {
         //List<Map<String, Object>> list = elasticsearchService.searchListData("wanjun", "emp", 1000, null, "gender=M");
         // List<Map<String, Object>> list1 = elasticsearchService.searchListData("wanjun", "emp", 1000, null, "gender=M");
         // List<Map<String, Object>> list2 = elasticsearchService.searchListData("wanjun", "emp", 100, null, null, false, "gender", "gender=M");
-        EsPage esPage = elasticsearchService.searchDataPage("wanjun", "emp", 1, 100, 0, 0, null, null, false, "gender", "gender=M");
+        EsPage esPage = elasticsearchService.searchDataPage("gms", "item_agg", 1, 100, 0, 0, null, null, false, "gender", "item_name=铜管,item_shortname=铜管");
         System.out.println("esPage = " + esPage);
 
        // System.out.println("list = " + list);

@@ -21,7 +21,7 @@ public class CanalRowData {
 
     private String idValue;
 
-    private AggregationModel aggregationModel;
+    private IndexTypeModel indexTypeModel;
 
     private int eventType;
 
@@ -29,14 +29,14 @@ public class CanalRowData {
     public CanalRowData() {
     }
 
-    public CanalRowData(String database, String table, String index, String type, Map<String, Object> dataMap, String idValue, AggregationModel aggregationModel,int eventType) {
+    public CanalRowData(String database, String table, String index, String type, Map<String, Object> dataMap, String idValue, IndexTypeModel indexTypeModel,int eventType) {
         this.database = database;
         this.table = table;
         this.index = index;
         this.type = type;
         this.dataMap = dataMap;
         this.idValue = idValue;
-        this.aggregationModel = aggregationModel;
+        this.indexTypeModel = indexTypeModel;
         this.eventType = eventType;
     }
 
@@ -87,13 +87,12 @@ public class CanalRowData {
     public void setIdValue(String idValue) {
         this.idValue = idValue;
     }
-
-    public AggregationModel getAggregationModel() {
-        return aggregationModel;
+    public IndexTypeModel getIndexTypeModel() {
+        return indexTypeModel;
     }
 
-    public void setAggregationModel(AggregationModel aggregationModel) {
-        this.aggregationModel = aggregationModel;
+    public void setIndexTypeModel(IndexTypeModel indexTypeModel) {
+        this.indexTypeModel = indexTypeModel;
     }
 
     public int getEventType() {

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wanjun.canalsync.dao.CategoryDao">
+    <select id="selectCategoryList" resultType="java.util.HashMap">
+
+        SELECT
+        f.CATEGORY_ID      CATEGORY_ID1 ,
+        f.CATEGORY_NAME CATEGORY_NAME1,
+        f.CATEGORY_LEVEL CATEGORY_LEVEL1,
+        s.CATEGORY_ID      CATEGORY_ID2 ,
+        s.CATEGORY_NAME CATEGORY_NAME2,
+        s.CATEGORY_LEVEL CATEGORY_LEVEL2,
+        t.CATEGORY_ID      CATEGORY_ID3 ,
+        t.CATEGORY_NAME CATEGORY_NAME3,
+        t.CATEGORY_LEVEL CATEGORY_LEVEL3
+        FROM
+        cmc_category f
+        INNER JOIN   cmc_category s ON f.CATEGORY_ID = s.PARENT_CATEGORY_ID
+        INNER JOIN   cmc_category t ON s.CATEGORY_ID = t.PARENT_CATEGORY_ID
+
+        <if test="categoryId != null and categoryId !=''">
+            AND  t.CATEGORY_ID= '${categoryId}'
+        </if>
+
+    </select>
+
+</mapper>

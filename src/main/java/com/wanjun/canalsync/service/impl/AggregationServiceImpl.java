@@ -20,8 +20,8 @@ import java.util.Map;
  * @date 2018-01-22
  */
 @SuppressWarnings("all")
-@Service
-@Schema("wanjun")
+//@Service
+//@Schema("wanjun")
 public class AggregationServiceImpl implements AggregationService {
 
     private static final Logger logger = LoggerFactory.getLogger(AggregationServiceImpl.class);
@@ -30,7 +30,7 @@ public class AggregationServiceImpl implements AggregationService {
 
 
     @Override
-    @Table(value = "tbl_emp", event = {CanalEntry.EventType.INSERT})
+    //@Table(value = "tbl_emp", event = {CanalEntry.EventType.INSERT})
     public void saveByEmp(Map<String, Object> map, AggregationModel aggregationModel) {
         List<String> slavePKColumnList = aggregationModel.getSlavePKColumnList();
         List<String> slaveTableNameList = aggregationModel.getSlaveTableNameList();
@@ -53,7 +53,7 @@ public class AggregationServiceImpl implements AggregationService {
     }
 
     @Override
-    @Table(value = "tbl_emp", event = {CanalEntry.EventType.UPDATE})
+    //@Table(value = "tbl_emp", event = {CanalEntry.EventType.UPDATE})
     public void updateByEmp(Map<String, Object> map, AggregationModel aggregationModel) {
         List<String> slavePKColumnList = aggregationModel.getSlavePKColumnList();
         List<String> slaveTableNameList = aggregationModel.getSlaveTableNameList();
@@ -75,7 +75,7 @@ public class AggregationServiceImpl implements AggregationService {
     }
 
     @Override
-    @Table(value = "tbl_emp", event = {CanalEntry.EventType.DELETE})
+   // @Table(value = "tbl_emp", event = {CanalEntry.EventType.DELETE})
     public void deleteByEmp(Map<String, Object> map, AggregationModel aggregationModel) {
         baseDao.deleteByPK(aggregationModel.getDatabaseName(), aggregationModel.getAggregationTableName(),
                 aggregationModel.getAggregationPKColumn(), map.get(aggregationModel.getMainPKColumn()));
@@ -83,7 +83,7 @@ public class AggregationServiceImpl implements AggregationService {
 
 
     @Override
-    @Table(value = "tbl_dept", event = {CanalEntry.EventType.UPDATE, CanalEntry.EventType.INSERT})
+    //@Table(value = "tbl_dept", event = {CanalEntry.EventType.UPDATE, CanalEntry.EventType.INSERT})
     public void updateByDept(Map<String, Object> map, AggregationModel aggregationModel) {
         String aggregationSFK = aggregationModel.getAggregationSFK();
         String slaveSPK = aggregationModel.getSlaveSPK();
@@ -97,7 +97,7 @@ public class AggregationServiceImpl implements AggregationService {
 
 
     @Override
-    @Table(value = "tbl_dept", event = {CanalEntry.EventType.DELETE})
+    //@Table(value = "tbl_dept", event = {CanalEntry.EventType.DELETE})
     public void deleteByDept(Map<String, Object> map, AggregationModel aggregationModel) {
         String aggregationSFK = aggregationModel.getAggregationSFK();
         String slaveSPK = aggregationModel.getSlaveSPK();

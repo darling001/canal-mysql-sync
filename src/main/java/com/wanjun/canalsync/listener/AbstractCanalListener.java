@@ -5,6 +5,7 @@ import com.alibaba.otter.canal.protocol.CanalEntry.Entry;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowChange;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowData;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.wanjun.canalsync.model.IndexTypeModel;
 import com.wanjun.canalsync.queue.KMQueueManagerHanler;
 import com.wanjun.canalsync.event.CanalEvent;
 import com.wanjun.canalsync.model.AggregationModel;
@@ -42,19 +43,19 @@ public abstract class AbstractCanalListener<EVENT extends CanalEvent> implements
         Entry entry = event.getEntry();
         String database = entry.getHeader().getSchemaName();
         String table = entry.getHeader().getTableName();
-       /* IndexTypeModel indexTypeModel = mappingService.getIndexType(new DatabaseTableModel(database, table));
+        IndexTypeModel indexTypeModel = mappingService.getIndexType(new DatabaseTableModel(database, table));
         if (indexTypeModel == null) {
             return;
         }
         String index = indexTypeModel.getIndex();
-        String type = indexTypeModel.getType();*/
+        String type = indexTypeModel.getType();
 
-        AggregationModel aggregationModel = mappingService.getAggregationMapping(new DatabaseTableModel(database, table));
+     /*   AggregationModel aggregationModel = mappingService.getAggregationMapping(new DatabaseTableModel(database, table));
         if (aggregationModel == null) {
             return;
         }
         String index = aggregationModel.getIndex();
-        String type = aggregationModel.getType();
+        String type = aggregationModel.getType();*/
         RowChange change;
         try {
             change = RowChange.parseFrom(entry.getStoreValue());
@@ -62,7 +63,7 @@ public abstract class AbstractCanalListener<EVENT extends CanalEvent> implements
             logger.error("canalEntry_parser_error,根据CanalEntry获取RowChange失败！", e);
             return;
         }
-        change.getRowDatasList().forEach(rowData -> doSync(database, table, index, type, rowData, aggregationModel));
+        change.getRowDatasList().forEach(rowData -> doSync(database, table, index, type, rowData, indexTypeModel));
     }
 
     Map<String, Object> parseColumnsToMap(List<Column> columns) {
@@ -100,13 +101,13 @@ public abstract class AbstractCanalListener<EVENT extends CanalEvent> implements
      * @param table
      * @param index
      * @param type
-     * @param aggregationModel
+     * @param indexTypeModel
      * @param dataMap
      * @param idValue
      * @param eventType
      */
-    protected void pushTask(String database, String table, String index, String type, AggregationModel aggregationModel, Map<String, Object> dataMap, String idValue, int eventType) {
-        CanalRowData canalRowData = new CanalRowData(database, table, index, type, dataMap, idValue, aggregationModel, eventType);
+    protected void pushTask(String database, String table, String index, String type, IndexTypeModel indexTypeModel, Map<String, Object> dataMap, String idValue, int eventType) {
+        CanalRowData canalRowData = new CanalRowData(database, table, index, type, dataMap, idValue, indexTypeModel, eventType);
         TaskQueue taskQueue = kmQueueManagerHanler.getTaskQueue();
         String data = JSONUtil.toJson(canalRowData);
         Task task = new Task(taskQueue.getName(), null, true, "", data, new Task.TaskStatus());
@@ -114,5 +115,5 @@ public abstract class AbstractCanalListener<EVENT extends CanalEvent> implements
     }
 
 
-    protected abstract void doSync(String database, String table, String index, String type, RowData rowData, AggregationModel aggregationModel);
+    protected abstract void doSync(String database, String table, String index, String type, RowData rowData, IndexTypeModel indexTypeModel);
 }

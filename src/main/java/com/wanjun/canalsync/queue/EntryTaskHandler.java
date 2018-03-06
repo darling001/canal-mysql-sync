@@ -29,17 +29,17 @@ public class EntryTaskHandler implements TaskHandler {
             case CanalEntry.EventType.INSERT_VALUE:
                 InsertCanalListener insertBean = SpringUtil.getBean(InsertCanalListener.class);
                 insertBean.sync(canalRowData.getDatabase(), canalRowData.getTable(),
-                        canalRowData.getIndex(), canalRowData.getType(), canalRowData.getAggregationModel(), canalRowData.getDataMap(), canalRowData.getIdValue());
+                        canalRowData.getIndex(), canalRowData.getType(), canalRowData.getIndexTypeModel(), canalRowData.getDataMap(), canalRowData.getIdValue());
                 break;
             case CanalEntry.EventType.UPDATE_VALUE:
                 UpdateCanalListener updateBean = SpringUtil.getBean(UpdateCanalListener.class);
                 updateBean.sync(canalRowData.getDatabase(), canalRowData.getTable(),
-                        canalRowData.getIndex(), canalRowData.getType(), canalRowData.getAggregationModel(), canalRowData.getDataMap(), canalRowData.getIdValue());
+                        canalRowData.getIndex(), canalRowData.getType(), canalRowData.getIndexTypeModel(), canalRowData.getDataMap(), canalRowData.getIdValue());
                 break;
             case CanalEntry.EventType.DELETE_VALUE:
                 DeleteCanalListener deleteBean = SpringUtil.getBean(DeleteCanalListener.class);
                 deleteBean.sync(canalRowData.getDatabase(), canalRowData.getTable(),
-                        canalRowData.getIndex(), canalRowData.getType(), canalRowData.getAggregationModel(), canalRowData.getDataMap(), canalRowData.getIdValue());
+                        canalRowData.getIndex(), canalRowData.getType(), canalRowData.getIndexTypeModel(), canalRowData.getDataMap(), canalRowData.getIdValue());
             default:
                 break;
         }

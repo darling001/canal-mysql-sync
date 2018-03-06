@@ -15,11 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Optional;
 
 /**
  * @author wangchengli
@@ -34,10 +31,10 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
 
 
 
-    //private Map<String, String> dbEsMapping;
-    private Map<String,String> dbAggregationMapping;
+    private Map<String, String> dbEsMapping;
+    //private Map<String,String> dbAggregationMapping;
     private BiMap<DatabaseTableModel, IndexTypeModel> dbEsBiMapping;
-    private Map<DatabaseTableModel, AggregationModel> dbAggregationModelMapping;
+   // private Map<DatabaseTableModel, AggregationModel> dbAggregationModelMapping;
     private Map<String, String> tablePrimaryKeyMap;
     private Map<String, Converter> mysqlTypeElasticsearchTypeMapping;
 
@@ -56,11 +53,11 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
         return dbEsBiMapping.get(databaseTableModel);
     }
 
-    @Override
+   /* @Override
     public AggregationModel getAggregationMapping(DatabaseTableModel databaseTableModel) {
         return dbAggregationModelMapping.get(databaseTableModel);
     }
-
+*/
     @Override
     public DatabaseTableModel getDatabaseTableModel(IndexTypeModel indexTypeModel) {
         return dbEsBiMapping.inverse().get(indexTypeModel);
@@ -74,13 +71,24 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        /*dbEsBiMapping = HashBiMap.create();
+        dbEsBiMapping = HashBiMap.create();
         dbEsMapping.forEach((key, value) -> {
             String[] keyStrings = StringUtils.split(key, ".");
-            String[] valueStrings = StringUtils.split(value, ".");
-            dbEsBiMapping.put(new DatabaseTableModel(keyStrings[0], keyStrings[1]), new IndexTypeModel(valueStrings[0], valueStrings[1]));
-        });*/
-
+            String[] valueStrings = StringUtils.split(value, "|");
+            if(valueStrings.length == 2) {
+                dbEsBiMapping.put(new DatabaseTableModel(keyStrings[0], keyStrings[1]), new IndexTypeModel(valueStrings[0], valueStrings[1]));
+            }else if(valueStrings.length == 3){
+                dbEsBiMapping.put(new DatabaseTableModel(keyStrings[0], keyStrings[1]), new IndexTypeModel(valueStrings[0], valueStrings[1],valueStrings[2]));
+            }else {
+                Map<String,String> map = Maps.newHashMap();
+                for(int i=3;i<valueStrings.length;i++) {
+                    String[] splitStrings = StringUtils.split(valueStrings[i],":");
+                    map.put(splitStrings[0],splitStrings[1]);
+                    dbEsBiMapping.put(new DatabaseTableModel(keyStrings[0], keyStrings[1]), new IndexTypeModel(valueStrings[0], valueStrings[1],valueStrings[2],map));
+                }
+            }
+        });
+/*
         dbAggregationModelMapping = Maps.newHashMap();
         dbEsBiMapping = HashBiMap.create();
         dbAggregationMapping.forEach((key, value) -> {
@@ -112,7 +120,7 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
             }
             dbEsBiMapping.put(new DatabaseTableModel(keyStrings[0], keyStrings[1]), new IndexTypeModel(valueStrings[1], valueStrings[2]));
 
-        });
+        });*/
 
         mysqlTypeElasticsearchTypeMapping = Maps.newHashMap();
         mysqlTypeElasticsearchTypeMapping.put("char", data -> data);
@@ -125,7 +133,7 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
         mysqlTypeElasticsearchTypeMapping.put("double", Double::valueOf);
         mysqlTypeElasticsearchTypeMapping.put("decimal", Double::valueOf);
     }
-/*
+
 
     public Map<String, String> getDbEsMapping() {
         return dbEsMapping;
@@ -134,17 +142,16 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
     public void setDbEsMapping(Map<String, String> dbEsMapping) {
         this.dbEsMapping = dbEsMapping;
     }
-*/
 
 
-    public Map<String, String> getDbAggregationMapping() {
+   /* public Map<String, String> getDbAggregationMapping() {
         return dbAggregationMapping;
     }
 
     public void setDbAggregationMapping(Map<String, String> dbAggregationMapping) {
         this.dbAggregationMapping = dbAggregationMapping;
     }
-
+*/
     private interface Converter {
         Object convert(String data);
     }
