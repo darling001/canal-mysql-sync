@@ -14,7 +14,8 @@ public interface ItemAggService {
 
     public void aggUpdateItem(Map<String,Object> map, IndexTypeModel indexTypeModel);
 
-    public void aggItemLine(Map<String,Object> map, IndexTypeModel indexTypeModel);
+
+    public void aggItemLine(Map<String, Object> map, IndexTypeModel indexTypeModel) ;
 
     public void aggItemPicture(Map<String, Object> map, IndexTypeModel indexTypeModel);
 

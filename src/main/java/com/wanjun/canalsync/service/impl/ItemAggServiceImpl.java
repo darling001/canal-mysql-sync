@@ -1,7 +1,6 @@
 package com.wanjun.canalsync.service.impl;
 
 import com.alibaba.otter.canal.protocol.CanalEntry;
-import com.sun.tools.javac.util.Position;
 import com.wanjun.canalsync.annotation.Schema;
 import com.wanjun.canalsync.annotation.Table;
 import com.wanjun.canalsync.dao.BaseDao;
@@ -108,6 +107,7 @@ public class ItemAggServiceImpl implements ItemAggService {
     }
 
     @Table(value = "item_line", event = {CanalEntry.EventType.INSERT, CanalEntry.EventType.UPDATE})
+    @Override
     public void aggItemLine(Map<String, Object> map, IndexTypeModel indexTypeModel) {
         //聚合数据es类型
         String aggType = indexTypeModel.getAggType();
@@ -133,11 +133,7 @@ public class ItemAggServiceImpl implements ItemAggService {
             }
         });
 
-
     }
-
-
-
 
     @Table(value = "picture_list", event = {CanalEntry.EventType.INSERT, CanalEntry.EventType.UPDATE})
     @Override
@@ -188,29 +184,29 @@ public class ItemAggServiceImpl implements ItemAggService {
                 resultMap = baseDao.selectByPK(key, colValue, aggConfig[0], aggConfig[1]);
                 Object itemId = resultMap.get(aggConfig[2]);
                 Map<String, Object> esResult = elasticsearchService.searchDataById(index, aggType, itemId.toString(), null);
-                Object obj  = esResult.get("cmc_item_line");
-                if(obj instanceof  List) {
-                    List<Map<String,Object>> lineMap = (List<Map<String, Object>>) obj;
+                Object obj = esResult.get("cmc_item_line");
+                if (obj instanceof List) {
+                    List<Map<String, Object>> lineMap = (List<Map<String, Object>>) obj;
                     int step = 0;
-                    for(int i = 0;i<lineMap.size();i++) {
-                        Map<String,Object> item  = lineMap.get(i);
+                    for (int i = 0; i < lineMap.size(); i++) {
+                        Map<String, Object> item = lineMap.get(i);
                         Set<String> keys = item.keySet();
-                        for(String mapKey  : keys) {
-                            if(mapKey.equals(key)) {
+                        for (String mapKey : keys) {
+                            if (mapKey.equals(key)) {
                                 step = i;
                                 break;
                             }
                         }
                     }
-                    lineMap.get(step).putAll(map);
+                    //找到了添加
+                    if(step != 0) {
+                        lineMap.get(step).putAll(map);
+                    }
                 }
-                elasticsearchService.insertById(index,aggType,itemId.toString(),esResult);
+                elasticsearchService.insertById(index, aggType, itemId.toString(), esResult);
             }
         });
     }
-
-
-
 
 
 }
