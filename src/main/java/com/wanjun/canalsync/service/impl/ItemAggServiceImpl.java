@@ -184,6 +184,9 @@ public class ItemAggServiceImpl implements ItemAggService {
                 resultMap = baseDao.selectByPK(key, colValue, aggConfig[0], aggConfig[1]);
                 Object itemId = resultMap.get(aggConfig[2]);
                 Map<String, Object> esResult = elasticsearchService.searchDataById(index, aggType, itemId.toString(), null);
+                if(esResult == null  || esResult.isEmpty()) {
+                    return ;
+                }
                 Object obj = esResult.get("cmc_item_line");
                 if (obj instanceof List) {
                     List<Map<String, Object>> lineMap = (List<Map<String, Object>>) obj;
@@ -193,15 +196,18 @@ public class ItemAggServiceImpl implements ItemAggService {
                         Set<String> keys = item.keySet();
                         for (String mapKey : keys) {
                             if (mapKey.equals(key)) {
+                                logger.error("mapkey = {}",mapKey );
                                 step = i;
                                 break;
                             }
                         }
+
+                        //找到了添加
+                        if(step == i) {
+                            lineMap.get(step).putAll(map);
+                        }
                     }
-                    //找到了添加
-                    if(step != 0) {
-                        lineMap.get(step).putAll(map);
-                    }
+
                 }
                 elasticsearchService.insertById(index, aggType, itemId.toString(), esResult);
             }
