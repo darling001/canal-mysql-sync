@@ -61,7 +61,7 @@ public class ElasticSearchTest {
 
     @Test
     public void testDeleteIndex() {
-        boolean result = elasticsearchService.deleteIndex("test");
+        boolean result = elasticsearchService.deleteIndex("gms");
         Assert.assertTrue(result);
     }
 
@@ -92,7 +92,7 @@ public class ElasticSearchTest {
         //List<Map<String, Object>> list = elasticsearchService.searchListData("wanjun", "emp", 1000, null, "gender=M");
         // List<Map<String, Object>> list1 = elasticsearchService.searchListData("wanjun", "emp", 1000, null, "gender=M");
         // List<Map<String, Object>> list2 = elasticsearchService.searchListData("wanjun", "emp", 100, null, null, false, "gender", "gender=M");
-        EsPage esPage = elasticsearchService.searchDataPage("gms", "item_agg", 1, 100, 0, 0, null, null, false, "gender", "item_name=铜管,item_shortname=铜管");
+        EsPage esPage = elasticsearchService.searchDataPage("gms", "item_agg", 1, 100, 0, 0, null, null, false, "gender", "item_name=铜管,item_shortname=");
         System.out.println("esPage = " + esPage);
 
        // System.out.println("list = " + list);

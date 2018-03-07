@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wanjun.canalsync.dao.ItemLineDao">
+    <select id="getItemLineMap" resultType="java.util.HashMap">
+
+        SELECT   t.ITEM_LINE_ID,
+  t.ITEM_LINE_CODE,
+  t.ITEM_ID,
+  t.MATERIAL_TYPE_CODE,
+  t.SUPPLIER_ID,
+  t.SUPPLIER_CODE,
+  t.SUPPLIER_NAME,
+  t.LEAD_TIME,
+  t.STATUS,
+  t.DISPLAY_FLAG
+        FROM cmc_item_line t
+        WHERE t.ITEM_ID = '${itemId}'
+
+    </select>
+
+
+
+</mapper>

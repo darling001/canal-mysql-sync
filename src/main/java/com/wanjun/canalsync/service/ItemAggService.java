@@ -6,8 +6,17 @@ import java.util.Map;
 
 /**
  * Created by wangchengli on 2018/3/5
+ * SKU聚合接口
  */
 public interface ItemAggService {
 
-    public void save(Map<String,Object> map, IndexTypeModel indexTypeModel);
+    public void aggAddItem(Map<String,Object> map, IndexTypeModel indexTypeModel);
+
+    public void aggUpdateItem(Map<String,Object> map, IndexTypeModel indexTypeModel);
+
+    public void aggItemLine(Map<String,Object> map, IndexTypeModel indexTypeModel);
+
+    public void aggItemPicture(Map<String, Object> map, IndexTypeModel indexTypeModel);
+
+    public void aggItemPrice(Map<String,Object> map,IndexTypeModel indexTypeModel);
 }

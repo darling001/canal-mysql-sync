@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wanjun.canalsync.dao.ItemPictureDao">
+    <select id="getItemPictureMap" resultType="java.util.HashMap">
+
+        SELECT  *
+        FROM aus_at_picture_list t
+        <where>
+            <if test="billNo != null and billNo !=''">
+                t.BILL_NO = '${billNo}' AND
+            </if>
+            <if test="billType != null and billType !=''">
+                t.BILL_TYPE = '${billType}'
+            </if>
+
+        </where>
+
+    </select>
+
+</mapper>
