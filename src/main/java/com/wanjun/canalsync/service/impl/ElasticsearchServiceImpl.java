@@ -252,8 +252,7 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
 
         SearchRequestBuilder searchRequestBuilder = transportClient.prepareSearch(index);
         if (StringUtils.isNotEmpty(type)) {
-            searchRequestBuilder.setTypes(type.split(","));
-        }
+            searchRequestBuilder.setTypes(type.split(","));}
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
 
         if (startTime > 0 && endTime > 0) {

@@ -3,7 +3,6 @@ package com.wanjun.canalsync.service.impl;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Maps;
-import com.wanjun.canalsync.model.AggregationModel;
 import com.wanjun.canalsync.model.DatabaseTableModel;
 import com.wanjun.canalsync.model.IndexTypeModel;
 import com.wanjun.canalsync.service.MappingService;
@@ -13,7 +12,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.Map.Entry;

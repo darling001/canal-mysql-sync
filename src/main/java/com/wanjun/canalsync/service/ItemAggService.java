@@ -20,4 +20,11 @@ public interface ItemAggService {
     public void aggItemPicture(Map<String, Object> map, IndexTypeModel indexTypeModel);
 
     public void aggItemPrice(Map<String,Object> map,IndexTypeModel indexTypeModel);
+
+
+    public void aggBrand(Map<String,Object> map ,IndexTypeModel indexTypeModel);
+
+    public void aggSPU(Map<String,Object> map,IndexTypeModel indexTypeModel);
+
+    public void aggCategory(Map<String,Object> map,IndexTypeModel indexTypeModel);
 }

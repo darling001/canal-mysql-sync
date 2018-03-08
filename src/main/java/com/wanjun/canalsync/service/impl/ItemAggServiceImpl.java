@@ -1,6 +1,7 @@
 package com.wanjun.canalsync.service.impl;
 
 import com.alibaba.otter.canal.protocol.CanalEntry;
+import com.google.common.collect.Maps;
 import com.wanjun.canalsync.annotation.Schema;
 import com.wanjun.canalsync.annotation.Table;
 import com.wanjun.canalsync.dao.BaseDao;
@@ -19,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author wangchengli
@@ -124,7 +124,6 @@ public class ItemAggServiceImpl implements ItemAggService {
             }
             List<Map<String, Object>> result = itemLineDao.getItemLineMap(colValue.toString());
             if (result != null && !result.isEmpty()) {
-                //map.put(aggConfig[1], result);
                 Map<String, Object> esResult = elasticsearchService.searchDataById(index, aggType, colValue.toString(), null);
                 if (esResult != null && !esResult.isEmpty()) {
                     esResult.put(aggConfig[1], result);
@@ -183,35 +182,67 @@ public class ItemAggServiceImpl implements ItemAggService {
             if (StringUtils.equals(selectType, SelectType.PK.getType())) {
                 resultMap = baseDao.selectByPK(key, colValue, aggConfig[0], aggConfig[1]);
                 Object itemId = resultMap.get(aggConfig[2]);
-                Map<String, Object> esResult = elasticsearchService.searchDataById(index, aggType, itemId.toString(), null);
-                if(esResult == null  || esResult.isEmpty()) {
-                    return ;
-                }
-                Object obj = esResult.get("cmc_item_line");
-                if (obj instanceof List) {
-                    List<Map<String, Object>> lineMap = (List<Map<String, Object>>) obj;
-                    int step = 0;
-                    for (int i = 0; i < lineMap.size(); i++) {
-                        Map<String, Object> item = lineMap.get(i);
-                        Set<String> keys = item.keySet();
-                        for (String mapKey : keys) {
-                            if (mapKey.equals(key)) {
-                                logger.error("mapkey = {}",mapKey );
-                                step = i;
-                                break;
-                            }
-                        }
-
-                        //找到了添加
-                        if(step == i) {
-                            lineMap.get(step).putAll(map);
-                        }
+                List<Map<String, Object>> result = itemLineDao.getItemLineMap(itemId.toString());
+                if (result != null && !result.isEmpty()) {
+                    Map<String, Object> esResult = elasticsearchService.searchDataById(index, aggType,itemId.toString(), null);
+                    if (esResult != null && !esResult.isEmpty()) {
+                        esResult.put(aggConfig[1], result);
                     }
-
+                    elasticsearchService.insertById(index, aggType, itemId.toString(), esResult);
                 }
-                elasticsearchService.insertById(index, aggType, itemId.toString(), esResult);
             }
         });
+
+    }
+
+    private void aggCommon(Map<String,Object> map ,IndexTypeModel indexTypeModel) {
+        //聚合数据es类型
+        String aggType = indexTypeModel.getAggType();
+        //索引
+        String index = indexTypeModel.getIndex();
+
+        Map<String, String> pkMappingTableMap = indexTypeModel.getPkMappingTableMap();
+
+        pkMappingTableMap.forEach((key, value) -> {
+            Object colValue = map.get(key);
+            String[] aggConfig = StringUtils.split(value, ".");
+            if (aggConfig.length == 0) {
+                return;
+            }
+            String matchStr = String.format("%s=%s", aggConfig[2], colValue);
+            List<Map<String, Object>> esResult = elasticsearchService.searchListData(index, aggType, null, null, null, true, matchStr);
+            Map<String, Map<String, Object>> idDataMap = null;
+            if(esResult != null && !esResult.isEmpty()) {
+                idDataMap = Maps.newHashMap();
+            }
+            for(int i=0;i<esResult.size();i++) {
+                Map<String,Object> elementMap  = esResult.get(i);
+                String itemId = elementMap.get("ITEM_ID").toString();
+                elementMap.put(aggConfig[1],map);
+                idDataMap.put(itemId,elementMap);
+
+            }
+
+            elasticsearchService.batchInsertById(index,aggType,idDataMap);
+        });
+    }
+
+    @Override
+    @Table(value = "brand", event = {CanalEntry.EventType.UPDATE})
+    public void aggBrand(Map<String, Object> map, IndexTypeModel indexTypeModel) {
+        this.aggCommon(map,indexTypeModel);
+    }
+
+    @Override
+    @Table(value = "spu" ,event = {CanalEntry.EventType.UPDATE})
+    public void aggSPU(Map<String, Object> map, IndexTypeModel indexTypeModel) {
+        this.aggCommon(map,indexTypeModel);
+    }
+
+    @Override
+    @Table(value = "category",event = {CanalEntry.EventType.UPDATE})
+    public void aggCategory(Map<String, Object> map, IndexTypeModel indexTypeModel) {
+        this.aggCommon(map,indexTypeModel);
     }
 
 

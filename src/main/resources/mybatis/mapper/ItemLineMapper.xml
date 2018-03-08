@@ -3,18 +3,22 @@
 <mapper namespace="com.wanjun.canalsync.dao.ItemLineDao">
     <select id="getItemLineMap" resultType="java.util.HashMap">
 
-        SELECT   t.ITEM_LINE_ID,
-  t.ITEM_LINE_CODE,
-  t.ITEM_ID,
-  t.MATERIAL_TYPE_CODE,
-  t.SUPPLIER_ID,
-  t.SUPPLIER_CODE,
-  t.SUPPLIER_NAME,
-  t.LEAD_TIME,
-  t.STATUS,
-  t.DISPLAY_FLAG
-        FROM cmc_item_line t
-        WHERE t.ITEM_ID = '${itemId}'
+       SELECT
+          t1.ITEM_LINE_ID,
+          t1.ITEM_LINE_CODE,
+          t1.ITEM_ID,
+          t1.MATERIAL_TYPE_CODE,
+          t1.SUPPLIER_ID,
+          t1.SUPPLIER_CODE,
+          t1.SUPPLIER_NAME,
+          t1.LEAD_TIME,
+          t1.STATUS,
+          t1.DISPLAY_FLAG,
+          t1.MIN_ORDER_NUM,
+          t1.AREA_CODE,
+          t2.*
+       FROM cmc_item_line t1 INNER JOIN cmc_item_price t2 ON t1.ITEM_LINE_ID = t2.ITEM_LINE_ID AND  t1.ITEM_ID =  '${itemId}'
+
 
     </select>
 
