@@ -1,18 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wanjun.canalsync.dao.CategoryDao">
-    <select id="selectCategoryList" resultType="java.util.HashMap">
+    <resultMap id="TreeResultMap" type="com.wanjun.canalsync.model.Category">
+        <id column="CATEGORY_ID1" property="categoryId" jdbcType="VARCHAR"/>
+        <result column="CATEGORY_CODE1" property="categoryCode" jdbcType="VARCHAR"/>
+        <result column="CATEGORY_NAME1" property="categoryName" jdbcType="VARCHAR"/>
+        <result column="CATEGORY_LEVEL1" property="categoryLevel" jdbcType="VARCHAR"/>
+        <association property="child"  javaType="com.wanjun.canalsync.model.Category">
+            <id column="CATEGORY_ID2" property="categoryId" jdbcType="VARCHAR"/>
+            <result column="CATEGORY_CODE2" property="categoryCode" jdbcType="VARCHAR"/>
+            <result column="CATEGORY_NAME2" property="categoryName" jdbcType="VARCHAR"/>
+            <result column="CATEGORY_LEVEL2" property="categoryLevel" jdbcType="VARCHAR"/>
+            <association property="child"  javaType="com.wanjun.canalsync.model.Category">
+                <id column="CATEGORY_ID3" property="categoryId" jdbcType="VARCHAR"/>
+                <result column="CATEGORY_CODE3" property="categoryCode" jdbcType="VARCHAR"/>
+                <result column="CATEGORY_NAME3" property="categoryName" jdbcType="VARCHAR"/>
+                <result column="CATEGORY_LEVEL3" property="categoryLevel" jdbcType="VARCHAR"/>
+
+            </association>
+        </association>
+
+    </resultMap>
+    <select id="selectCategoryList" resultMap="TreeResultMap">
 
         SELECT
         f.CATEGORY_ID      CATEGORY_ID1 ,
+        f.CATEGORY_CODE CATEGORY_CODE1,
         f.CATEGORY_NAME CATEGORY_NAME1,
         f.CATEGORY_LEVEL CATEGORY_LEVEL1,
+
+
         s.CATEGORY_ID      CATEGORY_ID2 ,
+        s.CATEGORY_CODE CATEGORY_CODE2,
         s.CATEGORY_NAME CATEGORY_NAME2,
         s.CATEGORY_LEVEL CATEGORY_LEVEL2,
+
+
         t.CATEGORY_ID      CATEGORY_ID3 ,
+        t.CATEGORY_CODE CATEGORY_CODE3,
         t.CATEGORY_NAME CATEGORY_NAME3,
         t.CATEGORY_LEVEL CATEGORY_LEVEL3
+
         FROM
         cmc_category f
         INNER JOIN   cmc_category s ON f.CATEGORY_ID = s.PARENT_CATEGORY_ID

@@ -1,6 +1,7 @@
 package com.wanjun.canalsync.dao;
 
 
+import com.wanjun.canalsync.model.Category;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +15,6 @@ import java.util.Map;
 @Repository
 public interface CategoryDao {
 
-    Map<String, Object> selectCategoryList(@Param("categoryId") String categoryId);
+    Category selectCategoryList(@Param("categoryId") String categoryId);
 
 }
