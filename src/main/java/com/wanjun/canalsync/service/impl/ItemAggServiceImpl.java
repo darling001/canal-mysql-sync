@@ -13,15 +13,14 @@ import com.wanjun.canalsync.model.Category;
 import com.wanjun.canalsync.model.IndexTypeModel;
 import com.wanjun.canalsync.service.ElasticsearchService;
 import com.wanjun.canalsync.service.ItemAggService;
+import com.wanjun.canalsync.util.Constants;
 import com.wanjun.canalsync.util.SelectType;
 import org.apache.commons.lang.StringUtils;
-import org.elasticsearch.common.recycler.Recycler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -265,7 +264,41 @@ public class ItemAggServiceImpl implements ItemAggService {
     @Override
     @Table(value = "category",event = {CanalEntry.EventType.UPDATE})
     public void aggCategory(Map<String, Object> map, IndexTypeModel indexTypeModel) {
-       // this.aggCommon(map,indexTypeModel);
+        String categoryLevel = map.get("CATEGORY_LEVEL").toString();
+        if(StringUtils.isEmpty(categoryLevel) || !StringUtils.equals(Constants.CATEGORY_LEVEL,categoryLevel)) {
+            logger.warn("当前修改的类目level{}",categoryLevel);
+            return ;
+        }
+        //聚合数据es类型
+        String aggType = indexTypeModel.getAggType();
+        //索引
+        String index = indexTypeModel.getIndex();
+
+        Map<String, String> pkMappingTableMap = indexTypeModel.getPkMappingTableMap();
+
+        pkMappingTableMap.forEach((key, value) -> {
+            Object colValue = map.get(key);
+            String[] aggConfig = StringUtils.split(value, ".");
+            if (aggConfig.length == 0) {
+                return;
+            }
+            String matchStr = String.format("%s=%s", aggConfig[2], colValue);
+            List<Map<String, Object>> esResult = elasticsearchService.searchListData(index, aggType, null, null, null, true, matchStr);
+            Map<String, Map<String, Object>> idDataMap = null;
+            if(esResult != null && !esResult.isEmpty()) {
+                idDataMap = Maps.newHashMap();
+            }
+            for(int i=0;i<esResult.size();i++) {
+                Map<String,Object> elementMap  = esResult.get(i);
+                String itemId = elementMap.get("ITEM_ID").toString();
+                Category categoryTree = categoryDao.selectCategoryList(colValue.toString());
+                List<Map<String,Object>> categoryMapList  = Lists.newArrayList();
+                getChildCategory(categoryMapList,categoryTree);
+                elementMap.put(aggConfig[1],categoryMapList);
+                idDataMap.put(itemId,elementMap);
+            }
+            elasticsearchService.batchInsertById(index,aggType,idDataMap);
+        });
     }
 
 

@@ -177,4 +177,11 @@ public interface ElasticsearchService {
      * @return
      */
     public EsPage searchDataPage(String index, String type, int currentPage, int pageSize, long startTime, long endTime, String fields, String sortField, boolean matchPhrase, String highlightField, String matchStr);
+
+    /**
+     * 创建ItemAgg映射
+     * @param index
+     * @param type
+     */
+    public void createItemAggMapp(String index,String type) ;
 }

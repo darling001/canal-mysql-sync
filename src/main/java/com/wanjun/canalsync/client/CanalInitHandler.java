@@ -3,7 +3,6 @@ package com.wanjun.canalsync.client;
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
 import com.google.common.collect.Lists;
-import com.sun.xml.internal.bind.v2.TODO;
 import com.wanjun.canalsync.client.config.CanalProperties;
 import com.wanjun.canalsync.queue.KMQueueManager;
 import com.wanjun.canalsync.queue.TaskExecutorThread;

@@ -1,90 +1,357 @@
-{
-  "_index": "gms",
-  "_type": "item_agg",
-  "_id": "1",
-  "_version": 1,
-  "_score": 1,
-  "_source": {
-    "item_id": "c12e71542b599fdc577041090454b606",
-    "item_type":"商品类型",
-    "item_code":"商品型号",
-    "item_name":"商品名称",
-    "item_shortname":"商品标题",
-    "item_status":"sku状态",
-    "item_desc":"sku备注",
-    "item_detail":"商品详情",
-    "item_detail_notes":"商品详情描述",
-    "secondary_unit_code":"辅助计量单位编号",
-    "hs_code":"HS码",
-    "mark_code":"唛头",
-    "manufacturer_name":"生产厂家名称",
-    "technical_standard":"技术标准",
-    "golden_tax_code":"金税代码",
-    "loss_rate":10,
-    "standard_flag":"1",
-    "origin":"产地",
-    "lock_flag":"1(锁货)",
-    "price_type":"价格类型",
-    "sale_price1":1000.00,
-    "sale_price2":500.00,
-    "sale_price3":230.00,
-    "spec_contents":{"颜色":"红","尺寸":"1寸"},
-    "item_line_id":"1010101010",
-    "item_line_code":"商家代码",
-    "material_type_code":"存货类别",
-    "supplier_id":["11111111","22222222","33333333"],
-    "supplier_code":["aaaaaaaa","bbbbbbbb","cccccccc"],
-    "supplier_name":["供应商名称1","供应商名称2","供应商名称3"],
-    "tax_code_type":"税率类型",
-    "min_order_num":10,
-    "package_num":10,
-    "lead_time":3,
-    "time_valid_date":"2017-10-11",
-    "time_invalid_date":"2018-10-12",
-    "material_account":"存货科目",
-    "down_price_account":"存货跌价准备",
-    "cost_account":"成本科目",
-    "revenue_account":"收入科目",
-    "receive_account":"应收科目",
-    "reve_adv_account":"预收科目",
-    "pay_count":"应付科目",
-    "prepay_account":"预付科目",
-    "expense_account":"费用科目",
-    "gtp_cost_account":"GTP成本科目",
-    "gtp_revenue_account":"GTP收入科目",
-    "match_flag":"是否匹配商品",
-    "display_flag":"1",
-    "status":"状态",
-    "spu": {
-      "spu_id": "101001010",
-      "spu_code": "10101acxxx",
-      "spu_status": "spu状态",
-      "spu_type": "spu类型",
-      "spu_desc": "spu备注",
-      "primary_unit_code": "主计量单位",
-      "tax_rate": "税率"
+//PUT /gms/_mapping
+{ "mappings": {
+  "item_agg": {
+    "_all": {
+      "analyzer": "ik_max_word",
+      "search_analyzer": "ik_max_word",
+      "index": "analyzed",
+      "term_vector": "no",
+      "store": "false"
     },
-
-    "category": {
-      "category_id":"100000000",
-      "category_code":"100101-1010",
-      "category_name":"无人机",
-      "parent_category_id":"10000010"
-    },
-    "brand":{
-      "brand_id":"111000",
-      "brand_name":"大疆无人机品牌",
-      "brief_name":"大疆无人机品牌简称",
-      "website":"wwww.dajiang.com",
-      "logo_url":"brand/logo/11",
-      "brand_introduction":"品牌介绍",
-      "brand_introduction_notes":"品牌介绍描述",
-      "brand_story_title":"品牌故事标题",
-      "brand_story":"品牌故事描述",
-      "belong_country":"所属国家",
-      "belong_company":"所属厂家",
-      "found_year":"成立时间"
+    "properties": {
+      "BOOK_ID": {
+        "type": "string"
+      },
+      "CATEGORY_ID": {
+        "type": "string"
+      },
+      "CREATE_DATE": {
+        "type": "string"
+      },
+      "CREATE_USER_ID": {
+        "type": "string"
+      },
+      "CREATE_USER_NAME": {
+        "type": "string"
+      },
+      "GROUP_ID": {
+        "type": "string"
+      },
+      "ITEM_CODE": {
+        "type": "string"
+      },
+      "ITEM_DETAIL_NOTES": {
+        "type": "string",
+        "term_vector": "with_positions_offsets",
+        "index": "analyzed",
+        "analyzer": "ik_max_word",
+        "search_analyzer": "ik_max_word",
+        "include_in_all": "true"
+      },
+      "ITEM_ID": {
+        "type": "string"
+      },
+      "ITEM_NAME": {
+        "type": "string",
+        "term_vector": "with_positions_offsets",
+        "index": "analyzed",
+        "analyzer": "ik_max_word",
+        "search_analyzer": "ik_max_word",
+        "include_in_all": "true"
+      },
+      "ITEM_STATUS": {
+        "type": "string"
+      },
+      "LOCK_FLAG": {
+        "type": "string"
+      },
+      "MODIFY_DATE": {
+        "type": "string"
+      },
+      "MODIFY_USER_ID": {
+        "type": "string"
+      },
+      "MODIFY_USER_NAME": {
+        "type": "string"
+      },
+      "ORG_ID": {
+        "type": "string"
+      },
+      "ORIGIN": {
+        "type": "string"
+      },
+      "PRIMARY_UNIT_CODE": {
+        "type": "string"
+      },
+      "SPEC_CONTENTS": {
+        "type": "string"
+      },
+      "SPU_ID": {
+        "type": "string"
+      },
+      "STANDARD_FLAG": {
+        "type": "string"
+      },
+      "TRADEMARK": {
+        "type": "string"
+      },
+      "cmc_brand": {
+        "properties": {
+          "BELONG_COMPANY": {
+            "type": "string"
+          },
+          "BELONG_COUNTRY": {
+            "type": "string"
+          },
+          "BOOK_ID": {
+            "type": "string"
+          },
+          "BRAND_ID": {
+            "type": "string"
+          },
+          "BRAND_INTRODUCTION_NOTES": {
+            "type": "string"
+          },
+          "BRAND_NAME": {
+            "type": "string",
+            "term_vector": "with_positions_offsets",
+            "index": "analyzed",
+            "analyzer": "ik_max_word",
+            "search_analyzer": "ik_max_word",
+            "include_in_all": "true"
+          },
+          "BRIEF_NAME": {
+            "type": "string",
+            "term_vector": "with_positions_offsets",
+            "index": "analyzed",
+            "analyzer": "ik_max_word",
+            "search_analyzer": "ik_max_word",
+            "include_in_all": "true"
+          },
+          "CATEGORY_ID": {
+            "type": "string"
+          },
+          "CREATE_USER_ID": {
+            "type": "string"
+          },
+          "CREATE_USER_NAME": {
+            "type": "string"
+          },
+          "FOUND_YEAR": {
+            "type": "string"
+          },
+          "GROUP_ID": {
+            "type": "string"
+          },
+          "MODIFY_USER_ID": {
+            "type": "string"
+          },
+          "MODIFY_USER_NAME": {
+            "type": "string"
+          },
+          "ORG_ID": {
+            "type": "string"
+          },
+          "STATUS": {
+            "type": "string"
+          },
+          "WEBSITE": {
+            "type": "string"
+          }
+        }
+      },
+      "cmc_category": {
+        "properties": {
+          "CATEGORY_CODE": {
+            "type": "string"
+          },
+          "CATEGORY_ID": {
+            "type": "string"
+          },
+          "CATEGORY_LEVEL": {
+            "type": "string"
+          },
+          "CATEGORY_NAME": {
+            "type": "string",
+            "term_vector": "with_positions_offsets",
+            "index": "analyzed",
+            "analyzer": "ik_max_word",
+            "search_analyzer": "ik_max_word",
+            "include_in_all": "true"
+          }
+        }
+      },
+      "cmc_item_line": {
+        "properties": {
+          "AREA_CODE": {
+            "type": "string"
+          },
+          "AREA_NAME": {
+            "type": "string"
+          },
+          "BOOK_ID": {
+            "type": "string"
+          },
+          "CREATE_DATE": {
+            "type": "date",
+            "format": "strict_date_optional_time||epoch_millis"
+          },
+          "CREATE_USER_ID": {
+            "type": "string"
+          },
+          "CREATE_USER_NAME": {
+            "type": "string"
+          },
+          "DISPLAY_FLAG": {
+            "type": "string"
+          },
+          "GROUP_ID": {
+            "type": "string"
+          },
+          "ITEM_ID": {
+            "type": "string"
+          },
+          "ITEM_LINE_CODE": {
+            "type": "string"
+          },
+          "ITEM_LINE_ID": {
+            "type": "string"
+          },
+          "ITEM_PRICE_ID": {
+            "type": "string"
+          },
+          "MIN_ORDER_NUM": {
+            "type": "string"
+          },
+          "MODIFY_DATE": {
+            "type": "date",
+            "format": "strict_date_optional_time||epoch_millis"
+          },
+          "MODIFY_USER_ID": {
+            "type": "string"
+          },
+          "MODIFY_USER_NAME": {
+            "type": "string"
+          },
+          "ORG_ID": {
+            "type": "string"
+          },
+          "PRICE_TYPE": {
+            "type": "string"
+          },
+          "PUR_PRICE1": {
+            "type": "string"
+          },
+          "PUR_PRICE2": {
+            "type": "string"
+          },
+          "PUR_PRICE3": {
+            "type": "string"
+          },
+          "PUR_PRICE4": {
+            "type": "string"
+          },
+          "PUR_PRICE5": {
+            "type": "string"
+          },
+          "SALE_PRICE1": {
+            "type": "string"
+          },
+          "SALE_PRICE2": {
+            "type": "string"
+          },
+          "SALE_PRICE3": {
+            "type": "string"
+          },
+          "SALE_PRICE4": {
+            "type": "string"
+          },
+          "SALE_PRICE5": {
+            "type": "string"
+          },
+          "STATUS": {
+            "type": "string"
+          },
+          "SUPPLIER_CODE": {
+            "type": "string"
+          },
+          "SUPPLIER_ID": {
+            "type": "string"
+          },
+          "SUPPLIER_NAME": {
+            "type": "string",
+            "term_vector": "with_positions_offsets",
+            "index": "analyzed",
+            "analyzer": "ik_max_word",
+            "search_analyzer": "ik_max_word",
+            "include_in_all": "true"
+          },
+          "VALID_DATE": {
+            "type": "date",
+            "format": "strict_date_optional_time||epoch_millis"
+          }
+        }
+      },
+      "cmc_spu": {
+        "properties": {
+          "BOOK_ID": {
+            "type": "string"
+          },
+          "BRAND": {
+            "type": "string"
+          },
+          "CATEGORY_ID": {
+            "type": "string"
+          },
+          "GROUP_ID": {
+            "type": "string"
+          },
+          "MODIFY_DATE": {
+            "type": "date",
+            "format": "strict_date_optional_time||epoch_millis"
+          },
+          "MODIFY_USER_ID": {
+            "type": "string"
+          },
+          "MODIFY_USER_NAME": {
+            "type": "string"
+          },
+          "ORG_ID": {
+            "type": "string"
+          },
+          "PRIMARY_UNIT_CODE": {
+            "type": "string"
+          },
+          "SPEC_HEAD_ID": {
+            "type": "string"
+          },
+          "SPU_CODE": {
+            "type": "string"
+          },
+          "SPU_DESC": {
+            "type": "string",
+            "term_vector": "with_positions_offsets",
+            "index": "analyzed",
+            "analyzer": "ik_max_word",
+            "search_analyzer": "ik_max_word",
+            "include_in_all": "true"
+          },
+          "SPU_ID": {
+            "type": "string"
+          },
+          "SPU_NAME": {
+            "type": "string",
+            "term_vector": "with_positions_offsets",
+            "index": "analyzed",
+            "analyzer": "ik_max_word",
+            "search_analyzer": "ik_max_word",
+            "include_in_all": "true"
+          },
+          "SPU_STATUS": {
+            "type": "string"
+          },
+          "SPU_TYPE": {
+            "type": "string"
+          },
+          "TAX_CODE_TYPE": {
+            "type": "string"
+          },
+          "TAX_RATE": {
+            "type": "string"
+          }
+        }
+      }
     }
   }
 }
-
+}

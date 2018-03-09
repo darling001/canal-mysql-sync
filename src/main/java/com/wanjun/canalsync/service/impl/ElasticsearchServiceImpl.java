@@ -426,6 +426,11 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
         return null;
     }
 
+    @Override
+    public void createItemAggMapp(String index, String type) {
+
+    }
+
     /**
      * 高亮结果集 特殊处理
      *
