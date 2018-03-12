@@ -2,6 +2,8 @@ package com.wanjun.canalsync;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.wanjun.canalsync.model.AggregationModel;
+import com.wanjun.canalsync.model.IndexTypeModel;
+import com.wanjun.canalsync.service.impl.ItemAggServiceImpl;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.joda.time.DateTime;
@@ -10,6 +12,8 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Map;

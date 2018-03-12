@@ -55,7 +55,7 @@ public class UpdateCanalListener extends AbstractCanalListener<UpdateCanalEvent>
             sync(database, table, index, type, indexTypeModel, dataMap, idValue);
         } catch (Exception e) {
             logger.error("UpdateCanalListener->同步数据失败", e);
-           // pushTask(database, table, index, type, indexTypeModel, dataMap, idValue, CanalEntry.EventType.UPDATE_VALUE);
+            pushTask(database, table, index, type, indexTypeModel, dataMap, idValue, CanalEntry.EventType.UPDATE_VALUE);
         }
 
     }
