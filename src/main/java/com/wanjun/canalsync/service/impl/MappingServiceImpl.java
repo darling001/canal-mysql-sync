@@ -6,7 +6,9 @@ import com.google.common.collect.Maps;
 import com.wanjun.canalsync.model.DatabaseTableModel;
 import com.wanjun.canalsync.model.IndexTypeModel;
 import com.wanjun.canalsync.service.MappingService;
+import com.wanjun.canalsync.util.DateUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
@@ -25,14 +27,15 @@ import java.util.Map.Entry;
 @PropertySource("classpath:mapping.properties")
 @ConfigurationProperties
 public class MappingServiceImpl implements MappingService, InitializingBean {
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(MappingServiceImpl.class);
 
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 
     private Map<String, String> dbEsMapping;
     //private Map<String,String> dbAggregationMapping;
     private BiMap<DatabaseTableModel, IndexTypeModel> dbEsBiMapping;
-   // private Map<DatabaseTableModel, AggregationModel> dbAggregationModelMapping;
+    // private Map<DatabaseTableModel, AggregationModel> dbAggregationModelMapping;
     private Map<String, String> tablePrimaryKeyMap;
     private Map<String, Converter> mysqlTypeElasticsearchTypeMapping;
 
@@ -51,11 +54,11 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
         return dbEsBiMapping.get(databaseTableModel);
     }
 
-   /* @Override
-    public AggregationModel getAggregationMapping(DatabaseTableModel databaseTableModel) {
-        return dbAggregationModelMapping.get(databaseTableModel);
-    }
-*/
+    /* @Override
+     public AggregationModel getAggregationMapping(DatabaseTableModel databaseTableModel) {
+         return dbAggregationModelMapping.get(databaseTableModel);
+     }
+ */
     @Override
     public DatabaseTableModel getDatabaseTableModel(IndexTypeModel indexTypeModel) {
         return dbEsBiMapping.inverse().get(indexTypeModel);
@@ -73,16 +76,16 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
         dbEsMapping.forEach((key, value) -> {
             String[] keyStrings = StringUtils.split(key, ".");
             String[] valueStrings = StringUtils.split(value, "|");
-            if(valueStrings.length == 2) {
+            if (valueStrings.length == 2) {
                 dbEsBiMapping.put(new DatabaseTableModel(keyStrings[0], keyStrings[1]), new IndexTypeModel(valueStrings[0], valueStrings[1]));
-            }else if(valueStrings.length == 3){
-                dbEsBiMapping.put(new DatabaseTableModel(keyStrings[0], keyStrings[1]), new IndexTypeModel(valueStrings[0], valueStrings[1],valueStrings[2]));
-            }else {
-                Map<String,String> map = Maps.newHashMap();
-                for(int i=3;i<valueStrings.length;i++) {
-                    String[] splitStrings = StringUtils.split(valueStrings[i],":");
-                    map.put(splitStrings[0],splitStrings[1]);
-                    dbEsBiMapping.put(new DatabaseTableModel(keyStrings[0], keyStrings[1]), new IndexTypeModel(valueStrings[0], valueStrings[1],valueStrings[2],map));
+            } else if (valueStrings.length == 3) {
+                dbEsBiMapping.put(new DatabaseTableModel(keyStrings[0], keyStrings[1]), new IndexTypeModel(valueStrings[0], valueStrings[1], valueStrings[2]));
+            } else {
+                Map<String, String> map = Maps.newHashMap();
+                for (int i = 3; i < valueStrings.length; i++) {
+                    String[] splitStrings = StringUtils.split(valueStrings[i], ":");
+                    map.put(splitStrings[0], splitStrings[1]);
+                    dbEsBiMapping.put(new DatabaseTableModel(keyStrings[0], keyStrings[1]), new IndexTypeModel(valueStrings[0], valueStrings[1], valueStrings[2], map));
                 }
             }
         });
@@ -121,11 +124,12 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
         });*/
 
         mysqlTypeElasticsearchTypeMapping = Maps.newHashMap();
-        mysqlTypeElasticsearchTypeMapping.put("char", data -> data);
-        mysqlTypeElasticsearchTypeMapping.put("text", data -> data);
+        mysqlTypeElasticsearchTypeMapping.put("json", data -> StringUtils.trimToNull(data));
+        mysqlTypeElasticsearchTypeMapping.put("char", data -> StringUtils.trimToNull(data));
+        mysqlTypeElasticsearchTypeMapping.put("text", data -> StringUtils.trimToNull(data));
         mysqlTypeElasticsearchTypeMapping.put("blob", data -> data);
         mysqlTypeElasticsearchTypeMapping.put("int", Long::valueOf);
-       // mysqlTypeElasticsearchTypeMapping.put("datetime", data -> LocalDateTime.parse(data, formatter));
+        mysqlTypeElasticsearchTypeMapping.put("datetime", data -> DateUtils.parse(data));
         mysqlTypeElasticsearchTypeMapping.put("float", Double::valueOf);
         mysqlTypeElasticsearchTypeMapping.put("double", Double::valueOf);
         mysqlTypeElasticsearchTypeMapping.put("decimal", Double::valueOf);
@@ -141,14 +145,14 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
     }
 
 
-   /* public Map<String, String> getDbAggregationMapping() {
-        return dbAggregationMapping;
-    }
+    /* public Map<String, String> getDbAggregationMapping() {
+         return dbAggregationMapping;
+     }
 
-    public void setDbAggregationMapping(Map<String, String> dbAggregationMapping) {
-        this.dbAggregationMapping = dbAggregationMapping;
-    }
-*/
+     public void setDbAggregationMapping(Map<String, String> dbAggregationMapping) {
+         this.dbAggregationMapping = dbAggregationMapping;
+     }
+ */
     private interface Converter {
         Object convert(String data);
     }

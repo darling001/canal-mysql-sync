@@ -16,7 +16,8 @@
           "type": "string"
         },
         "CREATE_DATE": {
-          "type": "string"
+          "type": "date",
+          "format": "strict_date_optional_time||epoch_millis"
         },
         "CREATE_USER_ID": {
           "type": "string"
@@ -26,6 +27,97 @@
           "index": "not_analyzed"
         },
         "GROUP_ID": {
+          "type": "string"
+        },
+        "EXT_COL1": {
+          "type": "string"
+        },
+        "EXT_COL2": {
+          "type": "string"
+        },
+        "EXT_COL3": {
+          "type": "string"
+        },
+        "EXT_COL4": {
+          "type": "string"
+        },
+        "EXT_COL5": {
+          "type": "string"
+        },
+        "EXT_COL6": {
+          "type": "string"
+        },
+        "EXT_COL7": {
+          "type": "string"
+        },
+        "EXT_COL8": {
+          "type": "string"
+        },
+        "EXT_COL9": {
+          "type": "string"
+        },
+        "EXT_COL10": {
+          "type": "string"
+        },
+        "SPEC_VALUE1": {
+          "type": "string"
+        },
+        "SPEC_VALUE2": {
+          "type": "string"
+        },
+        "SPEC_VALUE3": {
+          "type": "string"
+        },
+        "SPEC_VALUE4": {
+          "type": "string"
+        },
+        "SPEC_VALUE5": {
+          "type": "string"
+        },
+        "SPEC_VALUE6": {
+          "type": "string"
+        },
+        "SPEC_VALUE7": {
+          "type": "string"
+        },
+        "SPEC_VALUE8": {
+          "type": "string"
+        },
+
+        "SPEC_VALUE9": {
+          "type": "string"
+        },
+        "SPEC_VALUE10": {
+          "type": "string"
+        },
+        "SPEC_VALUE11": {
+          "type": "string"
+        },
+        "SPEC_VALUE12": {
+          "type": "string"
+        },
+        "SPEC_VALUE13": {
+          "type": "string"
+        },
+        "SPEC_VALUE14": {
+          "type": "string"
+        },
+        "SPEC_VALUE15": {
+          "type": "string"
+        },
+        "SPEC_VALUE16": {
+          "type": "string"
+        },
+        "SPEC_VALUE17": {
+          "type": "string"
+        },
+        "SPEC_VALUE18": {
+          "type": "string"
+        },
+        "SPEC_VALUE19": {
+          "type": "string"
+        },
+        "SPEC_VALUE20": {
           "type": "string"
         },
         "ITEM_CODE": {
@@ -57,7 +149,8 @@
           "type": "string"
         },
         "MODIFY_DATE": {
-          "type": "string"
+          "type": "date",
+          "format": "strict_date_optional_time||epoch_millis"
         },
         "MODIFY_USER_ID": {
           "type": "string"
@@ -70,7 +163,7 @@
           "type": "string"
         },
         "ORIGIN": {
-          "type": "string",
+          "type": "string"
         },
         "PRIMARY_UNIT_CODE": {
           "type": "string"
@@ -357,3 +450,4 @@
     }
   }
 }
+

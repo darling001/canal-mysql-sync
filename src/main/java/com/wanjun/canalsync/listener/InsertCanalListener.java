@@ -55,7 +55,7 @@ public class InsertCanalListener extends AbstractCanalListener<InsertCanalEvent>
             sync(database, table, index, type, indexTypeModel, dataMap, idValue);
         } catch (Exception e) {
             logger.error("InsertCanalListener->同步数据失败", e);
-            pushTask(database, table, index, type, indexTypeModel, dataMap, idValue,CanalEntry.EventType.INSERT_VALUE);
+            //pushTask(database, table, index, type, indexTypeModel, dataMap, idValue,CanalEntry.EventType.INSERT_VALUE);
         }
 
 

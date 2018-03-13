@@ -3,10 +3,8 @@ package com.wanjun.canalsync.util;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Timestamp;
+import java.util.*;
 
 /**
  * @author wangchengli
@@ -18,7 +16,10 @@ public class JSONUtil {
     private static Gson gson = null;
 
     static {
-        gson = new GsonBuilder().disableHtmlEscaping().create();// TODO
+        gson = new GsonBuilder()
+                .registerTypeAdapter(Date.class, new DateTypeAdapter())
+                .registerTypeAdapter(Timestamp.class,new TimestampTypeAdapter())
+                .setDateFormat("yyyy-MM-dd HH:mm:ss").disableHtmlEscaping().create();// TODO
         // yyyy-MM-dd
         // HH:mm:ss
     }
@@ -43,7 +44,7 @@ public class JSONUtil {
     public static <T> Map<String, T> toMap(String json, Class<T> clz) {
         Map<String, T> map = gson.fromJson(json, new TypeToken<Map<String, T>>() {
         }.getType());
-        Map<String, T> result = new HashMap<String,T>();
+        Map<String, T> result = new HashMap<String, T>();
         for (String key : map.keySet()) {
             result.put(key, gson.fromJson((String) map.get(key), clz));
         }

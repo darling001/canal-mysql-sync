@@ -1,0 +1,12 @@
+[
+  {
+    "PRICE_FLAG":"1",
+    "ATTRIBUTE_NAME":"颜色",
+    "ATTRIBUTE_VALUE":"红色"
+  },
+  {
+    "PRICE_FLAG":"0",
+    "ATTRIBUTE_NAME":"尺寸",
+    "ATTRIBUTE_VALUE":"红色"
+  }
+]

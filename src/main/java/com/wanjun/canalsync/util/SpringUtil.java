@@ -100,6 +100,9 @@ public class SpringUtil implements ApplicationContextAware {
         }
         long begin = System.currentTimeMillis();
         logger.info("integrate data: {} , {}", path, obj);
+        if(indexTypeModel == null) {
+            logger.error("indexTypeModel is null  {}",indexTypeModel);
+        }
         method.invoke(schema, new Object[]{obj, indexTypeModel});
         logger.info("integrate data consume: {}ms ", System.currentTimeMillis() - begin);
 

@@ -144,7 +144,12 @@ public class ItemAggServiceImpl implements ItemAggService {
             if (aggConfig.length == 0) {
                 return;
             }
+            if(colValue  == null) {
+                logger.error("aggItemLine colValue is null ,colValue {},EventType {}",colValue,CanalEntry.EventType.UPDATE);
+                return ;
+            }
             List<Map<String, Object>> result = itemLineDao.getItemLineMap(colValue.toString());
+
             if (result != null && !result.isEmpty()) {
                 Map<String, Object> esResult = elasticsearchService.searchDataById(index, aggType, colValue.toString(), null);
                 if (esResult != null && !esResult.isEmpty()) {
@@ -172,6 +177,10 @@ public class ItemAggServiceImpl implements ItemAggService {
             if (aggConfig.length == 0) {
                 return;
             }
+            if(colValue  == null) {
+                logger.error("aggItemPicture colValue is null ,colValue {},EventType {}",colValue,CanalEntry.EventType.UPDATE);
+                return ;
+            }
             List<Map<String, Object>> result = itemPictureDao.getItemPictureMap(colValue.toString(), "sku");
             if (result != null && !result.isEmpty()) {
                 //map.put(aggConfig[1], result);
@@ -195,6 +204,10 @@ public class ItemAggServiceImpl implements ItemAggService {
         Map<String, String> pkMappingTableMap = indexTypeModel.getPkMappingTableMap();
         pkMappingTableMap.forEach((key, value) -> {
             Object colValue = map.get(key);
+            if(colValue  == null) {
+                logger.error("aggItemPrice colValue is null ,colValue {},EventType {}",colValue,CanalEntry.EventType.UPDATE);
+                return ;
+            }
             String[] aggConfig = StringUtils.split(value, ".");
             if (aggConfig.length == 0) {
                 return;
@@ -230,6 +243,10 @@ public class ItemAggServiceImpl implements ItemAggService {
             String[] aggConfig = StringUtils.split(value, ".");
             if (aggConfig.length == 0) {
                 return;
+            }
+            if(colValue  == null) {
+                logger.error("aggCommon colValue is null ,colValue {}",colValue);
+                return ;
             }
             String matchStr = String.format("%s=%s", aggConfig[2], colValue);
             List<Map<String, Object>> esResult = elasticsearchService.searchListData(index, aggType, null, null, null, true, matchStr);
@@ -281,6 +298,10 @@ public class ItemAggServiceImpl implements ItemAggService {
             String[] aggConfig = StringUtils.split(value, ".");
             if (aggConfig.length == 0) {
                 return;
+            }
+            if(colValue  == null) {
+                logger.error("aggCategory colValue is null ,colValue {},EventType {}",colValue,CanalEntry.EventType.UPDATE);
+                return ;
             }
             String matchStr = String.format("%s=%s", aggConfig[2], colValue);
             List<Map<String, Object>> esResult = elasticsearchService.searchListData(index, aggType, null, null, null, true, matchStr);

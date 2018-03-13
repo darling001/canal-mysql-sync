@@ -1,9 +1,11 @@
 package com.wanjun.canalsync;
 
 import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Maps;
 import com.wanjun.canalsync.model.AggregationModel;
 import com.wanjun.canalsync.model.IndexTypeModel;
 import com.wanjun.canalsync.service.impl.ItemAggServiceImpl;
+import com.wanjun.canalsync.util.JSONUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.joda.time.DateTime;
@@ -15,7 +17,9 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.*;
@@ -101,5 +105,13 @@ public class CommonTest {
         }
         Thread.sleep(10000);
         executorService.shutdown();
+    }
+    @Test
+    public void testJson() {
+        Map<String,Object> map = Maps.newHashMap();
+        map.put("createTime",new Timestamp(System.currentTimeMillis()));
+        map.put("userId",100000);
+        map.put("userName","xxxx");
+        System.out.println("map = " + JSONUtil.toJson(map));
     }
 }

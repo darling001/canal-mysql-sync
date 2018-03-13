@@ -41,8 +41,7 @@ public class UpdateCanalListener extends AbstractCanalListener<UpdateCanalEvent>
     private RedisService redisService;
 
     @Override
-    protected void doSync(String database, String table, String index, String type, RowData rowData, IndexTypeModel indexTypeModel) {
-        List<Column> columns = rowData.getAfterColumnsList();
+    protected void doSync(String database, String table, String index, String type, RowData rowData, IndexTypeModel indexTypeModel) { List<Column> columns = rowData.getAfterColumnsList();
         String primaryKey = Optional.ofNullable(mappingService.getTablePrimaryKeyMap().get(database + "." + table)).orElse("id");
         Column idColumn = columns.stream().filter(column -> primaryKey.equals(column.getName())).findFirst().orElse(null);
         if (idColumn == null || StringUtils.isBlank(idColumn.getValue())) {
@@ -55,7 +54,7 @@ public class UpdateCanalListener extends AbstractCanalListener<UpdateCanalEvent>
             sync(database, table, index, type, indexTypeModel, dataMap, idValue);
         } catch (Exception e) {
             logger.error("UpdateCanalListener->同步数据失败", e);
-            pushTask(database, table, index, type, indexTypeModel, dataMap, idValue, CanalEntry.EventType.UPDATE_VALUE);
+            //pushTask(database, table, index, type, indexTypeModel, dataMap, idValue, CanalEntry.EventType.UPDATE_VALUE);
         }
 
     }

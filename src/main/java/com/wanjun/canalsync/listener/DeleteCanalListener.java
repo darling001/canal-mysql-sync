@@ -53,7 +53,7 @@ public class DeleteCanalListener extends AbstractCanalListener<DeleteCanalEvent>
             sync(database, table, index, type, indexTypeModel, dataMap,idValue);
         }catch (Exception e) {
             logger.error("DeleteCanalListener ->同步数据失败", e);
-            pushTask(database, table, index, type, indexTypeModel, dataMap, idValue,CanalEntry.EventType.DELETE_VALUE);
+            //pushTask(database, table, index, type, indexTypeModel, dataMap, idValue,CanalEntry.EventType.DELETE_VALUE);
         }
     }
 
