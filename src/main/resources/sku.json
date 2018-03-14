@@ -286,9 +286,6 @@
           "search_analyzer": "ik_max_word",
           "include_in_all": "true"
         },
-        "SPEC_CONTENTS": {
-          "type": "string"
-        },
         "cmc_brand": {
           "properties": {
             "BRAND_ID": {

@@ -1,5 +1,7 @@
 package com.wanjun.canalsync.util;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author wangchengli
  * @version 1.0
@@ -156,5 +158,7 @@ public class Assert {
      */
     public static void greaterThanEquals(long value, long minValue) {
         greaterThanEquals(value, minValue, "The first parameter must be greater than the second parameter");
+
+
     }
 }

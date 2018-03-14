@@ -12,7 +12,6 @@
             <if test="billType != null and billType !=''">
                 t.BILL_TYPE = '${billType}'
             </if>
-
         </where>
 
     </select>

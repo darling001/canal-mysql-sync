@@ -130,6 +130,7 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
         mysqlTypeElasticsearchTypeMapping.put("blob", data -> data);
         mysqlTypeElasticsearchTypeMapping.put("int", Long::valueOf);
         mysqlTypeElasticsearchTypeMapping.put("datetime", data -> DateUtils.parse(data));
+        mysqlTypeElasticsearchTypeMapping.put("date", data -> DateUtils.parse(data,DateUtils.DATE_SMALL_STR));
         mysqlTypeElasticsearchTypeMapping.put("float", Double::valueOf);
         mysqlTypeElasticsearchTypeMapping.put("double", Double::valueOf);
         mysqlTypeElasticsearchTypeMapping.put("decimal", Double::valueOf);

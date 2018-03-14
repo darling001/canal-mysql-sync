@@ -64,9 +64,9 @@ public class InsertCanalListener extends AbstractCanalListener<InsertCanalEvent>
 
     public void sync(String database, String table, String index, String type, IndexTypeModel indexTypeModel, Map<String, Object> dataMap, String idValue) throws Exception {
         //ES同步插入
-        logger.debug("insert_column_id_info insert主键id,database=" + database + ",table=" + table + ",id=" + idValue);
-        elasticsearchService.insertById(index, type, idValue, dataMap);
-        logger.debug("insert_es_info 同步es插入操作成功！database=" + database + ",table=" + table + ",data=" + JSONUtil.toJson(dataMap));
+        //logger.debug("insert_column_id_info insert主键id,database=" + database + ",table=" + table + ",id=" + idValue);
+        //elasticsearchService.insertById(index, type, idValue, dataMap);
+        //logger.debug("insert_es_info 同步es插入操作成功！database=" + database + ",table=" + table + ",data=" + JSONUtil.toJson(dataMap));
 
         //redis同步插入
         String redisKey = getMappingKey(index, type);

@@ -3,6 +3,7 @@ package com.wanjun.canalsync;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.wanjun.canalsync.model.EsPage;
+import com.wanjun.canalsync.model.SpecAttribute;
 import com.wanjun.canalsync.service.ElasticsearchService;
 import com.wanjun.canalsync.util.JSONUtil;
 import org.apache.commons.lang3.RandomUtils;
@@ -28,31 +29,32 @@ public class ElasticSearchTest {
     private ElasticsearchService elasticsearchService;
 
     @Test
-    public void testInsertById() {
-        for (int i = 2; i < 10000; i++) {
-            long num1 = RandomUtils.nextLong(1, 10000);
-            Map<String, Object> map = Maps.newHashMap();
-            map.put("id", i);
-            map.put("goodName", "无人机" + num1);
-            map.put("price", num1);
-            map.put("brandName", "大疆");
-            Map<String, Object> properties1 = Maps.newHashMap();
-            properties1.put("value", Lists.newArrayList("v1", "v2"));
-            properties1.put("name", "属性1");
-            Map<String, Object> properties2 = Maps.newHashMap();
-            properties2.put("value", Lists.newArrayList("v3", "v4"));
-            properties2.put("name", "属性2");
+    public void testParseJson() {
+        String json = "[\n" +
+                "  {\n" +
+                "    \"PRICE_FLAG\":\"1\",\n" +
+                "    \"ATTRIBUTE_NAME\":\"颜色\",\n" +
+                "    \"ATTRIBUTE_VALUE\":\"红色\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"PRICE_FLAG\":\"0\",\n" +
+                "    \"ATTRIBUTE_NAME\":\"尺寸\",\n" +
+                "    \"ATTRIBUTE_VALUE\":\"红色\"\n" +
+                "  }\n" +
+                "]";
+        List<SpecAttribute> specAttributes = JSONUtil.toList(json, SpecAttribute.class);
+        System.out.println(JSONUtil.toJson(specAttributes));
+    }
 
-            Map<String, Object> properties3 = Maps.newHashMap();
-            properties3.put("value", Lists.newArrayList("v5", "v6"));
-            properties3.put("name", "属性3");
-            List<Map<String, Object>> list = Lists.newArrayList();
-            list.add(properties1);
-            list.add(properties2);
-            list.add(properties3);
-            map.put("properties", list);
-            elasticsearchService.insertById("test", "test", i + "", map);
-        }
+    @Test
+    public void testInsertById() {
+       Map<String,Object> map = Maps.newHashMap();
+       map.put("aaa",1);
+       map.put("bbb","bbb");
+       map.put("ccc",2.14);
+       Map<String,Map<String,Object>> esMap = Maps.newHashMap();
+       esMap.put("2",map);
+       elasticsearchService.batchInsertById("test","test",esMap);
     }
 
     @Test
