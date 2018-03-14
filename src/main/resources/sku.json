@@ -92,16 +92,16 @@
           "type":"string"
         },
         "PO_MOREORLESS_UP":{
-          "type":"float"
+          "type":"double"
         },
         "PO_MOREORLESS_DOWN":{
-          "type":"float"
+          "type":"double"
         },
         "ONT_MOREORLESS_UP":{
-          "type":"float"
+          "type":"double"
         },
         "ONT_MOREORLESS_DOWN":{
-          "type":"float"
+          "type":"double"
         },
         "UOM_WIDTH":{
           "type":"string"
@@ -134,7 +134,7 @@
           "type":"string"
         },
         "LOSS_RATE":{
-          "type":"float"
+          "type":"double"
         },
         "STANDARD_FLAG":{
           "type":"string"
@@ -436,57 +436,54 @@
         },
         "cmc_item_line": {
           "properties": {
+            "ITEM_LINE_ID": {
+              "type": "string"
+            },
+            "ITEM_LINE_CODE": {
+              "type": "string"
+            },
+            "ITEM_ID": {
+              "type": "string"
+            },
+            "MATERIAL_TYPE_CODE":{
+              "type":"string"
+            },
+            "SUPPLIER_ID": {
+              "type": "string"
+            },
+            "SUPPLIER_CODE": {
+              "type": "string"
+            },
+            "SUPPLIER_NAME": {
+              "type": "string",
+              "term_vector": "with_positions_offsets",
+              "index": "analyzed",
+              "analyzer": "ik_max_word",
+              "search_analyzer": "ik_max_word",
+              "include_in_all": "true"
+            },
+            "LEAD_TIME":{
+              "type":"double"
+            },
+            "STATUS":{
+              "type":"string"
+            },
+            "DISPLAY_FLAG":{
+              "type":"string"
+            },
+            "MIN_ORDER_NUM": {
+              "type": "double"
+            },
             "AREA_CODE": {
               "type": "string"
             },
             "AREA_NAME": {
               "type": "string"
             },
-            "BOOK_ID": {
-              "type": "string"
-            },
-            "CREATE_DATE": {
-              "type": "date",
-              "format": "strict_date_optional_time||epoch_millis"
-            },
-            "CREATE_USER_ID": {
-              "type": "string"
-            },
-            "CREATE_USER_NAME": {
-              "type": "string"
-            },
-            "DISPLAY_FLAG": {
-              "type": "string"
-            },
-            "GROUP_ID": {
-              "type": "string"
-            },
-            "ITEM_ID": {
-              "type": "string"
-            },
-            "ITEM_LINE_CODE": {
-              "type": "string"
-            },
-            "ITEM_LINE_ID": {
-              "type": "string"
-            },
             "ITEM_PRICE_ID": {
               "type": "string"
             },
-            "MIN_ORDER_NUM": {
-              "type": "string"
-            },
-            "MODIFY_DATE": {
-              "type": "date",
-              "format": "strict_date_optional_time||epoch_millis"
-            },
-            "MODIFY_USER_ID": {
-              "type": "string"
-            },
-            "MODIFY_USER_NAME": {
-              "type": "string"
-            },
-            "ORG_ID": {
+            "PRICE_TYPE": {
               "type": "string"
             },
             "PRICE_TYPE": {
@@ -522,26 +519,75 @@
             "SALE_PRICE5": {
               "type": "double"
             },
-            "STATUS": {
-              "type": "string"
-            },
-            "SUPPLIER_CODE": {
-              "type": "string"
-            },
-            "SUPPLIER_ID": {
-              "type": "string"
-            },
-            "SUPPLIER_NAME": {
-              "type": "string",
-              "term_vector": "with_positions_offsets",
-              "index": "analyzed",
-              "analyzer": "ik_max_word",
-              "search_analyzer": "ik_max_word",
-              "include_in_all": "true"
-            },
-            "VALID_DATE": {
+            "VALID_DATE":{
               "type": "date",
               "format": "strict_date_optional_time||epoch_millis"
+            },
+            "INVALID_DATE": {
+              "type": "date",
+              "format": "strict_date_optional_time||epoch_millis"
+            },
+            "CREATE_DATE": {
+              "type": "date",
+              "format": "strict_date_optional_time||epoch_millis"
+            },
+            "CREATE_USER_ID": {
+              "type": "string"
+            },
+            "CREATE_USER_NAME": {
+              "type": "string"
+            },
+
+            "MODIFY_DATE": {
+              "type": "date",
+              "format": "strict_date_optional_time||epoch_millis"
+            },
+            "MODIFY_USER_ID": {
+              "type": "string"
+            },
+            "MODIFY_USER_NAME": {
+              "type": "string"
+            },
+
+            "ORG_ID": {
+              "type": "string"
+            },
+            "BOOK_ID": {
+              "type": "string"
+            },
+
+            "GROUP_ID": {
+              "type": "string"
+            },
+            "EXT_COL1": {
+              "type": "string"
+            },
+            "EXT_COL2": {
+              "type": "string"
+            },
+            "EXT_COL3": {
+              "type": "string"
+            },
+            "EXT_COL4": {
+              "type": "string"
+            },
+            "EXT_COL5": {
+              "type": "string"
+            },
+            "EXT_COL6": {
+              "type": "string"
+            },
+            "EXT_COL7": {
+              "type": "string"
+            },
+            "EXT_COL8": {
+              "type": "string"
+            },
+            "EXT_COL9": {
+              "type": "string"
+            },
+            "EXT_COL10": {
+              "type": "string"
             }
           }
         },
