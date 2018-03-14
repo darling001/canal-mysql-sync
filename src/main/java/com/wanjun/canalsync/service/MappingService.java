@@ -1,6 +1,5 @@
 package com.wanjun.canalsync.service;
 
-import com.wanjun.canalsync.model.AggregationModel;
 import com.wanjun.canalsync.model.DatabaseTableModel;
 import com.wanjun.canalsync.model.IndexTypeModel;
 
