@@ -106,7 +106,7 @@ public class BackupQueueMonitor extends KMQueueAdapter {
     public void monitor() {
         Task task;
         String backUpQueueName = this.getBackUpQueueName();
-        logger.info("Backup queue[" + backUpQueueName + "]Monitoring begins：" + DateUtils.formatDate(new Date()));
+        //logger.info("Backup queue[" + backUpQueueName + "]Monitoring begins：" + DateUtils.formatDate(new Date()));
         task = backupQueue.popTask();
         while (task != null &&
                 !backUpQueueName.equals(task.getQueue()) &&

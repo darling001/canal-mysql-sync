@@ -9,55 +9,141 @@
         "store": "false"
       },
       "properties": {
-        "BOOK_ID": {
+        "ITEM_ID": {
           "type": "string"
         },
         "CATEGORY_ID": {
           "type": "string"
         },
-        "CREATE_DATE": {
+        "SPU_ID": {
+          "type": "string"
+        },
+        "ITEM_TYPE": {
+          "type": "string"
+        },
+        "SPEC_HEAD_ID":{
+          "type":"string"
+        },
+        "ITEM_CODE": {
+          "type": "string"
+        },
+        "ITEM_NAME": {
+          "type": "string",
+          "term_vector": "with_positions_offsets",
+          "index": "analyzed",
+          "analyzer": "ik_max_word",
+          "search_analyzer": "ik_max_word",
+          "include_in_all": "true"
+        },
+        "ITEM_SHORTNAME": {
+          "type": "string",
+          "term_vector": "with_positions_offsets",
+          "index": "analyzed",
+          "analyzer": "ik_max_word",
+          "search_analyzer": "ik_max_word",
+          "include_in_all": "true"
+        },
+        "ITEM_STATUS": {
+          "type": "string"
+        },
+        "ITEM_DESC": {
+          "type": "string",
+          "term_vector": "with_positions_offsets",
+          "index": "analyzed",
+          "analyzer": "ik_max_word",
+          "search_analyzer": "ik_max_word",
+          "include_in_all": "true"
+        },
+        "ITEM_DETAIL":{  "type": "string",
+          "term_vector": "with_positions_offsets",
+          "index": "analyzed",
+          "analyzer": "ik_max_word",
+          "search_analyzer": "ik_max_word",
+          "include_in_all": "true"},
+        "TRADEMARK": {
+          "type": "string"
+        },
+        "PRIMARY_UNIT_CODE":{
+          "type":"string"
+        },
+        "VALID_START":{
           "type": "date",
           "format": "strict_date_optional_time||epoch_millis"
         },
-        "CREATE_USER_ID": {
-          "type": "string"
+        "VALID_END":{
+          "type": "date",
+          "format": "strict_date_optional_time||epoch_millis"
         },
-        "CREATE_USER_NAME": {
-          "type": "string",
-          "index": "not_analyzed"
+        "EFFECT_USER_ID":{
+          "type":"string"
         },
-        "GROUP_ID": {
-          "type": "string"
+        "EFFECT_DATE":{
+          "type": "date",
+          "format": "strict_date_optional_time||epoch_millis"
         },
-        "EXT_COL1": {
-          "type": "string"
+        "INVALID_USER_ID":{
+          "type":"string"
         },
-        "EXT_COL2": {
-          "type": "string"
+        "INVALID_DATE":{
+          "type": "date",
+          "format": "strict_date_optional_time||epoch_millis"
         },
-        "EXT_COL3": {
-          "type": "string"
+        "SECONDARY_UNIT_CODE":{
+          "type":"string"
         },
-        "EXT_COL4": {
-          "type": "string"
+        "PO_MOREORLESS_UP":{
+          "type":"float"
         },
-        "EXT_COL5": {
-          "type": "string"
+        "PO_MOREORLESS_DOWN":{
+          "type":"float"
         },
-        "EXT_COL6": {
-          "type": "string"
+        "ONT_MOREORLESS_UP":{
+          "type":"float"
         },
-        "EXT_COL7": {
-          "type": "string"
+        "ONT_MOREORLESS_DOWN":{
+          "type":"float"
         },
-        "EXT_COL8": {
-          "type": "string"
+        "UOM_WIDTH":{
+          "type":"string"
         },
-        "EXT_COL9": {
-          "type": "string"
+        "UOM_HEIGHT":{
+          "type":"string"
         },
-        "EXT_COL10": {
-          "type": "string"
+        "UOM_LENGTH":{
+          "type":"string"
+        },
+        "UOM_DENSITY":{
+          "type":"string"
+        },
+        "UOM_WEIGHT":{
+          "type":"string"
+        },
+        "HS_CODE":{
+          "type":"string"
+        },
+        "MARK_CODE":{
+          "type":"string"
+        },
+        "MANUFACTURER_NAME":{
+          "type":"string"
+        },
+        "TECHNICAL_STANDARD":{
+          "type":"string"
+        },
+        "GOLDEN_TAX_CODE":{
+          "type":"string"
+        },
+        "LOSS_RATE":{
+          "type":"float"
+        },
+        "STANDARD_FLAG":{
+          "type":"string"
+        },
+        "ORIGIN":{
+          "type":"string"
+        },
+        "LOCK_FLAG":{
+          "type":"string"
         },
         "SPEC_VALUE1": {
           "type": "string"
@@ -83,7 +169,6 @@
         "SPEC_VALUE8": {
           "type": "string"
         },
-
         "SPEC_VALUE9": {
           "type": "string"
         },
@@ -120,8 +205,78 @@
         "SPEC_VALUE20": {
           "type": "string"
         },
-        "ITEM_CODE": {
+        "CREATE_USER_ID": {
           "type": "string"
+        },
+        "CREATE_DATE": {
+          "type": "date",
+          "format": "strict_date_optional_time||epoch_millis"
+        },
+        "CREATE_USER_NAME": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "MODIFY_USER_ID": {
+          "type": "string"
+        },
+        "MODIFY_USER_NAME": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "MODIFY_DATE": {
+          "type": "date",
+          "format": "strict_date_optional_time||epoch_millis"
+        },
+        "ORG_ID": {
+          "type": "string"
+        },
+        "GROUP_ID": {
+          "type": "string"
+        },
+        "BOOK_ID": {
+          "type": "string"
+        },
+        "EXT_COL1": {
+          "type": "string"
+        },
+        "EXT_COL2": {
+          "type": "string"
+        },
+        "EXT_COL3": {
+          "type": "string"
+        },
+        "EXT_COL4": {
+          "type": "string"
+        },
+        "EXT_COL5": {
+          "type": "string"
+        },
+        "EXT_COL6": {
+          "type": "string"
+        },
+        "EXT_COL7": {
+          "type": "string"
+        },
+        "EXT_COL8": {
+          "type": "string"
+        },
+        "EXT_COL9": {
+          "type": "string"
+        },
+        "EXT_COL10": {
+          "type": "string"
+        },
+        "FROM_TYPE":{
+          "type":"string"
+        },
+        "FROM_ID":{
+          "type":"string"
+        },
+        "TAX_CODE_TYPE":{
+          "type":"string"
+        },
+        "TAX_RATE":{
+          "type":"string"
         },
         "ITEM_DETAIL_NOTES": {
           "type": "string",
@@ -131,70 +286,12 @@
           "search_analyzer": "ik_max_word",
           "include_in_all": "true"
         },
-        "ITEM_ID": {
-          "type": "string"
-        },
-        "ITEM_NAME": {
-          "type": "string",
-          "term_vector": "with_positions_offsets",
-          "index": "analyzed",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word",
-          "include_in_all": "true"
-        },
-        "ITEM_STATUS": {
-          "type": "string"
-        },
-        "LOCK_FLAG": {
-          "type": "string"
-        },
-        "MODIFY_DATE": {
-          "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
-        },
-        "MODIFY_USER_ID": {
-          "type": "string"
-        },
-        "MODIFY_USER_NAME": {
-          "type": "string",
-          "index": "not_analyzed"
-        },
-        "ORG_ID": {
-          "type": "string"
-        },
-        "ORIGIN": {
-          "type": "string"
-        },
-        "PRIMARY_UNIT_CODE": {
-          "type": "string"
-        },
         "SPEC_CONTENTS": {
-          "type": "string"
-        },
-        "SPU_ID": {
-          "type": "string"
-        },
-        "STANDARD_FLAG": {
-          "type": "string"
-        },
-        "TRADEMARK": {
           "type": "string"
         },
         "cmc_brand": {
           "properties": {
-            "BELONG_COMPANY": {
-              "type": "string"
-            },
-            "BELONG_COUNTRY": {
-              "type": "string"
-            },
-            "BOOK_ID": {
-              "type": "string"
-            },
             "BRAND_ID": {
-              "type": "string"
-            },
-            "BRAND_INTRODUCTION_NOTES": {
               "type": "string"
             },
             "BRAND_NAME": {
@@ -205,6 +302,9 @@
               "search_analyzer": "ik_max_word",
               "include_in_all": "true"
             },
+            "STATUS": {
+              "type": "string"
+            },
             "BRIEF_NAME": {
               "type": "string",
               "term_vector": "with_positions_offsets",
@@ -213,35 +313,103 @@
               "search_analyzer": "ik_max_word",
               "include_in_all": "true"
             },
+            "WEBSITE": {
+              "type": "string"
+            },
             "CATEGORY_ID": {
               "type": "string"
             },
-            "CREATE_USER_ID": {
+            "LOGO_URL":{
+              "type":"string"
+            },
+            "BRAND_INTRODUCTION":{
+              "type":"string"
+            },
+
+            "BRAND_STORY_TITLE":{
+              "type":"string"
+            },
+
+            "BRAND_STORY":{
+              "type":"string"
+            },
+
+            "BELONG_COUNTRY": {
               "type": "string"
             },
-            "CREATE_USER_NAME": {
+            "BELONG_COMPANY":{
+              "type":"string"
+            },
+            "FOUND_YEAR":{
+              "type":"string"
+            },
+
+            "CREATE_USER_ID":{
+              "type":"string"
+            },
+            "CREATE_DATE":{
+              "type": "date",
+              "format": "strict_date_optional_time||epoch_millis"
+            },
+
+            "MODIFY_USER_ID":{
+              "type":"string"
+            },
+            "MODIFY_DATE":{
+              "type": "date",
+              "format": "strict_date_optional_time||epoch_millis"
+            },
+            "ORG_ID": {
               "type": "string"
             },
-            "FOUND_YEAR": {
+            "BOOK_ID": {
               "type": "string"
             },
             "GROUP_ID": {
               "type": "string"
             },
-            "MODIFY_USER_ID": {
+
+            "EXT_COL1": {
               "type": "string"
             },
-            "MODIFY_USER_NAME": {
+            "EXT_COL2": {
               "type": "string"
             },
-            "ORG_ID": {
+            "EXT_COL3": {
               "type": "string"
             },
-            "STATUS": {
+            "EXT_COL4": {
               "type": "string"
             },
-            "WEBSITE": {
+            "EXT_COL5": {
               "type": "string"
+            },
+            "EXT_COL6": {
+              "type": "string"
+            },
+            "EXT_COL7": {
+              "type": "string"
+            },
+            "EXT_COL8": {
+              "type": "string"
+            },
+            "EXT_COL9": {
+              "type": "string"
+            },
+            "EXT_COL10": {
+              "type": "string"
+            },
+            "CREATE_USER_NAME":{
+              "type":"string"
+            },
+            "MODIFY_USER_NAME":{
+              "type":"string"
+            },
+            "BRAND_INTRODUCTION_NOTES":{
+              "type":"string"
+            },
+            "BRAND_STORY_NOTES":{
+              "type":"string"
             }
           }
         },
@@ -379,51 +547,21 @@
         },
         "cmc_spu": {
           "properties": {
-            "BOOK_ID": {
-              "type": "string"
-            },
-            "BRAND": {
+
+            "SPU_ID": {
               "type": "string"
             },
             "CATEGORY_ID": {
               "type": "string"
             },
-            "GROUP_ID": {
-              "type": "string"
-            },
-            "MODIFY_DATE": {
-              "type": "date",
-              "format": "strict_date_optional_time||epoch_millis"
-            },
-            "MODIFY_USER_ID": {
-              "type": "string"
-            },
-            "MODIFY_USER_NAME": {
-              "type": "string"
-            },
-            "ORG_ID": {
-              "type": "string"
-            },
-            "PRIMARY_UNIT_CODE": {
-              "type": "string"
-            },
             "SPEC_HEAD_ID": {
               "type": "string"
             },
+
             "SPU_CODE": {
               "type": "string"
             },
-            "SPU_DESC": {
-              "type": "string",
-              "term_vector": "with_positions_offsets",
-              "index": "analyzed",
-              "analyzer": "ik_max_word",
-              "search_analyzer": "ik_max_word",
-              "include_in_all": "true"
-            },
-            "SPU_ID": {
-              "type": "string"
-            },
+
             "SPU_NAME": {
               "type": "string",
               "term_vector": "with_positions_offsets",
@@ -432,17 +570,173 @@
               "search_analyzer": "ik_max_word",
               "include_in_all": "true"
             },
+
             "SPU_STATUS": {
               "type": "string"
             },
             "SPU_TYPE": {
               "type": "string"
             },
-            "TAX_CODE_TYPE": {
-              "type": "string"
+
+            "SPU_DESC": {
+              "type": "string",
+              "term_vector": "with_positions_offsets",
+              "index": "analyzed",
+              "analyzer": "ik_max_word",
+              "search_analyzer": "ik_max_word",
+              "include_in_all": "true"
             },
+
+            "SPU_DETAIL":{  "type": "string",
+              "term_vector": "with_positions_offsets",
+              "index": "analyzed",
+              "analyzer": "ik_max_word",
+              "search_analyzer": "ik_max_word",
+              "include_in_all": "true"
+            },
+            "BRAND":{
+              "type":"string"
+            },
+
+            "PRIMARY_UNIT_CODE":{
+              "type":"string"
+            },
+
             "TAX_RATE": {
               "type": "string"
+            },
+            "SPEC_VALUE1": {
+              "type": "string"
+            },
+            "SPEC_VALUE2": {
+              "type": "string"
+            },
+            "SPEC_VALUE3": {
+              "type": "string"
+            },
+            "SPEC_VALUE4": {
+              "type": "string"
+            },
+            "SPEC_VALUE5": {
+              "type": "string"
+            },
+            "SPEC_VALUE6": {
+              "type": "string"
+            },
+            "SPEC_VALUE7": {
+              "type": "string"
+            },
+            "SPEC_VALUE8": {
+              "type": "string"
+            },
+
+            "SPEC_VALUE9": {
+              "type": "string"
+            },
+            "SPEC_VALUE10": {
+              "type": "string"
+            },
+            "SPEC_VALUE11": {
+              "type": "string"
+            },
+            "SPEC_VALUE12": {
+              "type": "string"
+            },
+            "SPEC_VALUE13": {
+              "type": "string"
+            },
+            "SPEC_VALUE14": {
+              "type": "string"
+            },
+            "SPEC_VALUE15": {
+              "type": "string"
+            },
+            "SPEC_VALUE16": {
+              "type": "string"
+            },
+            "SPEC_VALUE17": {
+              "type": "string"
+            },
+            "SPEC_VALUE18": {
+              "type": "string"
+            },
+            "SPEC_VALUE19": {
+              "type": "string"
+            },
+            "SPEC_VALUE20": {
+              "type": "string"
+            },
+            "CREATE_USER_ID":{
+              "type":"string"
+            },
+            "CREATE_DATE":{
+              "type": "date",
+              "format": "strict_date_optional_time||epoch_millis"
+            },
+
+            "MODIFY_USER_ID":{
+              "type":"string"
+            },
+            "MODIFY_DATE":{
+              "type": "date",
+              "format": "strict_date_optional_time||epoch_millis"
+            },
+            "ORG_ID": {
+              "type": "string"
+            },
+            "BOOK_ID": {
+              "type": "string"
+            },
+
+            "GROUP_ID": {
+              "type": "string"
+            },
+            "EXT_COL1": {
+              "type": "string"
+            },
+            "EXT_COL2": {
+              "type": "string"
+            },
+            "EXT_COL3": {
+              "type": "string"
+            },
+            "EXT_COL4": {
+              "type": "string"
+            },
+            "EXT_COL5": {
+              "type": "string"
+            },
+            "EXT_COL6": {
+              "type": "string"
+            },
+            "EXT_COL7": {
+              "type": "string"
+            },
+            "EXT_COL8": {
+              "type": "string"
+            },
+            "EXT_COL9": {
+              "type": "string"
+            },
+            "EXT_COL10": {
+              "type": "string"
+            },
+            "CREATE_USER_NAME":{
+              "type":"string"
+            },
+            "MODIFY_USER_NAME":{
+              "type":"string"
+            },
+            "TAX_CODE_TYPE":{
+              "type":"string"
+            },
+            "SPU_DETAIL_NOTES":{
+              "type": "string",
+              "term_vector": "with_positions_offsets",
+              "index": "analyzed",
+              "analyzer": "ik_max_word",
+              "search_analyzer": "ik_max_word",
+              "include_in_all": "true"
             }
           }
         }

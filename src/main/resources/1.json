@@ -1,4 +1,4 @@
-[
+/*[
   {
     "PRICE_FLAG":"1",
     "ATTRIBUTE_NAME":"颜色",
@@ -9,4 +9,79 @@
     "ATTRIBUTE_NAME":"尺寸",
     "ATTRIBUTE_VALUE":"红色"
   }
-]
+]*/
+
+
+{
+    "item_agg": {
+      "properties": {
+        "cmc_spu": {
+          "properties": {
+            "SPEC_VALUE1": {
+              "type": "string"
+            },
+            "SPEC_VALUE2": {
+              "type": "string"
+            },
+            "SPEC_VALUE3": {
+              "type": "string"
+            },
+            "SPEC_VALUE4": {
+              "type": "string"
+            },
+            "SPEC_VALUE5": {
+              "type": "string"
+            },
+            "SPEC_VALUE6": {
+              "type": "string"
+            },
+            "SPEC_VALUE7": {
+              "type": "string"
+            },
+            "SPEC_VALUE8": {
+              "type": "string"
+            },
+
+            "SPEC_VALUE9": {
+              "type": "string"
+            },
+            "SPEC_VALUE10": {
+              "type": "string"
+            },
+            "SPEC_VALUE11": {
+              "type": "string"
+            },
+            "SPEC_VALUE12": {
+              "type": "string"
+            },
+            "SPEC_VALUE13": {
+              "type": "string"
+            },
+            "SPEC_VALUE14": {
+              "type": "string"
+            },
+            "SPEC_VALUE15": {
+              "type": "string"
+            },
+            "SPEC_VALUE16": {
+              "type": "string"
+            },
+            "SPEC_VALUE17": {
+              "type": "string"
+            },
+            "SPEC_VALUE18": {
+              "type": "string"
+            },
+            "SPEC_VALUE19": {
+              "type": "string"
+            },
+            "SPEC_VALUE20": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+
+
