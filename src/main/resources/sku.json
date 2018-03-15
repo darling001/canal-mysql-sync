@@ -10,22 +10,28 @@
       },
       "properties": {
         "ITEM_ID": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "CATEGORY_ID": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPU_ID": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "ITEM_TYPE": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_HEAD_ID":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "ITEM_CODE": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "ITEM_NAME": {
           "type": "string",
@@ -44,7 +50,8 @@
           "include_in_all": "true"
         },
         "ITEM_STATUS": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "ITEM_DESC": {
           "type": "string",
@@ -61,10 +68,12 @@
           "search_analyzer": "ik_max_word",
           "include_in_all": "true"},
         "TRADEMARK": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "PRIMARY_UNIT_CODE":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "VALID_START":{
           "type": "date",
@@ -75,21 +84,24 @@
           "format": "strict_date_optional_time||epoch_millis"
         },
         "EFFECT_USER_ID":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "EFFECT_DATE":{
           "type": "date",
           "format": "strict_date_optional_time||epoch_millis"
         },
         "INVALID_USER_ID":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "INVALID_DATE":{
           "type": "date",
           "format": "strict_date_optional_time||epoch_millis"
         },
         "SECONDARY_UNIT_CODE":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "PO_MOREORLESS_UP":{
           "type":"double"
@@ -104,109 +116,143 @@
           "type":"double"
         },
         "UOM_WIDTH":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "UOM_HEIGHT":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "UOM_LENGTH":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "UOM_DENSITY":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "UOM_WEIGHT":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "HS_CODE":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "MARK_CODE":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "MANUFACTURER_NAME":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "TECHNICAL_STANDARD":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "GOLDEN_TAX_CODE":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "LOSS_RATE":{
           "type":"double"
         },
         "STANDARD_FLAG":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "ORIGIN":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "LOCK_FLAG":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE1": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE2": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE3": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE4": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE5": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE6": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE7": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE8": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE9": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE10": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE11": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE12": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE13": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE14": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE15": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE16": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE17": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE18": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE19": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "SPEC_VALUE20": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "CREATE_USER_ID": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "CREATE_DATE": {
           "type": "date",
@@ -217,7 +263,8 @@
           "index": "not_analyzed"
         },
         "MODIFY_USER_ID": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "MODIFY_USER_NAME": {
           "type": "string",
@@ -228,55 +275,72 @@
           "format": "strict_date_optional_time||epoch_millis"
         },
         "ORG_ID": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "GROUP_ID": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "BOOK_ID": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "EXT_COL1": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "EXT_COL2": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "EXT_COL3": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "EXT_COL4": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "EXT_COL5": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "EXT_COL6": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "EXT_COL7": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "EXT_COL8": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "EXT_COL9": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "EXT_COL10": {
-          "type": "string"
+          "type": "string",
+          "index": "not_analyzed"
         },
         "FROM_TYPE":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "FROM_ID":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "TAX_CODE_TYPE":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "TAX_RATE":{
-          "type":"string"
+          "type":"string",
+          "index": "not_analyzed"
         },
         "ITEM_DETAIL_NOTES": {
           "type": "string",
@@ -287,9 +351,11 @@
           "include_in_all": "true"
         },
         "cmc_brand": {
+          "type":"nested",
           "properties": {
             "BRAND_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "BRAND_NAME": {
               "type": "string",
@@ -300,7 +366,8 @@
               "include_in_all": "true"
             },
             "STATUS": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "BRIEF_NAME": {
               "type": "string",
@@ -311,38 +378,48 @@
               "include_in_all": "true"
             },
             "WEBSITE": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "CATEGORY_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "LOGO_URL":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
             "BRAND_INTRODUCTION":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
 
             "BRAND_STORY_TITLE":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
 
             "BRAND_STORY":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
 
             "BELONG_COUNTRY": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "BELONG_COMPANY":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
             "FOUND_YEAR":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
 
             "CREATE_USER_ID":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
             "CREATE_DATE":{
               "type": "date",
@@ -350,76 +427,119 @@
             },
 
             "MODIFY_USER_ID":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
             "MODIFY_DATE":{
               "type": "date",
               "format": "strict_date_optional_time||epoch_millis"
             },
             "ORG_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "BOOK_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "GROUP_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
 
             "EXT_COL1": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL2": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL3": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL4": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL5": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL6": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL7": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL8": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL9": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL10": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "CREATE_USER_NAME":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
             "MODIFY_USER_NAME":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
             "BRAND_INTRODUCTION_NOTES":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
             "BRAND_STORY_NOTES":{
-              "type":"string"
+              "type": "string",
+              "term_vector": "with_positions_offsets",
+              "index": "analyzed",
+              "analyzer": "ik_max_word",
+              "search_analyzer": "ik_max_word",
+              "include_in_all": "true"
+            }
+          }
+        },
+        "SPEC_CONTENTS": {
+          "type":"nested",
+          "properties": {
+            "PRICE_FLAG": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "ATTRIBUTE_NAME": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "ATTRIBUTE_VALUE": {
+              "type": "string",
+              "index": "not_analyzed"
             }
           }
         },
         "cmc_category": {
+          "type":"nested",
           "properties": {
             "CATEGORY_CODE": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "CATEGORY_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "CATEGORY_LEVEL": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "CATEGORY_NAME": {
               "type": "string",
@@ -432,24 +552,31 @@
           }
         },
         "cmc_item_line": {
+          "type":"nested",
           "properties": {
             "ITEM_LINE_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "ITEM_LINE_CODE": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "ITEM_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "MATERIAL_TYPE_CODE":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
             "SUPPLIER_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SUPPLIER_CODE": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SUPPLIER_NAME": {
               "type": "string",
@@ -463,28 +590,31 @@
               "type":"double"
             },
             "STATUS":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
             "DISPLAY_FLAG":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
             "MIN_ORDER_NUM": {
               "type": "double"
             },
             "AREA_CODE": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "AREA_NAME": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "ITEM_PRICE_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "PRICE_TYPE": {
-              "type": "string"
-            },
-            "PRICE_TYPE": {
-              "type": "double"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "PUR_PRICE1": {
               "type": "double"
@@ -529,10 +659,12 @@
               "format": "strict_date_optional_time||epoch_millis"
             },
             "CREATE_USER_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "CREATE_USER_NAME": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
 
             "MODIFY_DATE": {
@@ -540,71 +672,271 @@
               "format": "strict_date_optional_time||epoch_millis"
             },
             "MODIFY_USER_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "MODIFY_USER_NAME": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
 
             "ORG_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "BOOK_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
 
             "GROUP_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL1": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL2": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL3": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL4": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL5": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL6": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL7": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL8": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL9": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL10": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
+            }
+          }
+        },
+
+        "aus_at_picture_list": {
+          "type":"nested",
+          "properties": {
+            "PICTURE_ID": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "BILL_NO": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "BILL_TYPE": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "PIC_NAME": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "PIC_TYPE": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "FILE_PATH": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "PIC_SIZE": {
+              "type": "double"
+            },
+            "PIC_STORAGE_NAME":{
+              "type": "string",
+              "index": "not_analyzed"
+            },
+
+            "PIC_EX_FILEID":{
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "SMALL_SIZE_NAME":{
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "SMALL_SIZE_EX_FILE_ID":{
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "MIDDLE_SIZE_NAME":{
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "MIDDLE_SIZE_EX_FILE_ID":{
+              "type": "string",
+              "index": "not_analyzed"
+            },
+
+            "PIC_STATUS":{
+              "type": "string",
+              "index": "not_analyzed"
+            },
+
+            "CREATE_DATE": {
+              "type": "date",
+              "format": "strict_date_optional_time||epoch_millis"
+            },
+            "CREATE_USER_ID": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "CREATE_USER_NAME": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+
+            "BOOK_ID": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+
+            "GROUP_ID": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "ORG_ID": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+
+            "MODIFY_DATE": {
+              "type": "date",
+              "format": "strict_date_optional_time||epoch_millis"
+            },
+            "MODIFY_USER_ID": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "MODIFY_USER_NAME": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL1": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL2": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL3": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL4": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL5": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL6": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL7": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL8": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL9": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL10": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL11": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL12": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL13": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL14": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL15": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL16": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL17": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL18": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL19": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "EXT_COL20": {
+              "type": "string",
+              "index": "not_analyzed"
             }
           }
         },
         "cmc_spu": {
+          "type":"nested",
           "properties": {
-
             "SPU_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "CATEGORY_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_HEAD_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
-
             "SPU_CODE": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
-
             "SPU_NAME": {
               "type": "string",
               "term_vector": "with_positions_offsets",
@@ -613,14 +945,14 @@
               "search_analyzer": "ik_max_word",
               "include_in_all": "true"
             },
-
             "SPU_STATUS": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPU_TYPE": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
-
             "SPU_DESC": {
               "type": "string",
               "term_vector": "with_positions_offsets",
@@ -638,79 +970,103 @@
               "include_in_all": "true"
             },
             "BRAND":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
 
             "PRIMARY_UNIT_CODE":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
 
             "TAX_RATE": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE1": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE2": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE3": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE4": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE5": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE6": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE7": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE8": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
 
             "SPEC_VALUE9": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE10": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE11": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE12": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE13": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE14": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE15": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE16": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE17": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE18": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE19": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "SPEC_VALUE20": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "CREATE_USER_ID":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
             "CREATE_DATE":{
               "type": "date",
@@ -718,60 +1074,77 @@
             },
 
             "MODIFY_USER_ID":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
             "MODIFY_DATE":{
               "type": "date",
               "format": "strict_date_optional_time||epoch_millis"
             },
             "ORG_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "BOOK_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
 
             "GROUP_ID": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL1": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL2": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL3": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL4": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL5": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL6": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL7": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL8": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL9": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "EXT_COL10": {
-              "type": "string"
+              "type": "string",
+              "index": "not_analyzed"
             },
             "CREATE_USER_NAME":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
             "MODIFY_USER_NAME":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
             "TAX_CODE_TYPE":{
-              "type":"string"
+              "type":"string",
+              "index": "not_analyzed"
             },
             "SPU_DETAIL_NOTES":{
               "type": "string",
