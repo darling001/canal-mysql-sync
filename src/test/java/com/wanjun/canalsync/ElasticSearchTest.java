@@ -1,12 +1,9 @@
 package com.wanjun.canalsync;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.wanjun.canalsync.model.EsPage;
-import com.wanjun.canalsync.model.SpecAttribute;
 import com.wanjun.canalsync.service.ElasticsearchService;
 import com.wanjun.canalsync.util.JSONUtil;
-import org.apache.commons.lang3.RandomUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,24 +24,6 @@ import java.util.Map;
 public class ElasticSearchTest {
     @Resource
     private ElasticsearchService elasticsearchService;
-
-    @Test
-    public void testParseJson() {
-        String json = "[\n" +
-                "  {\n" +
-                "    \"PRICE_FLAG\":\"1\",\n" +
-                "    \"ATTRIBUTE_NAME\":\"颜色\",\n" +
-                "    \"ATTRIBUTE_VALUE\":\"红色\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"PRICE_FLAG\":\"0\",\n" +
-                "    \"ATTRIBUTE_NAME\":\"尺寸\",\n" +
-                "    \"ATTRIBUTE_VALUE\":\"红色\"\n" +
-                "  }\n" +
-                "]";
-        List<SpecAttribute> specAttributes = JSONUtil.toList(json, SpecAttribute.class);
-        System.out.println(JSONUtil.toJson(specAttributes));
-    }
 
     @Test
     public void testInsertById() {

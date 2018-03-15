@@ -3,25 +3,24 @@ package com.wanjun.canalsync;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Maps;
 import com.wanjun.canalsync.model.AggregationModel;
-import com.wanjun.canalsync.model.IndexTypeModel;
-import com.wanjun.canalsync.service.impl.ItemAggServiceImpl;
+import com.wanjun.canalsync.service.MappingService;
 import com.wanjun.canalsync.util.JSONUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.*;
 
 /**
@@ -34,6 +33,7 @@ public class CommonTest {
     public void testRandom() {
         for(int i=0;i<10;i++) {
             System.out.println(RandomUtils.nextInt(1,3));
+
         }
     }
     @Test
