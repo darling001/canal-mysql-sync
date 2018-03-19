@@ -31,7 +31,6 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-
     private Map<String, String> dbEsMapping;
     private BiMap<DatabaseTableModel, IndexTypeModel> dbEsBiMapping;
     private Map<String, String> tablePrimaryKeyMap;

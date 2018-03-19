@@ -60,9 +60,9 @@ public class UpdateCanalListener extends AbstractCanalListener<UpdateCanalEvent>
     }
 
     public void sync(String database, String table, String index, String type, IndexTypeModel indexTypeModel ,Map<String, Object> dataMap, String idValue) throws Exception {
-        //logger.debug("update_column_id_info update主键id,database=" + database + ",table=" + table + ",id=" + idValue);
-        //elasticsearchService.update(index, type, idValue, dataMap);
-        //logger.debug("update_es_info 同步es插入操作成功！database=" + database + ",table=" + table + ",data=" + dataMap);
+        logger.debug("update_column_id_info update主键id,database=" + database + ",table=" + table + ",id=" + idValue);
+        elasticsearchService.update(index, type, idValue, dataMap);
+        logger.debug("update_es_info 同步es插入操作成功！database=" + database + ",table=" + table + ",data=" + dataMap);
 
         String redisKey = getMappingKey(index, type);
         redisService.hset(redisKey, idValue, dataMap);

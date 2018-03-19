@@ -19,7 +19,7 @@ public class JSONUtil {
         gson = new GsonBuilder()
                 .registerTypeAdapter(Date.class, new DateTypeAdapter())
                 .registerTypeAdapter(Timestamp.class,new TimestampTypeAdapter())
-                .setDateFormat("yyyy-MM-dd HH:mm:ss").disableHtmlEscaping().create();// TODO
+                .disableHtmlEscaping().create();// TODO
         // yyyy-MM-dd
         // HH:mm:ss
     }

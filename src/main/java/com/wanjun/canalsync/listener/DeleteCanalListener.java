@@ -58,9 +58,9 @@ public class DeleteCanalListener extends AbstractCanalListener<DeleteCanalEvent>
     }
 
     public void sync(String database, String table, String index, String type, IndexTypeModel indexTypeModel,  Map<String, Object> dataMap,String idValue) throws Exception{
-        //logger.debug("delete_column_id_info insert主键id,database=" + database + ",table=" + table + ",id=" + idValue);
-        //elasticsearchService.deleteById(index, type, idValue);
-        //logger.debug("delete_es_info 同步es插入操作成功！database=" + database + ",table=" + table + ",id=" + idValue);
+        logger.debug("delete_column_id_info insert主键id,database=" + database + ",table=" + table + ",id=" + idValue);
+        elasticsearchService.deleteById(index, type, idValue);
+        logger.debug("delete_es_info 同步es插入操作成功！database=" + database + ",table=" + table + ",id=" + idValue);
 
         String redisKey = getMappingKey(index, type);
         redisService.hdel(redisKey,idValue);
