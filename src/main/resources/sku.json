@@ -71,7 +71,7 @@
         },
         "CREATE_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "CREATE_USER_NAME":{
           "type":"string",
@@ -84,7 +84,7 @@
         },
         "MODIFY_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "MODIFY_USER_NAME":{
           "type":"string",
@@ -289,7 +289,7 @@
         },
         "CREATE_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "CREATE_USER_NAME":{
           "type":"string",
@@ -302,7 +302,7 @@
         },
         "MODIFY_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "MODIFY_USER_NAME":{
           "type":"string",
@@ -430,11 +430,11 @@
         },
         "VALID_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "INVALID_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "CREATE_USER_ID":{
           "type":"string",
@@ -442,7 +442,7 @@
         },
         "CREATE_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "CREATE_USER_NAME":{
           "type":"string",
@@ -455,7 +455,7 @@
         },
         "MODIFY_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "MODIFY_USER_NAME":{
           "type":"string",
@@ -560,11 +560,11 @@
         },
         "ITEM_VALID_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "ITEM_INVALID_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "MATERIAL_ACCOUNT":{
           "type": "string",
@@ -620,7 +620,7 @@
         },
         "EFFECT_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "INVALID_USER_ID":{
           "type": "string",
@@ -628,7 +628,7 @@
         },
         "INVALID_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "DISPLAY_FLAG":{
           "type": "string",
@@ -644,7 +644,7 @@
         },
         "CREATE_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "CREATE_USER_NAME":{
           "type":"string",
@@ -657,7 +657,7 @@
         },
         "MODIFY_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "MODIFY_USER_NAME":{
           "type":"string",
@@ -802,11 +802,11 @@
         },
         "VALID_START":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "VALID_END":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "EFFECT_USER_ID":{
           "type": "string",
@@ -814,7 +814,7 @@
         },
         "EFFECT_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "INVALID_USER_ID":{
           "type": "string",
@@ -822,7 +822,7 @@
         },
         "INVALID_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "SECONDARY_UNIT_CODE":{
           "type": "string",
@@ -986,7 +986,7 @@
         },
         "CREATE_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "CREATE_USER_NAME":{
           "type":"string",
@@ -999,7 +999,7 @@
         },
         "MODIFY_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "MODIFY_USER_NAME":{
           "type":"string",
@@ -1149,7 +1149,7 @@
         },
         "CREATE_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "CREATE_USER_NAME":{
           "type":"string",
@@ -1162,7 +1162,7 @@
         },
         "MODIFY_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "MODIFY_USER_NAME":{
           "type":"string",
@@ -1291,7 +1291,7 @@
         },
         "EFFECT_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "INVALID_USER_ID":{
           "type": "string",
@@ -1299,7 +1299,7 @@
         },
         "INVALID_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "SPEC_DEFINE_ID":{
           "type": "string",
@@ -1311,7 +1311,7 @@
         },
         "CREATE_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "CREATE_USER_NAME":{
           "type":"string",
@@ -1324,7 +1324,7 @@
         },
         "MODIFY_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "MODIFY_USER_NAME":{
           "type":"string",
@@ -1450,11 +1450,11 @@
         },
         "VALID_START":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "VALID_END":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "EFFECT_USER_ID":{
           "type":"string",
@@ -1462,7 +1462,7 @@
         },
         "EFFECT_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "INVALID_USER_ID":{
           "type":"string",
@@ -1470,7 +1470,7 @@
         },
         "INVALID_DATE":{
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "SECONDARY_UNIT_CODE":{
           "type":"string",
@@ -1629,7 +1629,7 @@
         },
         "CREATE_DATE": {
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "CREATE_USER_NAME": {
           "type": "string",
@@ -1645,7 +1645,7 @@
         },
         "MODIFY_DATE": {
           "type": "date",
-          "format": "strict_date_optional_time||epoch_millis"
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
         "ORG_ID": {
           "type": "string",
@@ -1786,7 +1786,7 @@
             },
             "CREATE_DATE":{
               "type": "date",
-              "format": "strict_date_optional_time||epoch_millis"
+              "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
             },
 
             "MODIFY_USER_ID":{
@@ -1795,7 +1795,7 @@
             },
             "MODIFY_DATE":{
               "type": "date",
-              "format": "strict_date_optional_time||epoch_millis"
+              "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
             },
             "ORG_ID": {
               "type": "string",
@@ -2011,15 +2011,15 @@
             },
             "VALID_DATE":{
               "type": "date",
-              "format": "strict_date_optional_time||epoch_millis"
+              "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
             },
             "INVALID_DATE": {
               "type": "date",
-              "format": "strict_date_optional_time||epoch_millis"
+              "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
             },
             "CREATE_DATE": {
               "type": "date",
-              "format": "strict_date_optional_time||epoch_millis"
+              "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
             },
             "CREATE_USER_ID": {
               "type": "string",
@@ -2032,7 +2032,7 @@
 
             "MODIFY_DATE": {
               "type": "date",
-              "format": "strict_date_optional_time||epoch_millis"
+              "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
             },
             "MODIFY_USER_ID": {
               "type": "string",
@@ -2162,7 +2162,7 @@
 
             "CREATE_DATE": {
               "type": "date",
-              "format": "strict_date_optional_time||epoch_millis"
+              "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
             },
             "CREATE_USER_ID": {
               "type": "string",
@@ -2189,7 +2189,7 @@
 
             "MODIFY_DATE": {
               "type": "date",
-              "format": "strict_date_optional_time||epoch_millis"
+              "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
             },
             "MODIFY_USER_ID": {
               "type": "string",
@@ -2433,7 +2433,7 @@
             },
             "CREATE_DATE":{
               "type": "date",
-              "format": "strict_date_optional_time||epoch_millis"
+              "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
             },
 
             "MODIFY_USER_ID":{
@@ -2442,7 +2442,7 @@
             },
             "MODIFY_DATE":{
               "type": "date",
-              "format": "strict_date_optional_time||epoch_millis"
+              "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
             },
             "ORG_ID": {
               "type": "string",

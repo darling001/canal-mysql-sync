@@ -1,6 +1,7 @@
 package com.wanjun.canalsync.service.impl;
 
 import com.alibaba.otter.canal.protocol.CanalEntry;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.wanjun.canalsync.annotation.Schema;
@@ -23,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,8 +56,8 @@ public class ItemAggServiceImpl implements ItemAggService {
     private ElasticsearchService elasticsearchService;
 
 
-    private List<Map<String,Object>> parseSpecContents(String json) {
-        List<Map<String,Object>> list  = Lists.newArrayList();
+    private List<Map<String, Object>> parseSpecContents(String json) {
+        List<Map<String, Object>> list = Lists.newArrayList();
         List<SpecAttribute> specAttributeList = null;
         if (StringUtils.isEmpty(json)) {
             return list;
@@ -66,11 +68,11 @@ public class ItemAggServiceImpl implements ItemAggService {
             logger.error("ItemAggService->parseSpecContents error! param json {}", json, e);
             return list;
         }
-        for(SpecAttribute specAttribute :specAttributeList) {
-            Map<String,Object> map = Maps.newHashMap();
-            map.put("PRICE_FLAG",specAttribute.getPriceFlag());
-            map.put("ATTRIBUTE_NAME",specAttribute.getAttributeName());
-            map.put("ATTRIBUTE_VALUE",specAttribute.getAttributeValue());
+        for (SpecAttribute specAttribute : specAttributeList) {
+            Map<String, Object> map = Maps.newHashMap();
+            map.put("PRICE_FLAG", specAttribute.getPriceFlag());
+            map.put("ATTRIBUTE_NAME", specAttribute.getAttributeName());
+            map.put("ATTRIBUTE_VALUE", specAttribute.getAttributeValue());
             list.add(map);
         }
         return list;
@@ -86,8 +88,8 @@ public class ItemAggServiceImpl implements ItemAggService {
 
         Object json = map.get("SPEC_CONTENTS");
         if (json != null) {
-            List<Map<String,Object>> specAttributeList = parseSpecContents(json.toString());
-            map.put("SPEC_CONTENTS",specAttributeList);
+            List<Map<String, Object>> specAttributeList = parseSpecContents(json.toString());
+            map.put("SPEC_CONTENTS", specAttributeList);
 
         }
         Map<String, String> pkMappingTableMap = indexTypeModel.getPkMappingTableMap();
@@ -98,7 +100,11 @@ public class ItemAggServiceImpl implements ItemAggService {
             String selectType = aggConfig[3];
             if (StringUtils.equals(selectType, SelectType.PK.getType())) {
                 Map<String, Object> resultMap = resultMap = baseDao.selectByPK(aggConfig[2], colValue, aggConfig[0], aggConfig[1]);
-                map.put(aggConfig[1], resultMap);
+                Map<String, Object> mapJson =  Maps.newHashMap();
+                if(resultMap != null && resultMap.size() > 0) {
+                    mapJson = JSONUtil.toMap(JSONUtil.toJson(resultMap));
+                }
+                map.put(aggConfig[1], mapJson);
 
             } else if (StringUtils.equals(selectType, SelectType.SELF_JOIN.getType())) {
                 Category categoryTree = categoryDao.selectCategoryList(colValue.toString());
@@ -134,11 +140,12 @@ public class ItemAggServiceImpl implements ItemAggService {
         String aggType = indexTypeModel.getAggType();
         //索引
         String index = indexTypeModel.getIndex();
+        int i = 5 / 0;
 
         Object json = map.get("SPEC_CONTENTS");
         if (json != null) {
-            List<Map<String,Object>> specAttributeList = parseSpecContents(json.toString());
-            map.put("SPEC_CONTENTS",specAttributeList);
+            List<Map<String, Object>> specAttributeList = parseSpecContents(json.toString());
+            map.put("SPEC_CONTENTS", specAttributeList);
 
         }
         Map<String, String> pkMappingTableMap = indexTypeModel.getPkMappingTableMap();
@@ -148,7 +155,11 @@ public class ItemAggServiceImpl implements ItemAggService {
             String selectType = aggConfig[3];
             if (StringUtils.equals(selectType, SelectType.PK.getType())) {
                 Map<String, Object> resultMap = baseDao.selectByPK(aggConfig[2], colValue, aggConfig[0], aggConfig[1]);
-                map.put(aggConfig[1], resultMap);
+                Map<String, Object> mapJson =  Maps.newHashMap();
+                if(resultMap != null && resultMap.size() > 0) {
+                    mapJson = JSONUtil.toMap(JSONUtil.toJson(resultMap));
+                }
+                map.put(aggConfig[1], mapJson);
             } else if (StringUtils.equals(selectType, SelectType.SELF_JOIN.getType())) {
                 Category categoryTree = categoryDao.selectCategoryList(colValue.toString());
                 List<Map<String, Object>> categoryMapList = Lists.newArrayList();
@@ -188,13 +199,14 @@ public class ItemAggServiceImpl implements ItemAggService {
                 return;
             }
             List<Map<String, Object>> result = itemLineDao.getItemLineMap(colValue.toString());
-
+            List jsonList  = Lists.newArrayList();
             if (result != null && !result.isEmpty()) {
+                jsonList = JSONUtil.toList(JSONUtil.toJson(result), Map.class);
                 Map<String, Object> esResult = elasticsearchService.searchDataById(index, aggType, colValue.toString(), null);
                 if (esResult != null && !esResult.isEmpty()) {
-                    esResult.put(aggConfig[1], result);
+                    esResult.put(aggConfig[1], jsonList);
+                    elasticsearchService.insertById(index, aggType, colValue.toString(), esResult);
                 }
-                elasticsearchService.insertById(index, aggType, colValue.toString(), esResult);
             }
         });
 
@@ -221,13 +233,15 @@ public class ItemAggServiceImpl implements ItemAggService {
                 return;
             }
             List<Map<String, Object>> result = itemPictureDao.getItemPictureMap(colValue.toString(), "sku");
+            List jsonList  = Lists.newArrayList();
             if (result != null && !result.isEmpty()) {
-                //map.put(aggConfig[1], result);
+                //为了解决Elasticsearch中，Date格式不匹配
+                jsonList = JSONUtil.toList(JSONUtil.toJson(result), Map.class);
                 Map<String, Object> esResult = elasticsearchService.searchDataById(index, aggType, colValue.toString(), null);
                 if (esResult != null && !esResult.isEmpty()) {
-                    esResult.put(aggConfig[1], result);
+                    esResult.put(aggConfig[1], jsonList);
+                    elasticsearchService.insertById(index, aggType, colValue.toString(), esResult);
                 }
-                elasticsearchService.insertById(index, aggType, colValue.toString(), esResult);
             }
         });
     }
@@ -257,12 +271,14 @@ public class ItemAggServiceImpl implements ItemAggService {
                 resultMap = baseDao.selectByPK(key, colValue, aggConfig[0], aggConfig[1]);
                 Object itemId = resultMap.get(aggConfig[2]);
                 List<Map<String, Object>> result = itemLineDao.getItemLineMap(itemId.toString());
+                List jsonList  = Lists.newArrayList();
                 if (result != null && !result.isEmpty()) {
+                    jsonList = JSONUtil.toList(JSONUtil.toJson(result), Map.class);
                     Map<String, Object> esResult = elasticsearchService.searchDataById(index, aggType, itemId.toString(), null);
                     if (esResult != null && !esResult.isEmpty()) {
-                        esResult.put(aggConfig[1], result);
+                        esResult.put(aggConfig[1], jsonList);
+                        elasticsearchService.insertById(index, aggType, itemId.toString(), esResult);
                     }
-                    elasticsearchService.insertById(index, aggType, itemId.toString(), esResult);
                 }
             }
         });

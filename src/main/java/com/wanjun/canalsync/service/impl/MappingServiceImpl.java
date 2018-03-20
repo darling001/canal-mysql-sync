@@ -59,8 +59,33 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
 
     @Override
     public Object getElasticsearchTypeObject(String mysqlType, String data) {
-        Optional<Entry<String, Converter>> result = mysqlTypeElasticsearchTypeMapping.entrySet().parallelStream().filter(entry -> mysqlType.toLowerCase().contains(entry.getKey())).findFirst();
-        return (result.isPresent() ? result.get().getValue() : (Converter) data1 -> data1).convert(data);
+      /*  Optional<Entry<String, Converter>> result = mysqlTypeElasticsearchTypeMapping.entrySet().parallelStream().filter(entry -> mysqlType.toLowerCase().contains(entry.getKey())).findFirst();
+        return (result.isPresent() ? result.get().getValue() : (Converter) data1 -> data1).convert(data);*/
+        if (mysqlType.toLowerCase().contains("varchar")) {
+            return StringUtils.trimToNull(data);
+        } else if (mysqlType.toLowerCase().contains("decimal")) {
+            return Double.valueOf(data);
+        } else if (mysqlType.toLowerCase().equals("date")) {
+            return DateUtils.formatDate(DateUtils.parse(data, DateUtils.DATE_SMALL_STR), DateUtils.DATE_SMALL_STR);
+        } else if (mysqlType.toLowerCase().equals("datetime")) {
+            return DateUtils.formatDate(DateUtils.parse(data, DateUtils.DATE_DEFAULT_STR), DateUtils.DATE_DEFAULT_STR);
+        } else if (mysqlType.toLowerCase().contains("json")) {
+            return StringUtils.trimToNull(data);
+        } else if (mysqlType.toLowerCase().contains("char")) {
+            return StringUtils.trimToNull(data);
+        } else if (mysqlType.toLowerCase().contains("text")) {
+            return StringUtils.trimToNull(data);
+        } else if (mysqlType.toLowerCase().contains("int") || mysqlType.toLowerCase().contains("bigint")) {
+            return Long.parseLong(data);
+        } else if (mysqlType.toLowerCase().contains("float")) {
+            return Double.valueOf(data);
+        } else if (mysqlType.toLowerCase().contains("double")) {
+            return Double.valueOf(data);
+        } else {
+            return StringUtils.trimToNull(data);
+        }
+
+
     }
 
     @Override
@@ -89,7 +114,7 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
         mysqlTypeElasticsearchTypeMapping.put("blob", data -> data);
         mysqlTypeElasticsearchTypeMapping.put("int", Long::valueOf);
         mysqlTypeElasticsearchTypeMapping.put("datetime", data -> DateUtils.parse(data));
-        mysqlTypeElasticsearchTypeMapping.put("date", data -> DateUtils.parse(data,DateUtils.DATE_SMALL_STR));
+        mysqlTypeElasticsearchTypeMapping.put("date", data -> DateUtils.parse(data, DateUtils.DATE_SMALL_STR));
         mysqlTypeElasticsearchTypeMapping.put("float", Double::valueOf);
         mysqlTypeElasticsearchTypeMapping.put("double", Double::valueOf);
         mysqlTypeElasticsearchTypeMapping.put("decimal", Double::valueOf);
