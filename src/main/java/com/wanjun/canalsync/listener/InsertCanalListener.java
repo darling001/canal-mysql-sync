@@ -4,7 +4,6 @@ import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.CanalEntry.Column;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowData;
 import com.wanjun.canalsync.event.InsertCanalEvent;
-import com.wanjun.canalsync.model.AggregationModel;
 import com.wanjun.canalsync.model.IndexTypeModel;
 import com.wanjun.canalsync.service.ElasticsearchService;
 import com.wanjun.canalsync.service.MappingService;
@@ -55,7 +54,7 @@ public class InsertCanalListener extends AbstractCanalListener<InsertCanalEvent>
             sync(database, table, index, type, indexTypeModel, dataMap, idValue);
         } catch (Exception e) {
             logger.error("InsertCanalListener->同步数据失败", e);
-            //pushTask(database, table, index, type, indexTypeModel, dataMap, idValue,CanalEntry.EventType.INSERT_VALUE);
+            pushTask(database, table, index, type, indexTypeModel, dataMap, idValue,CanalEntry.EventType.INSERT_VALUE);
         }
 
 

@@ -100,8 +100,8 @@ public class ItemAggServiceImpl implements ItemAggService {
             String selectType = aggConfig[3];
             if (StringUtils.equals(selectType, SelectType.PK.getType())) {
                 Map<String, Object> resultMap = resultMap = baseDao.selectByPK(aggConfig[2], colValue, aggConfig[0], aggConfig[1]);
-                Map<String, Object> mapJson =  Maps.newHashMap();
-                if(resultMap != null && resultMap.size() > 0) {
+                Map<String, Object> mapJson = Maps.newHashMap();
+                if (resultMap != null && resultMap.size() > 0) {
                     mapJson = JSONUtil.toMap(JSONUtil.toJson(resultMap));
                 }
                 map.put(aggConfig[1], mapJson);
@@ -140,7 +140,6 @@ public class ItemAggServiceImpl implements ItemAggService {
         String aggType = indexTypeModel.getAggType();
         //索引
         String index = indexTypeModel.getIndex();
-        int i = 5 / 0;
 
         Object json = map.get("SPEC_CONTENTS");
         if (json != null) {
@@ -155,8 +154,8 @@ public class ItemAggServiceImpl implements ItemAggService {
             String selectType = aggConfig[3];
             if (StringUtils.equals(selectType, SelectType.PK.getType())) {
                 Map<String, Object> resultMap = baseDao.selectByPK(aggConfig[2], colValue, aggConfig[0], aggConfig[1]);
-                Map<String, Object> mapJson =  Maps.newHashMap();
-                if(resultMap != null && resultMap.size() > 0) {
+                Map<String, Object> mapJson = Maps.newHashMap();
+                if (resultMap != null && resultMap.size() > 0) {
                     mapJson = JSONUtil.toMap(JSONUtil.toJson(resultMap));
                 }
                 map.put(aggConfig[1], mapJson);
@@ -199,7 +198,7 @@ public class ItemAggServiceImpl implements ItemAggService {
                 return;
             }
             List<Map<String, Object>> result = itemLineDao.getItemLineMap(colValue.toString());
-            List jsonList  = Lists.newArrayList();
+            List jsonList = Lists.newArrayList();
             if (result != null && !result.isEmpty()) {
                 jsonList = JSONUtil.toList(JSONUtil.toJson(result), Map.class);
                 Map<String, Object> esResult = elasticsearchService.searchDataById(index, aggType, colValue.toString(), null);
@@ -233,7 +232,7 @@ public class ItemAggServiceImpl implements ItemAggService {
                 return;
             }
             List<Map<String, Object>> result = itemPictureDao.getItemPictureMap(colValue.toString(), "sku");
-            List jsonList  = Lists.newArrayList();
+            List jsonList = Lists.newArrayList();
             if (result != null && !result.isEmpty()) {
                 //为了解决Elasticsearch中，Date格式不匹配
                 jsonList = JSONUtil.toList(JSONUtil.toJson(result), Map.class);
@@ -271,7 +270,7 @@ public class ItemAggServiceImpl implements ItemAggService {
                 resultMap = baseDao.selectByPK(key, colValue, aggConfig[0], aggConfig[1]);
                 Object itemId = resultMap.get(aggConfig[2]);
                 List<Map<String, Object>> result = itemLineDao.getItemLineMap(itemId.toString());
-                List jsonList  = Lists.newArrayList();
+                List jsonList = Lists.newArrayList();
                 if (result != null && !result.isEmpty()) {
                     jsonList = JSONUtil.toList(JSONUtil.toJson(result), Map.class);
                     Map<String, Object> esResult = elasticsearchService.searchDataById(index, aggType, itemId.toString(), null);
