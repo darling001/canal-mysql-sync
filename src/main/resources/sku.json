@@ -1,4 +1,21 @@
 {
+  "settings" : {
+    "analysis" : {
+      "analyzer" : {
+        "pinyin_analyzer" : {
+          "tokenizer" : "my_pinyin",
+          "filter" : "word_delimiter"
+        }
+      },
+      "tokenizer" : {
+        "my_pinyin" : {
+          "type" : "pinyin",
+          "first_letter" : "none",
+          "padding_char" : " "
+        }
+      }
+    }
+  },
   "mappings": {
     "_default_":{
       "_all":{
@@ -163,21 +180,29 @@
           "type": "string",
           "index": "not_analyzed"
         },
-        "SPU_NAME":{
-          "type": "string",
-          "term_vector": "with_positions_offsets",
-          "index": "analyzed",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word",
-          "include_in_all": "true"
+        "SPU_NAME": {
+          "type": "multi_field",
+          "fields": {
+            "pinyin": {
+              "type": "string",
+              "store": "no",
+              "term_vector": "with_positions_offsets",
+              "analyzer": "pinyin_analyzer",
+              "boost": 10
+            },
+            "SPU_NAME": {
+              "type": "string",
+              "term_vector": "with_positions_offsets",
+              "index": "analyzed",
+              "analyzer": "ik_max_word",
+              "search_analyzer": "ik_max_word",
+              "include_in_all": "true"
+            }
+          }
         },
         "SPU_STATUS":{
           "type": "string",
-          "term_vector": "with_positions_offsets",
-          "index": "analyzed",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word",
-          "include_in_all": "true"
+          "index": "not_analyzed"
         },
         "SPU_TYPE":{
           "type": "string",
@@ -765,20 +790,44 @@
           "index": "not_analyzed"
         },
         "ITEM_NAME": {
-          "type": "string",
-          "term_vector": "with_positions_offsets",
-          "index": "analyzed",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word",
-          "include_in_all": "true"
+          "type": "multi_field",
+          "fields": {
+            "pinyin": {
+              "type": "string",
+              "store": "no",
+              "term_vector": "with_positions_offsets",
+              "analyzer": "pinyin_analyzer",
+              "boost": 10
+            },
+            "ITEM_NAME": {
+              "type": "string",
+              "term_vector": "with_positions_offsets",
+              "index": "analyzed",
+              "analyzer": "ik_max_word",
+              "search_analyzer": "ik_max_word",
+              "include_in_all": "true"
+            }
+          }
         },
         "ITEM_SHORTNAME": {
-          "type": "string",
-          "term_vector": "with_positions_offsets",
-          "index": "analyzed",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word",
-          "include_in_all": "true"
+          "type": "multi_field",
+          "fields": {
+            "pinyin": {
+              "type": "string",
+              "store": "no",
+              "term_vector": "with_positions_offsets",
+              "analyzer": "pinyin_analyzer",
+              "boost": 10
+            },
+            "ITEM_SHORTNAME": {
+              "type": "string",
+              "term_vector": "with_positions_offsets",
+              "index": "analyzed",
+              "analyzer": "ik_max_word",
+              "search_analyzer": "ik_max_word",
+              "include_in_all": "true"
+            }
+          }
         },
         "ITEM_STATUS": {
           "type": "string",
@@ -1413,12 +1462,24 @@
           "index": "not_analyzed"
         },
         "ITEM_NAME": {
-          "type": "string",
-          "term_vector": "with_positions_offsets",
-          "index": "analyzed",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word",
-          "include_in_all": "true"
+          "type": "multi_field",
+          "fields": {
+            "pinyin": {
+              "type": "string",
+              "store": "no",
+              "term_vector": "with_positions_offsets",
+              "analyzer": "pinyin_analyzer",
+              "boost": 10
+            },
+            "ITEM_NAME": {
+              "type": "string",
+              "term_vector": "with_positions_offsets",
+              "index": "analyzed",
+              "analyzer": "ik_max_word",
+              "search_analyzer": "ik_max_word",
+              "include_in_all": "true"
+            }
+          }
         },
         "ITEM_SHORTNAME": {
           "type": "string",
@@ -1731,24 +1792,48 @@
               "index": "not_analyzed"
             },
             "BRAND_NAME": {
-              "type": "string",
-              "term_vector": "with_positions_offsets",
-              "index": "analyzed",
-              "analyzer": "ik_max_word",
-              "search_analyzer": "ik_max_word",
-              "include_in_all": "true"
+              "type": "multi_field",
+              "fields": {
+                "pinyin": {
+                  "type": "string",
+                  "store": "no",
+                  "term_vector": "with_positions_offsets",
+                  "analyzer": "pinyin_analyzer",
+                  "boost": 10
+                },
+                "BRAND_NAME": {
+                  "type": "string",
+                  "term_vector": "with_positions_offsets",
+                  "index": "analyzed",
+                  "analyzer": "ik_max_word",
+                  "search_analyzer": "ik_max_word",
+                  "include_in_all": "true"
+                }
+              }
             },
             "STATUS": {
               "type": "string",
               "index": "not_analyzed"
             },
             "BRIEF_NAME": {
-              "type": "string",
-              "term_vector": "with_positions_offsets",
-              "index": "analyzed",
-              "analyzer": "ik_max_word",
-              "search_analyzer": "ik_max_word",
-              "include_in_all": "true"
+              "type": "multi_field",
+              "fields": {
+                "pinyin": {
+                  "type": "string",
+                  "store": "no",
+                  "term_vector": "with_positions_offsets",
+                  "analyzer": "pinyin_analyzer",
+                  "boost": 10
+                },
+                "BRIEF_NAME": {
+                  "type": "string",
+                  "term_vector": "with_positions_offsets",
+                  "index": "analyzed",
+                  "analyzer": "ik_max_word",
+                  "search_analyzer": "ik_max_word",
+                  "include_in_all": "true"
+                }
+              }
             },
             "WEBSITE": {
               "type": "string",
@@ -1942,12 +2027,24 @@
               "index": "not_analyzed"
             },
             "SUPPLIER_NAME": {
-              "type": "string",
-              "term_vector": "with_positions_offsets",
-              "index": "analyzed",
-              "analyzer": "ik_max_word",
-              "search_analyzer": "ik_max_word",
-              "include_in_all": "true"
+              "type": "multi_field",
+              "fields": {
+                "pinyin": {
+                  "type": "string",
+                  "store": "no",
+                  "term_vector": "with_positions_offsets",
+                  "analyzer": "pinyin_analyzer",
+                  "boost": 10
+                },
+                "SUPPLIER_NAME": {
+                  "type": "string",
+                  "term_vector": "with_positions_offsets",
+                  "index": "analyzed",
+                  "analyzer": "ik_max_word",
+                  "search_analyzer": "ik_max_word",
+                  "include_in_all": "true"
+                }
+              }
             },
             "LEAD_TIME":{
               "type":"double"
@@ -2301,12 +2398,24 @@
               "index": "not_analyzed"
             },
             "SPU_NAME": {
-              "type": "string",
-              "term_vector": "with_positions_offsets",
-              "index": "analyzed",
-              "analyzer": "ik_max_word",
-              "search_analyzer": "ik_max_word",
-              "include_in_all": "true"
+              "type": "multi_field",
+              "fields": {
+                "pinyin": {
+                  "type": "string",
+                  "store": "no",
+                  "term_vector": "with_positions_offsets",
+                  "analyzer": "pinyin_analyzer",
+                  "boost": 10
+                },
+                "SPU_NAME": {
+                  "type": "string",
+                  "term_vector": "with_positions_offsets",
+                  "index": "analyzed",
+                  "analyzer": "ik_max_word",
+                  "search_analyzer": "ik_max_word",
+                  "include_in_all": "true"
+                }
+              }
             },
             "SPU_STATUS": {
               "type": "string",
@@ -2325,7 +2434,8 @@
               "include_in_all": "true"
             },
 
-            "SPU_DETAIL":{  "type": "string",
+            "SPU_DETAIL":{
+              "type": "string",
               "term_vector": "with_positions_offsets",
               "index": "analyzed",
               "analyzer": "ik_max_word",
@@ -2523,4 +2633,7 @@
     }
   }
 }
+
+
+
 

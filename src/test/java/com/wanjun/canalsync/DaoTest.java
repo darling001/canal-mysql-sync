@@ -2,6 +2,7 @@ package com.wanjun.canalsync;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.gson.annotations.SerializedName;
 import com.wanjun.canalsync.dao.CategoryDao;
 import com.wanjun.canalsync.dao.ItemLineDao;
 import com.wanjun.canalsync.model.Category;
