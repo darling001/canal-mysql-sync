@@ -1,9 +1,7 @@
 package com.wanjun.canalsync.annotation;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.*;
+
 /**
  * Created by wangchengli on 2018/3/20
  */
@@ -11,6 +9,7 @@ import java.lang.annotation.RetentionPolicy;
 @Target({
         ElementType.METHOD
 })
+@Documented
 public @interface DS {
     String value() default "gms1";
 }

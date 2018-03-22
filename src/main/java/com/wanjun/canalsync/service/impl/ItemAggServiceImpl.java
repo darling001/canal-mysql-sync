@@ -55,7 +55,6 @@ public class ItemAggServiceImpl implements ItemAggService {
     @Autowired
     private ElasticsearchService elasticsearchService;
 
-
     private List<Map<String, Object>> parseSpecContents(String json) {
         List<Map<String, Object>> list = Lists.newArrayList();
         List<SpecAttribute> specAttributeList = null;

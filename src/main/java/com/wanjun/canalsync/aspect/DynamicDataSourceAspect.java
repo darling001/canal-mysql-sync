@@ -3,9 +3,7 @@ package com.wanjun.canalsync.aspect;
 import com.wanjun.canalsync.annotation.DS;
 import com.wanjun.canalsync.util.DataSourceContextHolder;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -17,46 +15,53 @@ import java.lang.reflect.Method;
  * @version 1.0
  * @date 2018-03-20
  */
+@Component
 @Aspect
 @Order(1)   //设置AOP执行顺序(需要在事务之前，否则事务只发生在默认库中)
-@Component
 public class DynamicDataSourceAspect {
 
-    @Before("@annotation(com.wanjun.canalsync.annotation.DS)")
-    public void beforeSwitchDS(JoinPoint point){
+    @Pointcut(value = "@annotation(com.wanjun.canalsync.annotation.DS)")
+    public void methodPointcut(){
 
-        //获得当前访问的class
-        Class<?> className = point.getTarget().getClass();
+    }
+    @Before(value= "@annotation(ds)")
+    public void beforeSwitchDS(JoinPoint point, DS ds) {
 
-        //获得访问的方法名
-        String methodName = point.getSignature().getName();
-        //得到方法的参数的类型
-        Class[] argClass = ((MethodSignature)point.getSignature()).getParameterTypes();
-        String dataSource = DataSourceContextHolder.DEFAULT_DS;
-        try {
-            // 得到访问的方法对象
-            Method method = className.getMethod(methodName, argClass);
 
-            // 判断是否存在@DS注解
-            if (method.isAnnotationPresent(DS.class)) {
-                DS annotation = method.getAnnotation(DS.class);
-                // 取出注解中的数据源名
-                dataSource = annotation.value();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        //获取当前的指定的数据源;
+
+        String dsId = ds.value();
+
+        //如果不在我们注入的所有的数据源范围之内，那么输出警告信息，系统自动使用默认的数据源。
+
+        if (!DataSourceContextHolder.containsDataSource(dsId)) {
+
+            System.err.println("数据源[{}]不存在，使用默认数据源 > {}" + ds.value() + point.getSignature());
+
+        } else {
+
+            System.out.println("Use DataSource : {} > {}" + ds.value() + point.getSignature());
+
+            //找到的话，那么设置到动态数据源上下文中。
+
+            DataSourceContextHolder.setDataSourceType(ds.value());
+
         }
 
-        // 切换数据源
-        DataSourceContextHolder.setDB(dataSource);
+    }
+
+
+    @After("@annotation(ds)")
+
+    public void restoreDataSource(JoinPoint point, DS ds) {
+
+        System.out.println("Revert DataSource : {} > {}" + ds.value() + point.getSignature());
+
+        //方法执行完毕之后，销毁当前数据源信息，进行垃圾回收。
+
+        DataSourceContextHolder.clearDataSourceType();
 
     }
 
 
-    @After("@annotation(com.wanjun.canalsync.annotation.DS)")
-    public void afterSwitchDS(JoinPoint point){
-
-        DataSourceContextHolder.clearDB();
-
-    }
 }
