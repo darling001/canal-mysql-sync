@@ -1,6 +1,8 @@
 package com.wanjun.canalsync.dao;
 
 
+import com.wanjun.canalsync.annotation.DataSourceTarget;
+import com.wanjun.canalsync.client.config.DataSourceKey;
 import com.wanjun.canalsync.model.Category;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CategoryDao {
+    @DataSourceTarget(DataSourceKey.master)
     Category selectCategoryList(@Param("categoryId") String categoryId);
 
 }

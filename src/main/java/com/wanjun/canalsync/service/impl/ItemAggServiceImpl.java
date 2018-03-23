@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.wanjun.canalsync.annotation.Schema;
 import com.wanjun.canalsync.annotation.Table;
+import com.wanjun.canalsync.client.DynamicDataSourceContextHolder;
 import com.wanjun.canalsync.dao.BaseDao;
 import com.wanjun.canalsync.dao.CategoryDao;
 import com.wanjun.canalsync.dao.ItemLineDao;
