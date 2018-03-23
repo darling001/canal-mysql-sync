@@ -2,13 +2,10 @@ package com.wanjun.canalsync;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.gson.annotations.SerializedName;
 import com.wanjun.canalsync.dao.CategoryDao;
 import com.wanjun.canalsync.dao.ItemLineDao;
 import com.wanjun.canalsync.model.Category;
-import com.wanjun.canalsync.service.ItemLineService;
 import com.wanjun.canalsync.util.JSONUtil;
-import org.elasticsearch.index.mapper.SourceToParse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,12 +27,11 @@ public class DaoTest {
     private ItemLineDao itemLineDao;
     @Resource
     private CategoryDao categoryDao;
-    @Resource
-    private ItemLineService itemLineService;
+
 
     @Test
     public void testItemLineDao() {
-        List<Map<String, Object>> itemLineMap = itemLineService.getItemLineMap("a0ef6aa8aed9cbcede931ba9491fb6d5");
+        List<Map<String, Object>> itemLineMap = itemLineDao.getItemLineMap("a0ef6aa8aed9cbcede931ba9491fb6d5");
         System.out.println(JSONUtil.toJson(itemLineMap));
     }
 

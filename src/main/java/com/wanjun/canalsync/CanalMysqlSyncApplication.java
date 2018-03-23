@@ -17,8 +17,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@SpringBootApplication(exclude = {
-        DataSourceAutoConfiguration.class})
+@SpringBootApplication
 @EnableConfigurationProperties({CanalProperties.class, RedisProperties.class, TaskConfig.class})
 @EnableScheduling
 @EnableTransactionManagement(order = 2)

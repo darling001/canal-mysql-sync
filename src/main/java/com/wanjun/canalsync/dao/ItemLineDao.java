@@ -1,6 +1,5 @@
 package com.wanjun.canalsync.dao;
 
-import com.wanjun.canalsync.annotation.DS;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
