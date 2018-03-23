@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableConfigurationProperties({CanalProperties.class, RedisProperties.class, TaskConfig.class})
 @EnableScheduling
-@EnableTransactionManagement(order = 2)
 @MapperScan("com.wanjun.canalsync.dao")
 
 
