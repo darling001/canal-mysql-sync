@@ -1435,7 +1435,6 @@
       }
     },
     "item_agg": {
-      "dynamic":"false",
       "properties": {
         "ITEM_ID": {
           "type": "string",
@@ -1785,7 +1784,6 @@
           "include_in_all": "true"
         },
         "cmc_brand": {
-          "type":"nested",
           "properties": {
             "BRAND_ID": {
               "type": "string",
@@ -1975,7 +1973,6 @@
           }
         },
         "cmc_category": {
-          "type":"nested",
           "properties": {
             "CATEGORY_CODE": {
               "type": "string",
@@ -1999,205 +1996,7 @@
             }
           }
         },
-        "cmc_item_line": {
-          "type":"nested",
-          "properties": {
-            "ITEM_LINE_ID": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "ITEM_LINE_CODE": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "ITEM_ID": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "MATERIAL_TYPE_CODE":{
-              "type":"string",
-              "index": "not_analyzed"
-            },
-            "SUPPLIER_ID": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "SUPPLIER_CODE": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "SUPPLIER_NAME": {
-              "type": "multi_field",
-              "fields": {
-                "pinyin": {
-                  "type": "string",
-                  "store": "no",
-                  "term_vector": "with_positions_offsets",
-                  "analyzer": "pinyin_analyzer",
-                  "boost": 10
-                },
-                "SUPPLIER_NAME": {
-                  "type": "string",
-                  "term_vector": "with_positions_offsets",
-                  "index": "analyzed",
-                  "analyzer": "ik_max_word",
-                  "search_analyzer": "ik_max_word",
-                  "include_in_all": "true"
-                }
-              }
-            },
-            "LEAD_TIME":{
-              "type":"double"
-            },
-            "STATUS":{
-              "type":"string",
-              "index": "not_analyzed"
-            },
-            "DISPLAY_FLAG":{
-              "type":"string",
-              "index": "not_analyzed"
-            },
-            "MIN_ORDER_NUM": {
-              "type": "double"
-            },
-            "AREA_CODE": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "AREA_NAME": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "ITEM_PRICE_ID": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "PRICE_TYPE": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "PUR_PRICE1": {
-              "type": "double"
-            },
-            "PUR_PRICE2": {
-              "type": "double"
-            },
-            "PUR_PRICE3": {
-              "type": "double"
-            },
-            "PUR_PRICE4": {
-              "type": "double"
-            },
-            "PUR_PRICE5": {
-              "type": "double"
-            },
-            "SALE_PRICE1": {
-              "type": "double"
-            },
-            "SALE_PRICE2": {
-              "type": "double"
-            },
-            "SALE_PRICE3": {
-              "type": "double"
-            },
-            "SALE_PRICE4": {
-              "type": "double"
-            },
-            "SALE_PRICE5": {
-              "type": "double"
-            },
-            "VALID_DATE":{
-              "type": "date",
-              "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
-            },
-            "INVALID_DATE": {
-              "type": "date",
-              "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
-            },
-            "CREATE_DATE": {
-              "type": "date",
-              "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
-            },
-            "CREATE_USER_ID": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "CREATE_USER_NAME": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-
-            "MODIFY_DATE": {
-              "type": "date",
-              "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
-            },
-            "MODIFY_USER_ID": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "MODIFY_USER_NAME": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-
-            "ORG_ID": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "BOOK_ID": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-
-            "GROUP_ID": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "EXT_COL1": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "EXT_COL2": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "EXT_COL3": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "EXT_COL4": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "EXT_COL5": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "EXT_COL6": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "EXT_COL7": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "EXT_COL8": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "EXT_COL9": {
-              "type": "string",
-              "index": "not_analyzed"
-            },
-            "EXT_COL10": {
-              "type": "string",
-              "index": "not_analyzed"
-            }
-          }
-        },
-
         "aus_at_picture_list": {
-          "type":"nested",
           "properties": {
             "PICTURE_ID": {
               "type": "string",
@@ -2379,7 +2178,6 @@
           }
         },
         "cmc_spu": {
-          "type":"nested",
           "properties": {
             "SPU_ID": {
               "type": "string",

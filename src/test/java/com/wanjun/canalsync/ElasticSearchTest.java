@@ -56,7 +56,7 @@ public class ElasticSearchTest {
 
     @Test
     public void testSearchData() {
-        List<Map<String, Object>> list = elasticsearchService.searchListData("gms", "item_agg", null, null, null, true, "TRADEMARK=06e9f408d4a5f353c5f8da925bad341f");
+        List<Map<String, Object>> list = elasticsearchService.searchListData("gms", "item_agg", null, null, null, true, "TRADEMARK=trademark7");
         System.out.println(JSONUtil.toJson(list));
     }
 
