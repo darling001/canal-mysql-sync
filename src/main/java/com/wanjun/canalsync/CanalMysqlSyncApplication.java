@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 //@Import(value = {SpringUtil.class})
-public class CanalMysqlSyncApplication /* extends SpringBootServletInitializer */{
+public class CanalMysqlSyncApplication  extends SpringBootServletInitializer{
 
     @Autowired
     private CanalInitHandler canalInitHandler;
@@ -32,11 +32,11 @@ public class CanalMysqlSyncApplication /* extends SpringBootServletInitializer *
     /**
      * 实现SpringBootServletInitializer可以让spring-boot项目在web容器中运行
      */
-  /*  @Override
+   @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         builder.sources(this.getClass());
         return super.configure(builder);
-    }*/
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(CanalMysqlSyncApplication.class, args);
