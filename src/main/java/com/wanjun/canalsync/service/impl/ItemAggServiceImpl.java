@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author wangchengli
@@ -75,6 +76,20 @@ public class ItemAggServiceImpl implements ItemAggService {
             list.add(map);
         }
         return list;
+    }
+    @Override
+    @Table(value = "item", event = {CanalEntry.EventType.DELETE})
+    public void deleteAggItem(Map<String,String> map ,IndexTypeModel indexTypeModel) {
+        //聚合数据es类型
+        String aggType = indexTypeModel.getAggType();
+        //索引
+        String index = indexTypeModel.getIndex();
+        Object itemId = map.get("ITEM_ID");
+        if(Objects.isNull(itemId)) {
+            return;
+        }
+        elasticsearchService.deleteById(index, aggType, itemId.toString());
+
     }
 
     @Override
