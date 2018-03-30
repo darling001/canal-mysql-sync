@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wanjun.canalsync.dao.TagInfoDao">
+    <resultMap id="tagInfoTree" type="com.wanjun.canalsync.model.TagInfo">
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="styleType" property="styleType" jdbcType="VARCHAR"/>
+        <result column="attrJson"  property="attrJson" jdbcType="VARCHAR"/>
+        <result column="childTagInfoIds" property="childTagInfoIds" javaType="java.util.List"
+                typeHandler="com.wanjun.canalsync.util.JsonTypeHandler"/>
+        <result column="stype_type" property="styleType" jdbcType="VARCHAR"/>
+
+    </resultMap>
+    <!-- 根据前端页面传入的pid，查出所有tag -->
+    <select id="queryTagInfoTreeList" resultMap="tagInfoTree">
+       SELECT t1.type,t2.tag_id , t2.pid,t2.attr_info attrJson
+        ,JSON_EXTRACT(t2.attr_info,'$.child') childTagInfoIds ,t2.style_type styleType
+      FROM tag t1 INNER JOIN tag_info t2 ON t1.id = t2.tag_id
+      AND t2.pid=#{pid}
+    </select>
+    <select id="queryTagInfoChildList" resultMap="tagInfoTree" parameterType="java.util.List">
+
+        SELECT t1.type,t2.tag_id , t2.pid,t2.attr_info attrJson
+        ,JSON_EXTRACT(t2.attr_info,'$.child') childTagInfoIds ,t2.style_type styleType
+        FROM tag t1 INNER JOIN tag_info t2 ON t1.id = t2.tag_id
+        AND t2.tag_info_id IN
+        <foreach collection="childTagInfoIds" item="id" index="index"
+                 open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+
+    </select>
+
+</mapper>
