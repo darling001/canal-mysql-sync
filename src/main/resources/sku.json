@@ -5,6 +5,11 @@
         "pinyin_analyzer" : {
           "tokenizer" : "my_pinyin",
           "filter" : "word_delimiter"
+        },
+        "optimizeIK":{
+          "type":"custom",
+          "tokenizer":"ik_smart",
+          "filter":["stemmer","word_delimiter","lowercase"]
         }
       },
       "tokenizer" : {
@@ -194,8 +199,8 @@
               "type": "string",
               "term_vector": "with_positions_offsets",
               "index": "analyzed",
-              "analyzer": "ik_max_word",
-              "search_analyzer": "ik_max_word",
+              "analyzer": "optimizeIK",
+              "search_analyzer": "optimizeIK",
               "include_in_all": "true"
             }
           }
@@ -212,8 +217,8 @@
           "type": "string",
           "term_vector": "with_positions_offsets",
           "index": "analyzed",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word",
+          "analyzer": "optimizeIK",
+          "search_analyzer": "optimizeIK",
           "include_in_all": "true"
         },
         "BRAND":{
@@ -393,8 +398,8 @@
           "type": "string",
           "term_vector": "with_positions_offsets",
           "index": "analyzed",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word",
+          "analyzer": "optimizeIK",
+          "search_analyzer": "optimizeIK",
           "include_in_all": "true"
         }
       }
@@ -803,8 +808,8 @@
               "type": "string",
               "term_vector": "with_positions_offsets",
               "index": "analyzed",
-              "analyzer": "ik_max_word",
-              "search_analyzer": "ik_max_word",
+              "analyzer": "optimizeIK",
+              "search_analyzer": "optimizeIK",
               "include_in_all": "true"
             }
           }
@@ -823,8 +828,8 @@
               "type": "string",
               "term_vector": "with_positions_offsets",
               "index": "analyzed",
-              "analyzer": "ik_max_word",
-              "search_analyzer": "ik_max_word",
+              "analyzer": "optimizeIK",
+              "search_analyzer": "optimizeIK",
               "include_in_all": "true"
             }
           }
@@ -837,8 +842,8 @@
           "type": "string",
           "term_vector": "with_positions_offsets",
           "index": "analyzed",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word",
+          "analyzer": "optimizeIK",
+          "search_analyzer": "optimizeIK",
           "include_in_all": "true"
         },
         "TRADEMARK": {
@@ -1127,8 +1132,8 @@
           "type": "string",
           "term_vector": "with_positions_offsets",
           "index": "analyzed",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word",
+          "analyzer": "optimizeIK",
+          "search_analyzer": "optimizeIK",
           "include_in_all": "true"
         }
       }
@@ -1144,8 +1149,8 @@
           "type": "string",
           "term_vector": "with_positions_offsets",
           "index": "analyzed",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word",
+          "analyzer": "optimizeIK",
+          "search_analyzer": "optimizeIK",
           "include_in_all": "true"
         },
         "STATUS":{
@@ -1156,8 +1161,8 @@
           "type": "string",
           "term_vector": "with_positions_offsets",
           "index": "analyzed",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word",
+          "analyzer": "optimizeIK",
+          "search_analyzer": "optimizeIK",
           "include_in_all": "true"
         },
         "WEBSITE":{
@@ -1176,8 +1181,8 @@
           "type": "string",
           "term_vector": "with_positions_offsets",
           "index": "analyzed",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word",
+          "analyzer": "optimizeIK",
+          "search_analyzer": "optimizeIK",
           "include_in_all": "true"
         },
         "BELONG_COUNTRY":{
@@ -1273,16 +1278,16 @@
           "type": "string",
           "term_vector": "with_positions_offsets",
           "index": "analyzed",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word",
+          "analyzer": "optimizeIK",
+          "search_analyzer": "optimizeIK",
           "include_in_all": "true"
         },
         "BRAND_STORY_NOTES":{
           "type": "string",
           "term_vector": "with_positions_offsets",
           "index": "analyzed",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word",
+          "analyzer": "optimizeIK",
+          "search_analyzer": "optimizeIK",
           "include_in_all": "true"
         }
       }
@@ -1474,8 +1479,8 @@
               "type": "string",
               "term_vector": "with_positions_offsets",
               "index": "analyzed",
-              "analyzer": "ik_max_word",
-              "search_analyzer": "ik_max_word",
+              "analyzer": "optimizeIK",
+              "search_analyzer": "optimizeIK",
               "include_in_all": "true"
             }
           }
@@ -1484,8 +1489,8 @@
           "type": "string",
           "term_vector": "with_positions_offsets",
           "index": "analyzed",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word",
+          "analyzer": "optimizeIK",
+          "search_analyzer": "optimizeIK",
           "include_in_all": "true"
         },
         "ITEM_STATUS": {
@@ -1496,8 +1501,8 @@
           "type": "string",
           "term_vector": "with_positions_offsets",
           "index": "analyzed",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word",
+          "analyzer": "optimizeIK",
+          "search_analyzer": "optimizeIK",
           "include_in_all": "true"
         },
         "TRADEMARK": {
@@ -1779,8 +1784,8 @@
           "type": "string",
           "term_vector": "with_positions_offsets",
           "index": "analyzed",
-          "analyzer": "ik_max_word",
-          "search_analyzer": "ik_max_word",
+          "analyzer": "optimizeIK",
+          "search_analyzer": "optimizeIK",
           "include_in_all": "true"
         },
         "cmc_brand": {
@@ -1803,8 +1808,8 @@
                   "type": "string",
                   "term_vector": "with_positions_offsets",
                   "index": "analyzed",
-                  "analyzer": "ik_max_word",
-                  "search_analyzer": "ik_max_word",
+                  "analyzer": "optimizeIK",
+                  "search_analyzer": "optimizeIK",
                   "include_in_all": "true"
                 }
               }
@@ -1827,8 +1832,8 @@
                   "type": "string",
                   "term_vector": "with_positions_offsets",
                   "index": "analyzed",
-                  "analyzer": "ik_max_word",
-                  "search_analyzer": "ik_max_word",
+                  "analyzer": "optimizeIK",
+                  "search_analyzer": "optimizeIK",
                   "include_in_all": "true"
                 }
               }
@@ -1949,8 +1954,8 @@
               "type": "string",
               "term_vector": "with_positions_offsets",
               "index": "analyzed",
-              "analyzer": "ik_max_word",
-              "search_analyzer": "ik_max_word",
+              "analyzer": "optimizeIK",
+              "search_analyzer": "optimizeIK",
               "include_in_all": "true"
             }
           }
@@ -1990,8 +1995,8 @@
               "type": "string",
               "term_vector": "with_positions_offsets",
               "index": "analyzed",
-              "analyzer": "ik_max_word",
-              "search_analyzer": "ik_max_word",
+              "analyzer": "optimizeIK",
+              "search_analyzer": "optimizeIK",
               "include_in_all": "true"
             }
           }
@@ -2209,8 +2214,8 @@
                   "type": "string",
                   "term_vector": "with_positions_offsets",
                   "index": "analyzed",
-                  "analyzer": "ik_max_word",
-                  "search_analyzer": "ik_max_word",
+                  "analyzer": "optimizeIK",
+                  "search_analyzer": "optimizeIK",
                   "include_in_all": "true"
                 }
               }
@@ -2227,8 +2232,8 @@
               "type": "string",
               "term_vector": "with_positions_offsets",
               "index": "analyzed",
-              "analyzer": "ik_max_word",
-              "search_analyzer": "ik_max_word",
+              "analyzer": "optimizeIK",
+              "search_analyzer": "optimizeIK",
               "include_in_all": "true"
             },
 
@@ -2236,8 +2241,8 @@
               "type": "string",
               "term_vector": "with_positions_offsets",
               "index": "analyzed",
-              "analyzer": "ik_max_word",
-              "search_analyzer": "ik_max_word",
+              "analyzer": "optimizeIK",
+              "search_analyzer": "optimizeIK",
               "include_in_all": "true"
             },
             "BRAND":{
@@ -2421,8 +2426,8 @@
               "type": "string",
               "term_vector": "with_positions_offsets",
               "index": "analyzed",
-              "analyzer": "ik_max_word",
-              "search_analyzer": "ik_max_word",
+              "analyzer": "optimizeIK",
+              "search_analyzer": "optimizeIK",
               "include_in_all": "true"
             }
           }
