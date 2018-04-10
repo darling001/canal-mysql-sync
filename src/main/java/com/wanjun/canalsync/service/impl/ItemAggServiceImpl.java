@@ -245,7 +245,7 @@ public class ItemAggServiceImpl implements ItemAggService {
                 logger.error("aggItemPicture colValue is null ,colValue {},EventType {}", colValue, CanalEntry.EventType.UPDATE);
                 return;
             }
-            List<Map<String, Object>> result = itemPictureDao.getItemPictureMap(colValue.toString(), "sku");
+            List<Map<String, Object>> result = itemPictureDao.getItemPictureMap(colValue.toString(), "cmcItem");
             List jsonList = Lists.newArrayList();
             if (result != null && !result.isEmpty()) {
                 //为了解决Elasticsearch中，Date格式不匹配
@@ -329,8 +329,9 @@ public class ItemAggServiceImpl implements ItemAggService {
                 idDataMap.put(itemId, elementMap);
 
             }
-
-            elasticsearchService.batchInsertById(index, aggType, idDataMap);
+            if(idDataMap != null && !idDataMap.isEmpty()) {
+                elasticsearchService.batchInsertById(index, aggType, idDataMap);
+            }
         });
     }
 
@@ -386,7 +387,9 @@ public class ItemAggServiceImpl implements ItemAggService {
                 elementMap.put(aggConfig[1], categoryMapList);
                 idDataMap.put(itemId, elementMap);
             }
-            elasticsearchService.batchInsertById(index, aggType, idDataMap);
+            if(idDataMap != null && !idDataMap.isEmpty()) {
+                elasticsearchService.batchInsertById(index, aggType, idDataMap);
+            }
         });
     }
 
