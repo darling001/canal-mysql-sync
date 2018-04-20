@@ -70,22 +70,32 @@ public class ItemAggServiceImpl implements ItemAggService {
         }
         for (SpecAttribute specAttribute : specAttributeList) {
             Map<String, Object> map = Maps.newHashMap();
-            map.put("PRICE_FLAG", specAttribute.getPriceFlag());
-            map.put("ATTRIBUTE_NAME", specAttribute.getAttributeName());
-            map.put("ATTRIBUTE_VALUE", specAttribute.getAttributeValue());
+            String priceFlag = StringUtils.trimToNull(specAttribute.getPriceFlag());
+            String attributeName = StringUtils.trimToNull(specAttribute.getAttributeName());
+            String attributeValue  = StringUtils.trimToNull(specAttribute.getAttributeValue());
+            if(StringUtils.isNotEmpty(priceFlag)) {
+                map.put("PRICE_FLAG", priceFlag);
+            }
+            if(StringUtils.isNotEmpty(attributeName)) {
+                map.put("ATTRIBUTE_NAME", attributeName);
+            }
+            if(StringUtils.isNotEmpty(attributeValue)) {
+                map.put("ATTRIBUTE_VALUE", attributeValue);
+            }
             list.add(map);
         }
         return list;
     }
+
     @Override
     @Table(value = "item", event = {CanalEntry.EventType.DELETE})
-    public void deleteAggItem(Map<String,String> map ,IndexTypeModel indexTypeModel) {
+    public void deleteAggItem(Map<String, String> map, IndexTypeModel indexTypeModel) {
         //聚合数据es类型
         String aggType = indexTypeModel.getAggType();
         //索引
         String index = indexTypeModel.getIndex();
         Object itemId = map.get("ITEM_ID");
-        if(Objects.isNull(itemId)) {
+        if (Objects.isNull(itemId)) {
             return;
         }
         elasticsearchService.deleteById(index, aggType, itemId.toString());
@@ -121,7 +131,10 @@ public class ItemAggServiceImpl implements ItemAggService {
                 map.put(aggConfig[1], mapJson);
 
             } else if (StringUtils.equals(selectType, SelectType.SELF_JOIN.getType())) {
-                Category categoryTree = categoryDao.selectCategoryList(colValue.toString());
+                Category categoryTree = null;
+                if (colValue != null) {
+                    categoryTree = categoryDao.selectCategoryList(colValue.toString());
+                }
                 List<Map<String, Object>> categoryMapList = Lists.newArrayList();
                 getChildCategory(categoryMapList, categoryTree);
                 map.put(aggConfig[1], categoryMapList);
@@ -174,7 +187,10 @@ public class ItemAggServiceImpl implements ItemAggService {
                 }
                 map.put(aggConfig[1], mapJson);
             } else if (StringUtils.equals(selectType, SelectType.SELF_JOIN.getType())) {
-                Category categoryTree = categoryDao.selectCategoryList(colValue.toString());
+                Category categoryTree = null;
+                if (colValue != null) {
+                    categoryTree = categoryDao.selectCategoryList(colValue.toString());
+                }
                 List<Map<String, Object>> categoryMapList = Lists.newArrayList();
                 getChildCategory(categoryMapList, categoryTree);
                 map.put(aggConfig[1], categoryMapList);
@@ -329,7 +345,7 @@ public class ItemAggServiceImpl implements ItemAggService {
                 idDataMap.put(itemId, elementMap);
 
             }
-            if(idDataMap != null && !idDataMap.isEmpty()) {
+            if (idDataMap != null && !idDataMap.isEmpty()) {
                 elasticsearchService.batchInsertById(index, aggType, idDataMap);
             }
         });
@@ -387,7 +403,7 @@ public class ItemAggServiceImpl implements ItemAggService {
                 elementMap.put(aggConfig[1], categoryMapList);
                 idDataMap.put(itemId, elementMap);
             }
-            if(idDataMap != null && !idDataMap.isEmpty()) {
+            if (idDataMap != null && !idDataMap.isEmpty()) {
                 elasticsearchService.batchInsertById(index, aggType, idDataMap);
             }
         });
