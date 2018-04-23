@@ -46,6 +46,12 @@
                 <env>pro</env>
             </properties>
         </profile>
+        <profile>
+            <id>pre</id>
+            <properties>
+                <env>pre</env>
+            </properties>
+        </profile>
     </profiles>
 
     <dependencies>

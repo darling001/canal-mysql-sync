@@ -26,7 +26,7 @@ import java.util.Set;
 @ConditionalOnClass({JedisCluster.class})
 public class JedisClusterConfig {
 
-    @Autowired
+   @Autowired
     private RedisProperties redisProperties;
 
     @Bean

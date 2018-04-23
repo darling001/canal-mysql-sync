@@ -7,10 +7,7 @@ import com.google.common.collect.Maps;
 import com.wanjun.canalsync.annotation.Schema;
 import com.wanjun.canalsync.annotation.Table;
 import com.wanjun.canalsync.client.DynamicDataSourceContextHolder;
-import com.wanjun.canalsync.dao.BaseDao;
-import com.wanjun.canalsync.dao.CategoryDao;
-import com.wanjun.canalsync.dao.ItemLineDao;
-import com.wanjun.canalsync.dao.ItemPictureDao;
+import com.wanjun.canalsync.dao.*;
 import com.wanjun.canalsync.model.Category;
 import com.wanjun.canalsync.model.IndexTypeModel;
 import com.wanjun.canalsync.model.SpecAttribute;
@@ -52,6 +49,9 @@ public class ItemAggServiceImpl implements ItemAggService {
 
     @Autowired
     private ItemPictureDao itemPictureDao;
+
+    @Autowired
+    private ItemDescDao itemDescDao;
 
     @Autowired
     private ElasticsearchService elasticsearchService;
@@ -274,7 +274,40 @@ public class ItemAggServiceImpl implements ItemAggService {
             }
         });
     }
+    @Table(value = "item_desc", event = {CanalEntry.EventType.INSERT, CanalEntry.EventType.UPDATE})
+    @Override
+    public void aggItemDesc(Map<String, Object> map, IndexTypeModel indexTypeModel) {
+        //聚合数据es类型
+        String aggType = indexTypeModel.getAggType();
+        //索引
+        String index = indexTypeModel.getIndex();
 
+        Map<String, String> pkMappingTableMap = indexTypeModel.getPkMappingTableMap();
+
+        pkMappingTableMap.forEach((key, value) -> {
+            Object colValue = map.get(key);
+            String[] aggConfig = StringUtils.split(value, ".");
+            if (aggConfig.length == 0) {
+                return;
+            }
+            if (colValue == null) {
+                logger.error("aggItemDesc colValue is null ,colValue {},EventType {}", colValue, CanalEntry.EventType.UPDATE);
+                return;
+            }
+            List<Map<String, Object>> result = itemDescDao.getItemDescMap(colValue.toString());
+            List jsonList = Lists.newArrayList();
+            if (result != null && !result.isEmpty()) {
+                //为了解决Elasticsearch中，Date格式不匹配
+                jsonList = JSONUtil.toList(JSONUtil.toJson(result), Map.class);
+                Map<String, Object> esResult = elasticsearchService.searchDataById(index, aggType, colValue.toString(), null);
+                if (esResult != null && !esResult.isEmpty()) {
+                    esResult.put(aggConfig[1], jsonList);
+                    elasticsearchService.insertById(index, aggType, colValue.toString(), esResult);
+                }
+            }
+        });
+    }
+        //聚合数据es类型
     @Table(value = "item_price", event = {CanalEntry.EventType.INSERT, CanalEntry.EventType.UPDATE})
     @Override
     public void aggItemPrice(Map<String, Object> map, IndexTypeModel indexTypeModel) {

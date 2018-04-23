@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@EnableConfigurationProperties({CanalProperties.class, RedisProperties.class, TaskConfig.class})
+@EnableConfigurationProperties({CanalProperties.class, RedisProperties.class,TaskConfig.class})
 @EnableScheduling
 @MapperScan("com.wanjun.canalsync.dao")
 
@@ -36,6 +36,7 @@ public class CanalMysqlSyncApplication  extends SpringBootServletInitializer{
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         builder.sources(this.getClass());
         return super.configure(builder);
+
     }
 
     public static void main(String[] args) {

@@ -10,22 +10,25 @@ import java.util.Map;
  */
 public interface ItemAggService {
 
-    public void aggAddItem(Map<String,Object> map, IndexTypeModel indexTypeModel);
+    public void aggAddItem(Map<String, Object> map, IndexTypeModel indexTypeModel);
 
-    public void aggUpdateItem(Map<String,Object> map, IndexTypeModel indexTypeModel);
+    public void aggUpdateItem(Map<String, Object> map, IndexTypeModel indexTypeModel);
 
-    public void deleteAggItem(Map<String,String> map ,IndexTypeModel indexTypeModel) ;
+    public void deleteAggItem(Map<String, String> map, IndexTypeModel indexTypeModel);
 
-    public void aggItemLine(Map<String, Object> map, IndexTypeModel indexTypeModel) ;
+    public void aggItemLine(Map<String, Object> map, IndexTypeModel indexTypeModel);
 
     public void aggItemPicture(Map<String, Object> map, IndexTypeModel indexTypeModel);
 
-    public void aggItemPrice(Map<String,Object> map,IndexTypeModel indexTypeModel);
+    public void aggItemDesc(Map<String, Object> map, IndexTypeModel indexTypeModel);
+    //聚合数据es类型
+
+    public void aggItemPrice(Map<String, Object> map, IndexTypeModel indexTypeModel);
 
 
-    public void aggBrand(Map<String,Object> map ,IndexTypeModel indexTypeModel);
+    public void aggBrand(Map<String, Object> map, IndexTypeModel indexTypeModel);
 
-    public void aggSPU(Map<String,Object> map,IndexTypeModel indexTypeModel);
+    public void aggSPU(Map<String, Object> map, IndexTypeModel indexTypeModel);
 
-    public void aggCategory(Map<String,Object> map,IndexTypeModel indexTypeModel);
+    public void aggCategory(Map<String, Object> map, IndexTypeModel indexTypeModel);
 }
