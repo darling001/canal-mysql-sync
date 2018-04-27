@@ -21,10 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author wangchengli
@@ -261,7 +258,7 @@ public class ItemAggServiceImpl implements ItemAggService {
                 logger.error("aggItemPicture colValue is null ,colValue {},EventType {}", colValue, CanalEntry.EventType.UPDATE);
                 return;
             }
-            List<Map<String, Object>> result = itemPictureDao.getItemPictureMap(colValue.toString(), "cmcItem");
+            List<Map<String, Object>> result = itemPictureDao.getItemPictureMap(colValue.toString(), Arrays.asList("cmcItem","cmcItemDesc"));
             List jsonList = Lists.newArrayList();
             if (result != null && !result.isEmpty()) {
                 //为了解决Elasticsearch中，Date格式不匹配

@@ -9,8 +9,11 @@
             <if test="billNo != null and billNo !=''">
                 t.BILL_NO = '${billNo}' AND
             </if>
-            <if test="billType != null and billType !=''">
-                t.BILL_TYPE = '${billType}'
+            <if test="billTypes != null and billTypes.size() > 0 ">
+                <foreach collection="billTypes" open="t.BILL_TYPE IN(" close=")"
+                         item="billType" separator=",">
+                    '${billType}'
+                </foreach>
             </if>
         </where>
 

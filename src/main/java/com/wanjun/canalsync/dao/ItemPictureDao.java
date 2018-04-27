@@ -13,5 +13,5 @@ import java.util.Map;
 @Repository
 public interface ItemPictureDao {
 
-    public List<Map<String,Object>> getItemPictureMap(@Param("billNo") String billNo,@Param("billType") String billType);
+    public List<Map<String,Object>> getItemPictureMap(@Param("billNo") String billNo,@Param("billTypes") List<String> billTypes);
 }
