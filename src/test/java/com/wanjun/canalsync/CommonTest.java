@@ -14,7 +14,9 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
 
@@ -24,24 +26,46 @@ import java.util.concurrent.*;
  * @date 2018-01-19
  */
 public class CommonTest {
+
+    @Test
+    public void test1() {
+       /* Arrays.asList("a","b","c").forEach(e -> System.out.println("e = " + e));
+
+        Arrays.asList("a","b","c").forEach((String e) -> System.out.println("e = " + e));*/
+      /*  Arrays.asList("a","b","c").forEach((String e) -> {
+            System.out.println("e = " + e);
+            System.out.println("e = " + e);
+        });*/
+
+/*      final String separator = ",";
+      Arrays.asList("a","b","c").forEach(e -> System.out.println(e + separator));*/
+        List<Integer> list = Arrays.asList(5, 6, 1);
+
+        list.sort((Integer e1, Integer e2) -> e1.compareTo(e2));
+        System.out.println("list = " + list);
+    }
+
+
     @Test
     public void testRandom() {
-        for(int i=0;i<10;i++) {
-            System.out.println(RandomUtils.nextInt(1,3));
+        for (int i = 0; i < 10; i++) {
+            System.out.println(RandomUtils.nextInt(1, 3));
 
         }
     }
+
     @Test
     public void testIdentifiedMap() {
-        ArrayListMultimap<String,String> multiMap=ArrayListMultimap.create();
-        multiMap.put("Foo","1");
-        multiMap.put("boo","2");
-        multiMap.put("coo","4");
-        multiMap.put("coo","3");
+        ArrayListMultimap<String, String> multiMap = ArrayListMultimap.create();
+        multiMap.put("Foo", "1");
+        multiMap.put("boo", "2");
+        multiMap.put("coo", "4");
+        multiMap.put("coo", "3");
         Map<String, Collection<String>> stringCollectionMap = multiMap.asMap();
         System.out.println(multiMap);
 
     }
+
     @Test
     public void testPath() {
         String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
@@ -101,12 +125,13 @@ public class CommonTest {
         Thread.sleep(10000);
         executorService.shutdown();
     }
+
     @Test
     public void testJson() {
-        Map<String,Object> map = Maps.newHashMap();
-        map.put("createTime",new Timestamp(System.currentTimeMillis()));
-        map.put("userId",100000);
-        map.put("userName","xxxx");
+        Map<String, Object> map = Maps.newHashMap();
+        map.put("createTime", new Timestamp(System.currentTimeMillis()));
+        map.put("userId", 100000);
+        map.put("userName", "xxxx");
         System.out.println("map = " + JSONUtil.toJson(map));
     }
 }
