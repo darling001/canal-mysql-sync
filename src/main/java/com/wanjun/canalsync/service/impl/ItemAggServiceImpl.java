@@ -70,6 +70,7 @@ public class ItemAggServiceImpl implements ItemAggService {
             String priceFlag = StringUtils.trimToNull(specAttribute.getPriceFlag());
             String attributeName = StringUtils.trimToNull(specAttribute.getAttributeName());
             String attributeValue  = StringUtils.trimToNull(specAttribute.getAttributeValue());
+            String orderSort  = StringUtils.trimToNull(specAttribute.getOrderSort());
             if(StringUtils.isNotEmpty(priceFlag)) {
                 map.put("PRICE_FLAG", priceFlag);
             }
@@ -78,6 +79,9 @@ public class ItemAggServiceImpl implements ItemAggService {
             }
             if(StringUtils.isNotEmpty(attributeValue)) {
                 map.put("ATTRIBUTE_VALUE", attributeValue);
+            }
+            if(StringUtils.isNotEmpty(orderSort)) {
+                map.put("ORDER_SORT",orderSort);
             }
             list.add(map);
         }

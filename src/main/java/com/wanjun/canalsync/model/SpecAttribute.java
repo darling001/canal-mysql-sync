@@ -18,13 +18,17 @@ public class SpecAttribute {
     @SerializedName("ATTRIBUTE_VALUE")
     private String attributeValue;
 
+    @SerializedName("ORDER_SORT")
+    private String orderSort;
+
     public SpecAttribute() {
     }
 
-    public SpecAttribute(String priceFlag, String attributeName, String attributeValue) {
+    public SpecAttribute(String priceFlag, String attributeName, String attributeValue,String orderSort) {
         this.priceFlag = priceFlag;
         this.attributeName = attributeName;
         this.attributeValue = attributeValue;
+        this.orderSort = orderSort;
     }
 
     public String getPriceFlag() {
@@ -51,13 +55,21 @@ public class SpecAttribute {
         this.attributeValue = attributeValue;
     }
 
+    public String getOrderSort() {
+        return orderSort;
+    }
+
+    public void setOrderSort(String orderSort) {
+        this.orderSort = orderSort;
+    }
+
     @Override
-    public String
-    toString() {
+    public String toString() {
         return "SpecAttribute{" +
                 "priceFlag='" + priceFlag + '\'' +
                 ", attributeName='" + attributeName + '\'' +
                 ", attributeValue='" + attributeValue + '\'' +
+                ", orderSort='" + orderSort + '\'' +
                 '}';
     }
 }
