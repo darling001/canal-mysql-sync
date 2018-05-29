@@ -1,5 +1,6 @@
 package com.wanjun.canalsync.client.config;
 
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
@@ -37,7 +38,9 @@ public class JedisClusterConfig {
             String[] ipPortPair = ipPort.split(":");
             nodes.add(new HostAndPort(ipPortPair[0].trim(), Integer.valueOf(ipPortPair[1].trim())));
         }
-        return new JedisCluster(nodes, redisProperties.getCommandTimeout());
+        //return new JedisCluster(nodes, redisProperties.getCommandTimeout());
+
+        return new JedisCluster(nodes,redisProperties.getCommandTimeout(),1000,1,redisProperties.getPassword() ,new GenericObjectPoolConfig());//需要密码连接的创建对象方式
     }
 
     @Bean(value = "redisTemplate")
@@ -65,6 +68,7 @@ public class JedisClusterConfig {
         Map<String, Object> source = new HashMap<>();
         source.put("spring.redis.cluster.nodes", redisProperties.getNodes());
         source.put("spring.redis.cluster.timeout", redisProperties.getCommandTimeout());
+
         return new RedisClusterConfiguration(new MapPropertySource("RedisClusterConfiguration", source));
     }
 
@@ -88,7 +92,9 @@ public class JedisClusterConfig {
 
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
-        return new JedisConnectionFactory(redisClusterConfiguration(), jedisPoolConfig());
+        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(redisClusterConfiguration(), jedisPoolConfig());
+        jedisConnectionFactory.setPassword(redisProperties.getPassword());
+        return jedisConnectionFactory;
     }
 
 }

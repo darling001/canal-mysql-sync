@@ -12,6 +12,8 @@ public class RedisProperties {
 
     private String nodes;
 
+    private String password;
+
     private Integer commandTimeout;
     //最大连接数
     private Integer maxTotal ;
@@ -96,6 +98,14 @@ public class RedisProperties {
 
     public void setSoftMinEvictableIdleTimeMillis(Long softMinEvictableIdleTimeMillis) {
         this.softMinEvictableIdleTimeMillis = softMinEvictableIdleTimeMillis;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getMaxWaitMillis() {
