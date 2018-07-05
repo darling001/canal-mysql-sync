@@ -145,6 +145,7 @@ public class ZKMaster implements Watcher {
         }
     };
     AsyncCallback.StatCallback masterExistsCallback = new AsyncCallback.StatCallback() {
+        @Override
         public void processResult(int rc, String path, Object ctx, Stat stat) {
             switch (KeeperException.Code.get(rc)) {
                 case CONNECTIONLOSS:

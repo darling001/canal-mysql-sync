@@ -26,6 +26,7 @@ public class MultiThreadCanalClient {
     private volatile boolean running = false;
 
     private Thread.UncaughtExceptionHandler handler = new Thread.UncaughtExceptionHandler() {
+        @Override
         public void uncaughtException(Thread t, Throwable e) {
             logger.error("parse events has an error", e);
         }
@@ -51,6 +52,7 @@ public class MultiThreadCanalClient {
     public void start() {
         Assert.notNull(connector, "connector is null");
         thread = new Thread(new Runnable() {
+            @Override
             public void run() {
                 logger.info("destination:{} running", destination);
                 process();
@@ -92,8 +94,8 @@ public class MultiThreadCanalClient {
                 // 回滚寻找上次中断的位置
                 connector.rollback();
                 while (running) {
-
-                    Message message = connector.getWithoutAck(batchSize);//获取指定数量的数据
+                    //获取指定数量的数据
+                    Message message = connector.getWithoutAck(batchSize);
                     batchId = message.getId();
                     List<CanalEntry.Entry> entries = message.getEntries();
                     int size = entries.size();
@@ -110,8 +112,8 @@ public class MultiThreadCanalClient {
                         }
                         logger.info(canal_ack, batchId);
                     }
-
-                    connector.ack(batchId);//提交确认
+                    //提交确认
+                    connector.ack(batchId);
                 }
             } catch (Exception e) {
                 logger.error("Canal Client Thread error", e);

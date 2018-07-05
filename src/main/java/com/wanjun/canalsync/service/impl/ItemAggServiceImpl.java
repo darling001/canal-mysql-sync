@@ -29,7 +29,7 @@ import java.util.*;
  * @date 2018-03-05
  */
 @Service
-@Schema("gms")
+@Schema("gms1")
 @SuppressWarnings("all")
 public class ItemAggServiceImpl implements ItemAggService {
 

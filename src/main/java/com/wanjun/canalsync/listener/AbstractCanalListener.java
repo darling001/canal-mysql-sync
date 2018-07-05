@@ -49,13 +49,6 @@ public abstract class AbstractCanalListener<EVENT extends CanalEvent> implements
         }
         String index = indexTypeModel.getIndex();
         String type = indexTypeModel.getType();
-
-     /*   AggregationModel aggregationModel = mappingService.getAggregationMapping(new DatabaseTableModel(database, table));
-        if (aggregationModel == null) {
-            return;
-        }
-        String index = aggregationModel.getIndex();
-        String type = aggregationModel.getType();*/
         RowChange change;
         try {
             change = RowChange.parseFrom(entry.getStoreValue());
