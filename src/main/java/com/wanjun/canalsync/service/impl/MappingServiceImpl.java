@@ -28,9 +28,6 @@ import java.util.Optional;
 @PropertySource("classpath:mapping.properties")
 @ConfigurationProperties
 public class MappingServiceImpl implements MappingService, InitializingBean {
-    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(MappingServiceImpl.class);
-
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private Map<String, String> dbEsMapping;
     private BiMap<DatabaseTableModel, IndexTypeModel> dbEsBiMapping;
