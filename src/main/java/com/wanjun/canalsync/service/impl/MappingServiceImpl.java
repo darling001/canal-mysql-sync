@@ -15,8 +15,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 /**
  * @author wangchengli
@@ -59,9 +60,11 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
 
     @Override
     public Object getElasticsearchTypeObject(String mysqlType, String data) {
-      /*  Optional<Entry<String, Converter>> result = mysqlTypeElasticsearchTypeMapping.entrySet().parallelStream().filter(entry -> mysqlType.toLowerCase().contains(entry.getKey())).findFirst();
-        return (result.isPresent() ? result.get().getValue() : (Converter) data1 -> data1).convert(data);*/
-        if (mysqlType.toLowerCase().contains("varchar")) {
+        Optional<Entry<String, Converter>> result = mysqlTypeElasticsearchTypeMapping.entrySet().
+                parallelStream().filter(entry -> mysqlType.toLowerCase().contains(entry.getKey())).findFirst();
+        return (result.isPresent() ? result.get().getValue() : (Converter) data1 -> data1).convert(data);
+
+       /* if (mysqlType.toLowerCase().contains("varchar")) {
             return StringUtils.trimToNull(data);
         } else if (mysqlType.toLowerCase().contains("decimal")) {
             return Double.valueOf(data);
@@ -83,7 +86,7 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
             return Double.valueOf(data);
         } else {
             return StringUtils.trimToNull(data);
-        }
+        }*/
 
 
     }
