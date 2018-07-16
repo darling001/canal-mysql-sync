@@ -6,6 +6,7 @@ import java.lang.annotation.*;
 
 /**
  * Created by wangchengli on 2018/1/22
+ * 定义数据库Table信息
  */
 @Target({ElementType.METHOD,ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

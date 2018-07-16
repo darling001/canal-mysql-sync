@@ -8,7 +8,7 @@
         },
         "optimizeIK":{
           "type":"custom",
-          "tokenizer":"ik_smart",
+          "tokenizer":"ik_max_word",
           "filter":["stemmer","word_delimiter","lowercase"]
         }
       },
